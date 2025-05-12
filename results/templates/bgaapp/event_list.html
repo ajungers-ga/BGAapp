@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1>Tour Results</h1>
+
+<h2>Create a New Event</h2>
+<form method="post">
+  {% csrf_token %}
+
+  <label for="name">Event Name:</label>
+  {{ form.name }}<br>
+
+  <label for="date">Date:</label>
+  {{ form.date }}<br>
+
+  <label for="course_name">Course Name:</label>
+  {{ form.course_name }}<br>
+
+  <label for="is_team_event">Team Event?</label>
+  {{ form.is_team_event }}<br>
+
+  <label for="notes">Notes:</label>
+  {{ form.notes }}<br><br>
+
+  <button type="submit">Add Event</button>
+</form>
+
+<hr>
+
+<h2>All Events</h2>
+<ul>
+  {% for event in events %}
+    <li>
+      <strong>{{ event.name }}</strong> at {{ event.course_name }} on {{ event.date }}
+      {% if event.is_team_event %}(2-Man Team){% else %}(Solo Event){% endif %}<br>
+      <a href="{% url 'event_update' event.pk %}">Edit</a> |
+      <a href="{% url 'event_delete' event.pk %}">Delete</a>
+    </li>
+  {% empty %}
+    <li>No events yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,3 +1,7 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+
 <h1>{{ object.first_name }} {{ object.last_name }}</h1>
 
 {% if object.image %}
@@ -13,3 +17,4 @@
 <a href="{% url 'player_update' object.pk %}">Edit</a>
 <a href="{% url 'player_delete' object.pk %}">Delete</a>
 <a href="{% url 'player_list' %}">Back to Roster</a>
+{% endblock %}

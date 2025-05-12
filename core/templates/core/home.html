@@ -1,22 +1,6 @@
-<!-- core/templates/core/home.html -->
+{% extends 'core/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>BGA Tour</title>
-</head>
-<body>
-  <nav>
-    <a href="/">Home</a> |
-    <a href="/schedule/">2025 Schedule</a> |
-    <a href="/results/">Tour Results</a> |
-    <a href="/players/">Tour Players</a> |
-    <a href="/stats/">Career Stats</a>
-  </nav>
-
-  <h1>Welcome to the BGA Tour</h1>
-  <img src="/static/images/bga-logo.png" alt="BGA Logo" width="150"/>
-  <p>The Beast Golf Association is an amature Golf League touring the greater Twin Cities, Minnesota.</p>
-</body>
-</html>
+{% block content %}
+<h1>Welcome to the BGA Tour</h1>
+<p>This is the homepage. Use the navigation above to explore players, results, and more.</p>
+{% endblock %}
