@@ -1,0 +1,19 @@
+<h1>Edit Player</h1>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {{ form.first_name.label_tag }} {{ form.first_name }}<br>
+  {{ form.last_name.label_tag }} {{ form.last_name }}<br>
+  {{ form.nickname.label_tag }} {{ form.nickname }}<br>
+  {{ form.hometown.label_tag }} {{ form.hometown }}<br>
+  {{ form.years_active.label_tag }} {{ form.years_active }}<br>
+  {{ form.career_events_played.label_tag }} {{ form.career_events_played }}<br>
+ 
+  {{ form.career_wins.label_tag }} {{ form.career_wins }}<br>
+  {{ form.image.label_tag }} {{ form.image }}<br><br>
+
+  <button type="submit">Update Player</button>
+</form>
+
+<a href="{% url 'player_detail' object.pk %}">Cancel</a>
