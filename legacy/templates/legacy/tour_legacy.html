@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1>Tour Legacy</h1>
+<p>Select a season to view historical results:</p>
+
+<div class="d-flex flex-wrap gap-2">
+  {% for year in seasons %}
+    <a class="btn btn-secondary" href="/legacy/{{ year }}/">{{ year }} Season</a>
+  {% endfor %}
+</div>
+
+{% endblock %}

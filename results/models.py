@@ -12,7 +12,8 @@ class Event(models.Model):
     course_name = models.CharField(max_length=100)
     is_team_event = models.BooleanField(default=True)
     notes = models.TextField(blank=True)
-
+    season = models.PositiveIntegerField(default=2024)
+    
     def __str__(self):
         return f"{self.name} at {self.course_name} on {self.date}"
 
