@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h1>BGA Tour Schedule</h1>
+
+  {% if events %}
+    <ul>
+      {% for event in events %}
+        <li>
+          <strong>{{ event.date }}</strong> — 
+          {{ event.course_name }} — 
+          {{ event.name }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>⛳ No upcoming events scheduled. Check back soon!</p>
+  {% endif %}
+{% endblock %}

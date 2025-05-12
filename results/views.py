@@ -9,16 +9,31 @@
 
 
 # ------IMPORTS BELOW -------#
-from django.shortcuts import redirect 
+from django.shortcuts import render, redirect 
 # ABOVE = manUally redirect users after a form is submitted so theyre not stuck at deadlink
 
 from django.views.generic import ListView, UpdateView, DeleteView
 # ABOVE = Built in class views that make it easier to: List items, Edit Items & Delete items
 
 from django.urls import reverse_lazy # refer to a URL by name insead of hardcoding - redirect after edit/delete
+from django.utils import timezone
 from .models import Event # importing the EVENT model, so it can be used in views
 from .forms import EventForm # importing the form connected to the event model, used for create & edit
 #-------IMPORTS ABOVE-----------#
+
+
+
+# BELOW = Display only upcoming events sorted by date---# 
+
+def schedule_view(request):
+    today = timezone.now().date()  # Get today's date
+    events = Event.objects.filter(date__gte=today).order_by('date')  # Only future events, sorted soonest to latest
+    return render(request, 'bgaapp/schedule.html', {'events': events})
+#-------------------------------------------------------#
+
+
+
+
 
 
 # BELOW = List all events and show a form to add a new one
@@ -53,3 +68,4 @@ class EventDeleteView(DeleteView):
     model = Event  # tell Django which model to delete from
     template_name = 'bgaapp/event_confirm_delete.html'  # confirmation page
     success_url = reverse_lazy('event_list')  # after deletion, send user back to the Event List page
+    
