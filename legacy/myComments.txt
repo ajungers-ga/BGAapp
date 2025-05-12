@@ -1,0 +1,14 @@
+{# --------------------------------------------------------------------------- #
+  File Purpose for legacy/templates/season_details.html = 
+  This template displays all BGA Tour events for an individual season dating back to 2019
+
+  I'm using Django's template language to...
+  1. Dynamically display event data passed from the season_detail view in legacy/views.py
+  2. Extend the shared layout from core/base.html using [% extends %]
+  3. Insert this page's content into the shared layout using [% block content %] ... [% endblock %]
+  4. Use [% if events %] to conditionally show a message if no events exist — which there are none at the time of writing
+
+  Data passed into this template = 
+  - season: the current year 
+  - events: a list of Event objects filtered by that season & ordered by date
+# --------------------------------------------------------------------------- #}

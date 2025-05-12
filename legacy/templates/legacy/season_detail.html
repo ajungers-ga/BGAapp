@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h1>{{ season }} Season Results</h1>
+
+{% if events %} 
+  <ul class="list-group">
+    {% for event in events %}
+      <li class="list-group-item">
+        <strong>{{ event.name }}</strong> — {{ event.course_name }} on {{ event.date }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No events recorded for this season yet.</p>
+{% endif %}
+
+<a class="btn btn-secondary mt-3" href="{% url 'tour_legacy' %}">← Back to Legacy</a>
+
+{% endblock %}
