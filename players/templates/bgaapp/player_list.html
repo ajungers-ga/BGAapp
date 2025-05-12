@@ -1,0 +1,51 @@
+<h1>BGA Tour Players</h1>
+
+<h2>Add New Player</h2>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <label for="first_name">First Name:</label>
+  {{ form.first_name }}<br>
+
+  <label for="last_name">Last Name:</label>
+  {{ form.last_name }}<br>
+
+  <label for="nickname">Nickname:</label>
+  {{ form.nickname }}<br>
+
+  <label for="hometown">Hometown:</label>
+  {{ form.hometown }}<br>
+
+  <label for="years_active">Years Active:</label>
+  {{ form.years_active }}<br>
+
+  <label for="career_events_played">Career Events Played:</label>
+  {{ form.career_events_played }}<br>
+
+  <label for="career_wins">Career Wins:</label>
+  {{ form.career_wins }}<br>
+
+  <label for="image">Player Image:</label>
+  {{ form.image }}<br><br>
+
+  <button type="submit">Add Player</button>
+</form>
+
+<hr>
+
+<h2>Roster</h2>
+<ul>
+  {% for player in object_list %}
+    <li>
+      <a href="{% url 'player_detail' player.pk %}">
+        {% if player.image %}
+          <img src="{{ player.image.url }}" width="100">
+        {% endif %}
+        {{ player }} — Wins: {{ player.career_wins }} / Events: {{ player.career_events_played }}
+      </a>
+    </li>
+  {% empty %}
+    <li>No players yet.</li>
+  {% endfor %}
+</ul>
