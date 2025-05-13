@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h1>Leaderboard — {{ event.date }} @ {{ event.course_name }}</h1>
+
+  <hr>
+
+  <h3>Add Score</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Score</button>
+  </form>
+
+  <hr>
+
+  <h3>Current Standings</h3>
+  {% if scores %}
+    <table>
+      <thead>
+        <tr>
+          <th>Place</th>
+          <th>Player</th>
+          <th>Teammate</th>
+          <th>Score</th>
+          <th>To Par</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in scores %}
+          <tr>
+            <td>{{ s.placement }}</td>
+            <td>{{ s.player }}</td>
+            <td>{{ s.teammate }}</td>
+            <td>{{ s.score }}</td>
+            <td>{{ s.to_par }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No scores entered yet.</p>
+  {% endif %}
+{% endblock %}

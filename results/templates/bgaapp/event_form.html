@@ -10,4 +10,11 @@
 </form>
 
 <a href="{% url 'event_list' %}">Cancel</a>
+
+{% if object %}
+  <p>
+    <a href="{% url 'leaderboard' object.pk %}">➡️ View / Edit Leaderboard</a>
+  </p>
+{% endif %}
+
 {% endblock %}

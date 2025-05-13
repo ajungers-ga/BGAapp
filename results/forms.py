@@ -4,7 +4,7 @@
 # attrs is short for HTML attrbutes, in this case type and placeholder are used
 
 from django import forms
-from .models import Event
+from .models import Event, Score
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -16,3 +16,9 @@ class EventForm(forms.ModelForm):
                 'placeholder': 'MM/DD/YYYY'   # gives user a hint of the expected format
             })
         }
+
+# This form is used to enter player scores for a specific event
+class ScoreForm(forms.ModelForm):
+    class Meta:
+        model = Score
+        fields = ['player', 'teammate', 'score']
