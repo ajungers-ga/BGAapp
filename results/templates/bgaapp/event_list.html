@@ -1,47 +1,71 @@
 {% extends 'core/base.html' %}
+{% load form_tags %}
+
 {% block content %}
 
-<h1>Tour Results</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">Tour Results</h1>
 
-<h2>Create a New Event</h2>
-<form method="post">
-  {% csrf_token %}
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h5 mb-0">Create a New Event</h2>
+    </div>
+    <div class="card-body">
+      <form method="post" class="row g-3">
+        {% csrf_token %}
 
-  <label for="name">Event Name:</label>
-  {{ form.name }}<br>
+        <div class="col-md-6">
+          <label for="name" class="form-label">Event Name:</label>
+          {{ form.name|add_class:"form-select" }}
+        </div>
 
-  <label for="date">Date:</label>
-  {{ form.date }}<br>
+        <div class="col-md-6">
+          <label for="date" class="form-label">Date:</label>
+          {{ form.date|add_class:"form-control" }}
+        </div>
 
-  <label for="course_name">Course Name:</label>
-  {{ form.course_name }}<br>
+        <div class="col-md-6">
+          <label for="course_name" class="form-label">Course Name:</label>
+          {{ form.course_name|add_class:"form-control" }}
+        </div>
 
-  <label for="season">Season:</label>
-  {{ form.season }}<br>
+        <div class="col-md-6">
+          <label for="season" class="form-label">Season:</label>
+          {{ form.season|add_class:"form-control" }}
+        </div>
 
+        <div class="col-md-6">
+          <label for="is_team_event" class="form-label">Team Event?</label>
+          {{ form.is_team_event|add_class:"form-check-input" }}
+        </div>
 
-  <label for="is_team_event">Team Event?</label>
-  {{ form.is_team_event }}<br>
+        <div class="col-12">
+          <label for="notes" class="form-label">Notes:</label>
+          {{ form.notes|add_class:"form-control" }}
+        </div>
 
-  <label for="notes">Notes:</label>
-  {{ form.notes }}<br><br>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Add Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-  <button type="submit">Add Event</button>
-</form>
+  <hr>
 
-<hr>
+  <h2>All Events</h2>
+  <ul class="list-group">
+    {% for event in events %}
+      <li class="list-group-item">
+        <strong>{{ event.name }}</strong> at {{ event.course_name }} on {{ event.date }}
+        {% if event.is_team_event %}(2-Man Team){% else %}(Solo Event){% endif %}<br>
+        <a href="{% url 'event_update' event.pk %}" class="btn btn-sm btn-outline-primary mt-2">Edit</a>
+        <a href="{% url 'event_delete' event.pk %}" class="btn btn-sm btn-outline-danger mt-2">Delete</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item">No events yet.</li>
+    {% endfor %}
+  </ul>
+</div>
 
-<h2>All Events</h2>
-<ul>
-  {% for event in events %}
-    <li>
-      <strong>{{ event.name }}</strong> at {{ event.course_name }} on {{ event.date }}
-      {% if event.is_team_event %}(2-Man Team){% else %}(Solo Event){% endif %}<br>
-      <a href="{% url 'event_update' event.pk %}">Edit</a> |
-      <a href="{% url 'event_delete' event.pk %}">Delete</a>
-    </li>
-  {% empty %}
-    <li>No events yet.</li>
-  {% endfor %}
-</ul>
 {% endblock %}

@@ -1,19 +1,29 @@
 {% extends 'core/base.html' %}
-
 {% block content %}
-  <h1>BGA Tour Schedule</h1>
+<div class="container mt-4">
+  <h1>Upcoming BGA Events</h1>
 
   {% if events %}
-    <ul>
+    <div class="list-group mt-4">
       {% for event in events %}
-        <li>
-          <strong>{{ event.date }}</strong> — 
-          {{ event.course_name }} — 
-          {{ event.name }}
-        </li>
+        <div class="list-group-item">
+          <h5 class="mb-1">{{ event.date }} — {{ event.course_name }}</h5>
+          <p class="mb-1">
+            Type: <strong>{{ event.name }}</strong><br>
+            {% if event.is_team_event %}Format: 2-Man Scramble{% else %}Format: Solo{% endif %}<br>
+            {{ event.notes }}
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <small>Season: {{ event.season }}</small>
+            <a href="{% url 'event_update' event.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+          </div>
+        </div>
       {% endfor %}
-    </ul>
+    </div>
   {% else %}
-    <p>⛳ No upcoming events scheduled. Check back soon!</p>
+    <div class="alert alert-info mt-4">
+      No upcoming events yet — check back soon!
+    </div>
   {% endif %}
+</div>
 {% endblock %}

@@ -8,6 +8,7 @@ urlpatterns = [
     path('<int:pk>/update/', views.EventUpdateView.as_view(), name='event_update'),
     path('<int:pk>/delete/', views.EventDeleteView.as_view(), name='event_delete'),
     path('<int:pk>/leaderboard/', views.leaderboard_view, name='leaderboard'),
+    path('score/<int:score_id>/edit/', views.edit_score_view, name='edit_score'),
 
     
 ]

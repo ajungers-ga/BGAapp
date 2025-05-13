@@ -19,7 +19,14 @@ from django.urls import reverse_lazy # refer to a URL by name insead of hardcodi
 from django.utils import timezone # using timezone for getting todays date and specific local time (scheduled_view)
 from .models import Event # importing the EVENT model, so it can be used in views
 from .forms import EventForm, ScoreForm # importing the form connected to the event model, used for create & edit
+
+from .models import Score  # Score already used elsewhere but just confirming for placement
+from django.views.decorators.http import require_http_methods
 #-------IMPORTS ABOVE-----------#
+
+
+from .models import Score  # Score already used elsewhere but just confirming for placement
+from django.views.decorators.http import require_http_methods
 
 
 
@@ -142,5 +149,41 @@ def leaderboard_view(request, pk):
         'event': event,
         'scores': scores,
         'form': form
+    })
+#-------------------------------------------------------------------------------------------#
+# BELOW = Edit a submitted score for an event -------------------------------------#
+# Purpose:
+# - Allows editing an individual Score using its ID
+# - Automatically recalculates to_par and reorders leaderboard placements
+# - Reuses the same ScoreForm used on the leaderboard page
+# - After saving, redirects back to the same leaderboard page
+
+
+@require_http_methods(["GET", "POST"])
+def edit_score_view(request, score_id):
+    score = get_object_or_404(Score, id=score_id)  # get the score object using primary key
+    event = score.event  # link back to the event it belongs to
+
+    if request.method == "POST":
+        form = ScoreForm(request.POST, instance=score)  # pass in instance to prefill existing score
+        if form.is_valid():
+            updated_score = form.save(commit=False)
+            updated_score.to_par = updated_score.score - 72  # recalculate to_par
+            updated_score.save()
+
+            # update placement based on new scores
+            ordered_scores = event.scores.order_by('score')
+            for i, s in enumerate(ordered_scores, start=1):
+                s.placement = f"{i}"
+                s.save()
+
+            return redirect('leaderboard', pk=event.pk)  # go back to leaderboard
+    else:
+        form = ScoreForm(instance=score)  # load form with current data for editing
+
+    return render(request, 'bgaapp/edit_score.html', {
+        'form': form,
+        'score': score,
+        'event': event
     })
 #-------------------------------------------------------------------------------------------#

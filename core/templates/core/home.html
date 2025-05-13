@@ -1,6 +1,67 @@
 {% extends 'core/base.html' %}
-
 {% block content %}
-<h1>Welcome to the BGA Tour</h1>
-<p>This is the homepage. Use the navigation above to explore players, results, and more.</p>
+
+<div class="container mt-5">
+  <h1 class="mb-4">Welcome to the BGA Tour Tracker</h1>
+
+<div class="container mt-4">
+  <div class="p-4 text-center bg-warning bg-gradient rounded shadow">
+    <h2 class="mb-3">Countdown to the 2025 Jungle Juice Open</h2>
+    <div id="countdown" class="display-5 fw-bold text-dark">Loading...</div>
+    <small class="text-dark fst-italic">Sunday, June 1st @ 11:00 AM (Central)</small>
+  </div>
+</div>
+
+<script>
+  const eventDate = new Date("June 1, 2025 11:00:00 GMT-0500").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    if (distance <= 0) {
+      document.getElementById("countdown").innerHTML = "⛳ It's Jungle Juice Time!";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+
+
+  <h2>Event Highlights</h2>
+
+  {% if next_event %}
+    <div class="alert alert-success mt-3">
+      <h5>Next Event:</h5>
+      <strong>{{ next_event.date }} — {{ next_event.course_name }}</strong><br>
+      <span>Type: {{ next_event.name }}</span><br>
+      <a href="{% url 'event_update' next_event.pk %}" class="btn btn-sm btn-outline-primary mt-2">Edit Event</a>
+    </div>
+  {% else %}
+    <div class="alert alert-warning mt-3">No future events scheduled.</div>
+  {% endif %}
+
+  {% if last_event %}
+    <div class="alert alert-info mt-4">
+      <h5>Last Event Played:</h5>
+      <strong>{{ last_event.date }} — {{ last_event.course_name }}</strong><br>
+      <span>Type: {{ last_event.name }}</span><br>
+      <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-secondary mt-2">View Leaderboard</a>
+    </div>
+  {% else %}
+    <div class="alert alert-secondary mt-3">No past events found.</div>
+  {% endif %}
+</div>
+
 {% endblock %}

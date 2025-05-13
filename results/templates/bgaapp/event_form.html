@@ -1,20 +1,31 @@
 {% extends 'core/base.html' %}
+{% load form_tags %}
+
 {% block content %}
+<div class="container mt-4">
+  <h1>Edit Event</h1>
 
-<h1>Edit Event</h1>
+  <form method="post" class="row g-3">
+    {% csrf_token %}
+    {{ form.name|add_class:"form-select" }}
+    {{ form.date|add_class:"form-control" }}
+    {{ form.course_name|add_class:"form-control" }}
+    {{ form.season|add_class:"form-control" }}
+    {{ form.is_team_event|add_class:"form-check-input" }}
+    {{ form.notes|add_class:"form-control" }}
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Update Event</button>
-</form>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">Update Event</button>
+      <a href="{% url 'event_list' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </div>
+  </form>
 
-<a href="{% url 'event_list' %}">Cancel</a>
-
-{% if object %}
-  <p>
-    <a href="{% url 'leaderboard' object.pk %}">➡️ View / Edit Leaderboard</a>
-  </p>
-{% endif %}
-
+  {% if object %}
+    <div class="mt-3">
+      <a href="{% url 'leaderboard' object.pk %}" class="btn btn-outline-dark">
+        ➡️ View / Edit Leaderboard
+      </a>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
