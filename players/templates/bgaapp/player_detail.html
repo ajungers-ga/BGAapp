@@ -34,9 +34,9 @@
       {% if event_wins %}
       <ul class="list-unstyled">
         {% for win in event_wins %}
-        <li>
+        <a href="{% url 'leaderboard' win.event.id %}" class="text-decoration-none">
           🏆 Win – {{ win.event.name }} – {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
-        </li>
+        </a>
         {% endfor %}
       </ul>
       {% else %}

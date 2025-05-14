@@ -25,7 +25,7 @@ class Player(models.Model):
     @property
     def career_events_played(self):
         from results.models import Score
-        # Get all scores where player was the main or teammate
+        # Get all scores where player was the main or teammate is listed
         return Score.objects.filter(models.Q(player=self) | models.Q(teammate=self)).count()
 
     @property
@@ -38,20 +38,23 @@ class Player(models.Model):
 
         relevant_scores = Score.objects.filter(
             models.Q(player=self) | models.Q(teammate=self),
-            placement="1st"
+            placement__in=["1", "1st"]
         ).select_related("event")
 
+        # Group all 1st place scores by event to calculate ties and team shares
         event_to_scores = defaultdict(list)
-        for score in Score.objects.filter(placement="1st"):
+        for score in Score.objects.filter(placement__in=["1", "1st"]):
             event_to_scores[score.event_id].append(score)
 
         for score in relevant_scores:
             tied_scores = event_to_scores[score.event_id]
             tie_count = len(tied_scores)
 
+            # Skip if something is off
             if tie_count == 0:
                 continue
 
+            # Divide win evenly among all 1st place scores (accounts for ties automatically)
             win_share = Decimal("1.0") / Decimal(tie_count)
             win_total += win_share
 

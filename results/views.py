@@ -12,7 +12,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 # ABOVE = manUally redirect users after a form is submitted so theyre not stuck at deadlink
 
-from django.views.generic import ListView, UpdateView, DeleteView
+from django.views.generic import ListView, UpdateView, DeleteView, DetailView
 # ABOVE = Built in class views that make it easier to: List items, Edit Items & Delete items
 
 from django.urls import reverse_lazy # refer to a URL by name insead of hardcoding - redirect after edit/delete
@@ -20,13 +20,11 @@ from django.utils import timezone # using timezone for getting todays date and s
 from .models import Event # importing the EVENT model, so it can be used in views
 from .forms import EventForm, ScoreForm # importing the form connected to the event model, used for create & edit
 
-from .models import Score  # Score already used elsewhere but just confirming for placement
+from .models import Score  
 from django.views.decorators.http import require_http_methods
 #-------IMPORTS ABOVE-----------#
 
 
-from .models import Score  # Score already used elsewhere but just confirming for placement
-from django.views.decorators.http import require_http_methods
 
 
 

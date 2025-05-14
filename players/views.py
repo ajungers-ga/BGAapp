@@ -1,6 +1,8 @@
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.db import models
+
 from .models import Player
 from .forms import PlayerForm
 from results.models import Score
@@ -15,6 +17,9 @@ class PlayerListView(ListView):
     template_name = 'bgaapp/player_list.html'
 
 
+# What is self?------ A. PYTHONS reference to the CURRENT CLASS INSTANCE
+# What is **kwargs?-- A. allows the passing of any number or KEYWORD aruments, DJANGO uses it to send object, view etc
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = PlayerForm()
@@ -28,11 +33,8 @@ class PlayerListView(ListView):
 
 
 
-
-
-
-
-
+# What is self?------ A. PYTHONS reference to the CURRENT CLASS INSTANCE
+# What is **kwargs?-- A. allows the passing of any number or KEYWORD aruments, DJANGO uses it to send object, view etc
 
 class PlayerDetailView(DetailView):
     model = Player
@@ -42,12 +44,17 @@ class PlayerDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         player = self.get_object()
 
-        # Get all scores where the player finished 1st
-        wins = Score.objects.filter(player=player, placement="1st").select_related('event')
-        context['event_wins'] = wins
+       # give me all SCORE OBJECTS WHERE (player is this player OR teammate is this player AND placement is 1 or 1st)
+        context['event_wins'] = Score.objects.filter(            # without Q, django filters default to AND ONLY
+            models.Q(player=player) | models.Q(teammate=player), # models.Q = DJANGO uses query logic, LIKE OR CONDITIONALS 
+            placement__in=["1", "1st"]                           # so im doing a sweet COMBO of OR operator ( | ) and...
+        ).select_related("event")  # using & operator (under the hood - DJANGO treats multiple arguments in .filter as being AND togther)  
+
         return context
-    
-    
+
+
+
+
     
     
     
