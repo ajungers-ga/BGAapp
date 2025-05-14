@@ -3,11 +3,14 @@
 
 <h1>{{ season }} Season Results</h1>
 
-{% if events %} 
+{% if events %}
   <ul class="list-group">
     {% for event in events %}
-      <li class="list-group-item">
-        <strong>{{ event.name }}</strong> — {{ event.course_name }} on {{ event.date }}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ event.name }}</strong> — {{ event.course_name }} on {{ event.date|date:"F j, Y" }}
+        </div>
+        <a href="{% url 'leaderboard' event.id %}" class="btn btn-sm btn-outline-primary">View Leaderboard</a>
       </li>
     {% endfor %}
   </ul>
