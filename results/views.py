@@ -34,7 +34,7 @@ from django.views.decorators.http import require_http_methods
 
 def schedule_view(request):
     today = timezone.now().date()  # Get today's date
-    events = Event.objects.filter(date__gte=today).order_by('date')  # Only future events, sorted soonest to latest
+    events = Event.objects.filter(date__gte=today).order_by('date')  # only future events, sorted soonest to latest
     return render(request, 'bgaapp/schedule.html', {'events': events})
 #-----------------------------------------------------------------------#
 
@@ -158,7 +158,7 @@ def leaderboard_view(request, pk):
 # - Reuses the same ScoreForm used on the leaderboard page
 # - After saving, redirects back to the same leaderboard page
 
-
+# BELOW = Edit a submitted score for an event
 @require_http_methods(["GET", "POST"])
 def edit_score_view(request, score_id):
     score = get_object_or_404(Score, id=score_id)  # get the score object using primary key
@@ -187,3 +187,14 @@ def edit_score_view(request, score_id):
         'event': event
     })
 #-------------------------------------------------------------------------------------------#
+
+
+
+
+# BELOW = function to delete a score, from the /results/score/#/edit page--------------------------------#
+def delete_score(request, pk):          # get the SCORE OBJECT from the DB using primarykey f/ url
+    score = get_object_or_404(Score, pk=pk)   # if the SCORE OBJECT does not existm throw 404 error
+    event_id = score.event.pk  # saving the EVENT ID linked to this OBJECT SCORE,  before deleting, (link back to that objscore in return)
+    score.delete() # now that the event_id has been found, saved, its safe to delete (CONSIDER A CONFIRM MESSAGE???)
+    return redirect('leaderboard', pk=event_id) # returning to the leaderboard, linked from earlier, user wont stay on brkn page
+#---------------------------------------------------------------------------------------------------------#

@@ -15,5 +15,10 @@
       <a href="{% url 'leaderboard' event.pk %}" class="btn btn-secondary ms-2">Cancel</a>
     </div>
   </form>
+
+  <form action="{% url 'delete_score' score.pk %}" method="post" class="mt-3">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete Score</button>
+  </form>
 </div>
 {% endblock %}
