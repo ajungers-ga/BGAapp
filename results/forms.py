@@ -4,21 +4,34 @@
 # attrs is short for HTML attrbutes, in this case type and placeholder are used
 
 from django import forms
-from .models import Event, Score
+from .models import Score, Event
+from players.models import Player
 
+# ------- Score form ------- #
+class ScoreForm(forms.ModelForm):
+    player = forms.CharField(
+        label='Player',
+        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'})
+    )
+    teammate = forms.CharField(
+        label='Teammate',
+        required=False,
+        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Score
+        fields = ['score']
+
+# ------- Event form ------- #
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = '__all__'  # or ['name', 'date', 'course', 'format', etc.]
         widgets = {
             'date': forms.DateInput(attrs={
-                'type': 'date',               # shows clickable calendar in supported browsers
-                'placeholder': 'MM/DD/YYYY'   # gives user a hint of the expected format
+                'type': 'date',
+                'placeholder': 'YYYY-MM-DD',
+                'class': 'form-control'
             })
         }
-
-# This form is used to enter player scores for a specific event
-class ScoreForm(forms.ModelForm):
-    class Meta:
-        model = Score
-        fields = ['player', 'teammate', 'score']
