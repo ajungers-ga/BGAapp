@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.db import models
 
@@ -12,6 +12,7 @@ from results.models import Score
 
 
 
+#---------------------------------------------------------------------------------------------------------------------#
 class PlayerListView(ListView):
     model = Player
     template_name = 'bgaapp/player_list.html'
@@ -30,12 +31,11 @@ class PlayerListView(ListView):
         if form.is_valid():
             form.save()
         return redirect('player_list')
+#----------------------------------------------------------------------------------------------------------------------#
 
 
 
-# What is self?------ A. PYTHONS reference to the CURRENT CLASS INSTANCE
-# What is **kwargs?-- A. allows the passing of any number or KEYWORD aruments, DJANGO uses it to send object, view etc
-
+#--------------------------------------------------------------------------------------------------------------------------------------------#
 class PlayerDetailView(DetailView):
     model = Player
     template_name = 'bgaapp/player_detail.html'
@@ -51,7 +51,7 @@ class PlayerDetailView(DetailView):
         ).select_related("event")  # using & operator (under the hood - DJANGO treats multiple arguments in .filter as being AND togther)  
 
         return context
-
+#-------------------------------------------------------------------------------------------------------------------------------------------#
 
 
 
@@ -65,16 +65,21 @@ class PlayerUpdateView(UpdateView):
     template_name = 'bgaapp/player_form.html'
     success_url = reverse_lazy('player_list')
     
-    
-    
-    
-    
-    
-    
-    
-    
-
 class PlayerDeleteView(DeleteView):
     model = Player
     template_name = 'bgaapp/player_confirm_delete.html'
     success_url = reverse_lazy('player_list')
+
+
+
+
+
+
+class PlayerStatsView(TemplateView):
+    template_name = 'bgaapp/player_stats.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        players = sorted(Player.objects.all(), key=lambda p: p.career_wins, reverse=True)
+        context['players'] = players
+        return context
