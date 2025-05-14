@@ -1,20 +1,44 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
 {% block content %}
+<style>
+  .hof-highlight {
+    color: goldenrod;
+    font-weight: bold;
+  }
+</style>
 
+<div class="container mt-5">
+  <div class="card mx-auto shadow" style="max-width: 600px;">
+    {% if object.image %}
+      <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object }}">
+    {% endif %}
 
-<h1>{{ object.first_name }} {{ object.last_name }}</h1>
+    <div class="card-body">
+      <h2 class="card-title">
+        {{ object.first_name }} {% if object.nickname %}"{{ object.nickname }}" {% endif %} {{ object.last_name }}
+      </h2>
 
-{% if object.image %}
-  <img src="{{ object.image.url }}" width="200" />
-{% endif %}
+      <p class="card-text">
+        <strong>Hometown:</strong> {{ object.hometown }}<br>
+        <strong>Years Active:</strong> {{ object.years_active }}<br>
+        <strong>Events Played:</strong> {{ object.career_events_played }}<br>
+        <strong>Career Wins:</strong> {{ object.career_wins }}<br>
+        {% if object.hof_inducted %}
+          <span class="hof-highlight">🥇🧥 HOF Class of {{ object.hof_year }}</span><br>
+        {% endif %}
+      </p>
 
-<p><strong>Nickname:</strong> {{ object.nickname }}</p>
-<p><strong>Hometown:</strong> {{ object.hometown }}</p>
-<p><strong>Years Active:</strong> {{ object.years_active }}</p>
-<p><strong>Career Events:</strong> {{ object.career_events_played }}</p>
-<p><strong>Career Wins:</strong> {{ object.career_wins }}</p>
-
-<a href="{% url 'player_update' object.pk %}">Edit</a>
-<a href="{% url 'player_delete' object.pk %}">Delete</a>
-<a href="{% url 'player_list' %}">Back to Roster</a>
+      {% if object.accolades %}
+        <hr>
+        <h5>🏅 Accolades</h5>
+        <p>{{ object.accolades }}</p>
+      {% else %}
+        <hr>
+        <p class="text-muted">No accolades listed yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}

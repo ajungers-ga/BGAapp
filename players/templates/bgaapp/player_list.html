@@ -1,57 +1,52 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block content %}
+<style>
+  .hof-highlight {
+    color: goldenrod;
+    font-weight: bold;
+  }
+</style>
 
-<h1 class="custom-header">BGA Tour Players</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">BGA Players</h1>
 
-
-<h2>Add New Player</h2>
-
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-
-  <label for="first_name">First Name:</label>
-  {{ form.first_name }}<br>
-
-  <label for="last_name">Last Name:</label>
-  {{ form.last_name }}<br>
-
-  <label for="nickname">Nickname:</label>
-  {{ form.nickname }}<br>
-
-  <label for="hometown">Hometown:</label>
-  {{ form.hometown }}<br>
-
-  <label for="years_active">Years Active:</label>
-  {{ form.years_active }}<br>
-
-  <label for="career_events_played">Career Events Played:</label>
-  {{ form.career_events_played }}<br>
-
-  <label for="career_wins">Career Wins:</label>
-  {{ form.career_wins }}<br>
-
-  <label for="image">Player Image:</label>
-  {{ form.image }}<br><br>
-
-  <button type="submit">Add Player</button>
-</form>
-
-<hr>
-
-<h2>Roster</h2>
-<ul>
-  {% for player in object_list %}
-    <li>
-      <a href="{% url 'player_detail' player.pk %}">
-        {% if player.image %}
-          <img src="{{ player.image.url }}" width="100">
-        {% endif %}
-        {{ player }} — Wins: {{ player.career_wins }} / Events: {{ player.career_events_played }}
-      </a>
-    </li>
-  {% empty %}
-    <li>No players yet.</li>
-  {% endfor %}
-</ul>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for player in object_list %}
+      <div class="col">
+        <a href="{% url 'player_detail' player.pk %}" class="text-decoration-none text-dark">
+          <div class="card h-100 shadow-sm">
+            {% if player.image %}
+              <img src="{{ player.image.url }}" class="card-img-top" alt="{{ player }}">
+            {% else %}
+              <img src="{% static 'default_player.jpg' %}" class="card-img-top" alt="No Image">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ player.first_name }} 
+                {% if player.nickname %}"{{ player.nickname }}" {% endif %}
+                {{ player.last_name }}
+              </h5>
+              <p class="card-text">
+                <strong>Hometown:</strong> {{ player.hometown }}<br>
+                <strong>Years Active:</strong> {{ player.years_active }}<br>
+                <strong>Events Played:</strong> {{ player.career_events_played }}<br>
+                <strong>Career Wins:</strong> {{ player.career_wins }}<br>
+                {% if player.hof_inducted %}
+                  <span class="hof-highlight">🥇🧥 HOF Class of {{ player.hof_year }}</span>
+                {% endif %}
+              </p>
+            </div>
+            {% if player.accolades %}
+              <div class="card-footer bg-light">
+                <small class="text-muted">🏅 Accolades: {{ player.accolades }}</small>
+              </div>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
