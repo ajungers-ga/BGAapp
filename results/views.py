@@ -78,9 +78,8 @@ def leaderboard_view(request, pk):
 
             player_name = form.cleaned_data['player']
             teammate_name = form.cleaned_data['teammate']
-            valid = True  # flag to track if both lookups succeed
+            valid = True
 
-            # Try to convert PLAYER field into a Player object
             try:
                 first, last = player_name.strip().split(" ", 1)
                 score_entry.player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
@@ -88,7 +87,6 @@ def leaderboard_view(request, pk):
                 form.add_error('player', f"No player found for '{player_name}'. Make sure the name matches a known player.")
                 valid = False
 
-            # Try to convert TEAMMATE field into a Player object (if filled)
             if teammate_name:
                 try:
                     first, last = teammate_name.strip().split(" ", 1)
@@ -107,16 +105,25 @@ def leaderboard_view(request, pk):
                     'all_players': Player.objects.all()
                 })
 
-            # All good — save score and update leaderboard
             par = 72
             score_entry.event = event
             score_entry.to_par = score_entry.score - par
             score_entry.save()
 
             ordered_scores = event.scores.order_by('score')
-            for i, s in enumerate(ordered_scores, start=1):
-                s.placement = f"{i}"
+            placement = 1
+            last_score = None
+            actual_placement = 1
+
+            for i, s in enumerate(ordered_scores):
+                if last_score is not None and s.score == last_score:
+                    s.placement = f"{placement}"
+                else:
+                    placement = actual_placement
+                    s.placement = f"{placement}"
                 s.save()
+                last_score = s.score
+                actual_placement += 1
 
             return redirect('leaderboard', pk=event.pk)
     else:
@@ -145,9 +152,19 @@ def edit_score_view(request, score_id):
             updated_score.save()
 
             ordered_scores = event.scores.order_by('score')
-            for i, s in enumerate(ordered_scores, start=1):
-                s.placement = f"{i}"
+            placement = 1
+            last_score = None
+            actual_placement = 1
+
+            for i, s in enumerate(ordered_scores):
+                if last_score is not None and s.score == last_score:
+                    s.placement = f"{placement}"
+                else:
+                    placement = actual_placement
+                    s.placement = f"{placement}"
                 s.save()
+                last_score = s.score
+                actual_placement += 1
 
             return redirect('leaderboard', pk=event.pk)
     else:
@@ -163,7 +180,24 @@ def edit_score_view(request, score_id):
 # BELOW = function to delete a score, from the /results/score/#/edit page--------------------------------#
 def delete_score(request, pk):
     score = get_object_or_404(Score, pk=pk)
-    event_id = score.event.pk
+    event = score.event
     score.delete()
-    return redirect('leaderboard', pk=event_id)
+
+    # Recalculate placements after deletion
+    ordered_scores = event.scores.order_by('score')
+    placement = 1
+    last_score = None
+    actual_placement = 1
+
+    for s in ordered_scores:
+        if last_score is not None and s.score == last_score:
+            s.placement = f"{placement}"
+        else:
+            placement = actual_placement
+            s.placement = f"{placement}"
+        s.save()
+        last_score = s.score
+        actual_placement += 1
+
+    return redirect('leaderboard', pk=event.pk)
 #---------------------------------------------------------------------------------------------------------#

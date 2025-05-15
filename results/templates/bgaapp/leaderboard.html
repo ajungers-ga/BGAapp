@@ -4,11 +4,8 @@
 {% block content %}
 <div class="container mt-5">
   <h1>
-  {{ event.name }} Leaderboard
-  {% if event.is_major %}
-    <span class="badge bg-warning text-dark ms-2">🧥 Major Tournament</span>
-  {% endif %}
-</h1>
+    {{ event.major_label|default:event.name }} Leaderboard
+  </h1>
 
   <p><strong>Date:</strong> {{ event.date }}<br>
     <strong>Course:</strong> {{ event.course_name }}
@@ -30,7 +27,17 @@
     <tbody>
       {% for score in scores %}
       <tr class="{% if score.to_par < 0 %}table-success fw-bold{% endif %}">
-        <td>{{ score.placement }}</td>
+        <td>
+        {% if event.finalized %}
+          
+          {% if "1" in score.placement %}🥇
+          {% elif "2" in score.placement %}🥈
+          {% elif "3" in score.placement %}🥉
+          
+          {% endif %}
+        {% endif %}
+          {{ score.placement }}
+        </td>
         <td>{{ score.player }}</td>
         <td>{{ score.teammate }}</td>
         <td>{{ score.score }}</td>
@@ -40,7 +47,6 @@
           <a href="{% url 'delete_score' score.id %}" class="btn btn-sm btn-danger">Delete</a>
         </td>
       </tr>
-
       {% endfor %}
     </tbody>
   </table>
@@ -64,6 +70,5 @@
     <option value="{{ player.first_name }} {{ player.last_name }}"></option>
     {% endfor %}
   </datalist>
-
 </div>
 {% endblock %}
