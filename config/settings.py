@@ -195,7 +195,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# ✅ DATABASE CONFIG — uses DATABASE_URL when present (Fly.io secret)
+
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
@@ -221,3 +221,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "core/static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Allow POST requests from Fly.io domain
+CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
+
