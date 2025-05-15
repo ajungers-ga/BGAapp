@@ -13,6 +13,7 @@ class Event(models.Model):
     is_team_event = models.BooleanField(default=True)
     notes = models.TextField(blank=True)
     season = models.PositiveIntegerField(default=2024)
+    is_major = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.name} at {self.course_name} on {self.date}"

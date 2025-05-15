@@ -3,7 +3,13 @@
 
 {% block content %}
 <div class="container mt-5">
-  <h1>{{ event.name }} Leaderboard</h1>
+  <h1>
+  {{ event.name }} Leaderboard
+  {% if event.is_major %}
+    <span class="badge bg-warning text-dark ms-2">🧥 Major Tournament</span>
+  {% endif %}
+</h1>
+
   <p><strong>Date:</strong> {{ event.date }}<br>
     <strong>Course:</strong> {{ event.course_name }}
   </p>
