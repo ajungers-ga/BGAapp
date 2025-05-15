@@ -1,0 +1,1682 @@
+[
+  {
+    "model": "players.player",
+    "pk": 2,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Olson",
+      "nickname": "Roy",
+      "hometown": "Cannon Falls, Iowa",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 3,
+    "fields": {
+      "first_name": "Jeremiah",
+      "last_name": "Ballard",
+      "nickname": "Commish",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": "player_images/AFagwZ0KYGN74hJH-generated_image.jpg"
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 4,
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Jungers",
+      "nickname": "Beetle",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 5,
+    "fields": {
+      "first_name": "Matthew",
+      "last_name": "Daulton",
+      "nickname": "Matty D",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 6,
+    "fields": {
+      "first_name": "Joshua",
+      "last_name": "Leary",
+      "nickname": "Donkey",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 7,
+    "fields": {
+      "first_name": "Luke",
+      "last_name": "Johnson",
+      "nickname": "20",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 8,
+    "fields": {
+      "first_name": "Matthew",
+      "last_name": "Valiant",
+      "nickname": "Matty V",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 9,
+    "fields": {
+      "first_name": "James",
+      "last_name": "Leary",
+      "nickname": "Jim",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 10,
+    "fields": {
+      "first_name": "Jon",
+      "last_name": "Feliciano",
+      "nickname": "Jonny Law",
+      "hometown": "South St. Paul, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 11,
+    "fields": {
+      "first_name": "Benjamin-Charles",
+      "last_name": "Hodge",
+      "nickname": "Boneman",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 12,
+    "fields": {
+      "first_name": "Michael",
+      "last_name": "Degraw",
+      "nickname": "Big Mike",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 13,
+    "fields": {
+      "first_name": "Jake",
+      "last_name": "Schwartz",
+      "nickname": "Eagle",
+      "hometown": "Springfield, IN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 14,
+    "fields": {
+      "first_name": "Brian-James",
+      "last_name": "King",
+      "nickname": "Kinger",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 15,
+    "fields": {
+      "first_name": "Peter",
+      "last_name": "Law",
+      "nickname": "Pete Heat",
+      "hometown": "Hopkins, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 16,
+    "fields": {
+      "first_name": "Cassie",
+      "last_name": "Daulton",
+      "nickname": "Sandy",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 17,
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Havens",
+      "nickname": "Tank",
+      "hometown": "River Falls, WI",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 18,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Dumpprope",
+      "nickname": "Dumps",
+      "hometown": "South St. Paul, MN",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 19,
+    "fields": {
+      "first_name": "Nik",
+      "last_name": "Esch",
+      "nickname": "",
+      "hometown": "Hudson, WI",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 20,
+    "fields": {
+      "first_name": "Josh",
+      "last_name": "Schroetter",
+      "nickname": "Goat",
+      "hometown": "Hudson, WI",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 21,
+    "fields": {
+      "first_name": "Eric",
+      "last_name": "Kropp",
+      "nickname": "40",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 22,
+    "fields": {
+      "first_name": "Torben",
+      "last_name": "Jepsen",
+      "nickname": "Top Heavy",
+      "hometown": "White Bear Lake, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 23,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Kropp",
+      "nickname": "AK",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 24,
+    "fields": {
+      "first_name": "Charlie",
+      "last_name": "Carter",
+      "nickname": "Chuck",
+      "hometown": "Bloomington, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 25,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Hoistad",
+      "nickname": "Big Foot",
+      "hometown": "Chaska, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 26,
+    "fields": {
+      "first_name": "Christopher",
+      "last_name": "Olson",
+      "nickname": "CO",
+      "hometown": "Cannon Falls, Iowa",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 27,
+    "fields": {
+      "first_name": "Kameron",
+      "last_name": "Keich",
+      "nickname": "Cali",
+      "hometown": "Santa Clarita, CA",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 28,
+    "fields": {
+      "first_name": "Ethan",
+      "last_name": "Cornell",
+      "nickname": "Freethan",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 29,
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Johnson",
+      "nickname": "TJ",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 30,
+    "fields": {
+      "first_name": "Jeff",
+      "last_name": "Cherry",
+      "nickname": "Papa Cherry",
+      "hometown": "St. Paul, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 31,
+    "fields": {
+      "first_name": "Scott",
+      "last_name": "Lamotte",
+      "nickname": "Scotty",
+      "hometown": "Northfield, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 32,
+    "fields": {
+      "first_name": "Michael",
+      "last_name": "Krug",
+      "nickname": "KrugBall",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 33,
+    "fields": {
+      "first_name": "Dustin",
+      "last_name": "Mcintyre",
+      "nickname": "37",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 34,
+    "fields": {
+      "first_name": "Gene",
+      "last_name": "Cao",
+      "nickname": "Geno",
+      "hometown": "Chaska, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 35,
+    "fields": {
+      "first_name": "Shaun",
+      "last_name": "Quinn",
+      "nickname": "The Don",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 36,
+    "fields": {
+      "first_name": "Gary",
+      "last_name": "Madison",
+      "nickname": "Gary",
+      "hometown": "South St. Paul, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 37,
+    "fields": {
+      "first_name": "Kelly",
+      "last_name": "Kropp",
+      "nickname": "Pops",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 38,
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Ehret",
+      "nickname": "Tito",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 39,
+    "fields": {
+      "first_name": "Randy",
+      "last_name": "Franchette",
+      "nickname": "Wink",
+      "hometown": "Rosemount, MN",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 40,
+    "fields": {
+      "first_name": "Jimbo",
+      "last_name": "Leary",
+      "nickname": "Jimbo",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 41,
+    "fields": {
+      "first_name": "Zach",
+      "last_name": "Kulak",
+      "nickname": "The Mayor",
+      "hometown": "Tempo Town, USA",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 42,
+    "fields": {
+      "first_name": "Kristen",
+      "last_name": "Coonrod",
+      "nickname": "Tomboy",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 43,
+    "fields": {
+      "first_name": "Mike",
+      "last_name": "Mexner",
+      "nickname": "Ox",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 44,
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Lanik",
+      "nickname": "Josey Wales",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 45,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Crowe",
+      "nickname": "The Prosecuter",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 46,
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Ramirez",
+      "nickname": "Joe",
+      "hometown": "Rosemount, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 47,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Cherry",
+      "nickname": "Deano",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 48,
+    "fields": {
+      "first_name": "Mike",
+      "last_name": "Satterstrom",
+      "nickname": "Satt",
+      "hometown": "Chaska, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 49,
+    "fields": {
+      "first_name": "Derek",
+      "last_name": "Ommen",
+      "nickname": "Bryce",
+      "hometown": "Hudson, WI",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 50,
+    "fields": {
+      "first_name": "Dan",
+      "last_name": "Loughney",
+      "nickname": "Dano",
+      "hometown": "Hudson, WI",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 51,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Cembrinski",
+      "nickname": "Neighbor Bro",
+      "hometown": "Buffalo, NY",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 52,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Erickson",
+      "nickname": "Andy",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 53,
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Olson",
+      "nickname": "TO",
+      "hometown": "Rosemount, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 54,
+    "fields": {
+      "first_name": "Lucas",
+      "last_name": "Christanson",
+      "nickname": "Luke",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 55,
+    "fields": {
+      "first_name": "Steve",
+      "last_name": "Daulton",
+      "nickname": "Steveo",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 56,
+    "fields": {
+      "first_name": "Ashley",
+      "last_name": "Remers",
+      "nickname": "Smashley",
+      "hometown": "St. Paul, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 57,
+    "fields": {
+      "first_name": "Nick",
+      "last_name": "St. Martin",
+      "nickname": "Nick",
+      "hometown": "South St. Paul, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 58,
+    "fields": {
+      "first_name": "Chris",
+      "last_name": "Sims",
+      "nickname": "Sims",
+      "hometown": "Gary, IN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 59,
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Koich",
+      "nickname": "Alex",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 60,
+    "fields": {
+      "first_name": "Sam",
+      "last_name": "Price",
+      "nickname": "Sam",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 61,
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Conley",
+      "nickname": "Conley",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 62,
+    "fields": {
+      "first_name": "Bryce",
+      "last_name": "Hanson",
+      "nickname": "Bryce",
+      "hometown": "Mendota Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 63,
+    "fields": {
+      "first_name": "Tony",
+      "last_name": "Gubash",
+      "nickname": "Tony",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 64,
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Thompson",
+      "nickname": "TNT",
+      "hometown": "South St. Paul, MN",
+      "years_active": "1",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 65,
+    "fields": {
+      "first_name": "Lucas",
+      "last_name": "Baumtrog",
+      "nickname": "Lucas",
+      "hometown": "Chaska, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 66,
+    "fields": {
+      "first_name": "Eric",
+      "last_name": "Ciupik",
+      "nickname": "Chup",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 67,
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Marriott",
+      "nickname": "Alex",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 68,
+    "fields": {
+      "first_name": "Casey",
+      "last_name": "Cole",
+      "nickname": "Roy's Buddy",
+      "hometown": "Wayzata, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 69,
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Appel",
+      "nickname": "Apple",
+      "hometown": "South St. Paul, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 70,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Mollberg",
+      "nickname": "John",
+      "hometown": "Farmington, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 71,
+    "fields": {
+      "first_name": "Stefan",
+      "last_name": "Domeier",
+      "nickname": "Stiffy",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 72,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Lardani",
+      "nickname": "Drew",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 73,
+    "fields": {
+      "first_name": "Duane",
+      "last_name": "Cloud",
+      "nickname": "Bonehead",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 74,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Skeens",
+      "nickname": "Ryan",
+      "hometown": "Champlin, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 75,
+    "fields": {
+      "first_name": "Allison",
+      "last_name": "Dumpprope",
+      "nickname": "Ali",
+      "hometown": "South St. Paul, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 76,
+    "fields": {
+      "first_name": "Andy",
+      "last_name": "Alonso",
+      "nickname": "Andy",
+      "hometown": "Hudson, WI",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 77,
+    "fields": {
+      "first_name": "Dan",
+      "last_name": "Flynn",
+      "nickname": "Dan",
+      "hometown": "Brooklyn Park, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 78,
+    "fields": {
+      "first_name": "Mike",
+      "last_name": "Lanik",
+      "nickname": "Mike",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 79,
+    "fields": {
+      "first_name": "James III",
+      "last_name": "Leary",
+      "nickname": "JP3",
+      "hometown": "St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 80,
+    "fields": {
+      "first_name": "Jordan",
+      "last_name": "Ongstad",
+      "nickname": "Jordan",
+      "hometown": "Hudson, WI",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 81,
+    "fields": {
+      "first_name": "Luke",
+      "last_name": "Ryan",
+      "nickname": "Luke",
+      "hometown": "South St. Paul, MN",
+      "years_active": "1",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 82,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Miller",
+      "nickname": "Ryan",
+      "hometown": "South St. Paul, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 83,
+    "fields": {
+      "first_name": "Tom",
+      "last_name": "Lanik",
+      "nickname": "Tom",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 84,
+    "fields": {
+      "first_name": "Jessica",
+      "last_name": "Krug",
+      "nickname": "Jess",
+      "hometown": "Inv",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 85,
+    "fields": {
+      "first_name": "Danica",
+      "last_name": "Leary",
+      "nickname": "Dani",
+      "hometown": "San Bernardino",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 86,
+    "fields": {
+      "first_name": "Luke",
+      "last_name": "Scanlan",
+      "nickname": "Soap",
+      "hometown": "Golden Valley, MN",
+      "years_active": "2",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 87,
+    "fields": {
+      "first_name": "Austin",
+      "last_name": "Cherry",
+      "nickname": "Saints",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 88,
+    "fields": {
+      "first_name": "Juan",
+      "last_name": "Coleman",
+      "nickname": "",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 89,
+    "fields": {
+      "first_name": "Virgil",
+      "last_name": "Pawlenty",
+      "nickname": "Virgin",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 90,
+    "fields": {
+      "first_name": "Pat",
+      "last_name": "Todd",
+      "nickname": "",
+      "hometown": "South St. Paul, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 91,
+    "fields": {
+      "first_name": "Jake",
+      "last_name": "Gleason",
+      "nickname": "",
+      "hometown": "Mankato, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 92,
+    "fields": {
+      "first_name": "Randy",
+      "last_name": "Todd",
+      "nickname": "Randy",
+      "hometown": "South St. Paul, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 93,
+    "fields": {
+      "first_name": "Sam",
+      "last_name": "McGuire",
+      "nickname": "Sam",
+      "hometown": "South St. Paul, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 94,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Long",
+      "nickname": "Andy",
+      "hometown": "Arden Hills, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 95,
+    "fields": {
+      "first_name": "Greg",
+      "last_name": "Sattler",
+      "nickname": "",
+      "hometown": "Lakeville, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 96,
+    "fields": {
+      "first_name": "Ben",
+      "last_name": "Winecke",
+      "nickname": "Ben",
+      "hometown": "Sartel, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 97,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Grimes",
+      "nickname": "",
+      "hometown": "St. Paul, MN",
+      "years_active": "2",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 98,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Ewing",
+      "nickname": "",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 99,
+    "fields": {
+      "first_name": "Jordon",
+      "last_name": "Meyer",
+      "nickname": "Jdon",
+      "hometown": "South St. Paul, MN",
+      "years_active": "2",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 100,
+    "fields": {
+      "first_name": "Will",
+      "last_name": "Lambach",
+      "nickname": "",
+      "hometown": "Prior Lake, MN",
+      "years_active": "1",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 101,
+    "fields": {
+      "first_name": "Will",
+      "last_name": "Coonrod",
+      "nickname": "",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 102,
+    "fields": {
+      "first_name": "Bobby",
+      "last_name": "Zilisch",
+      "nickname": "",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "1",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 103,
+    "fields": {
+      "first_name": "Johnny",
+      "last_name": "Goth",
+      "nickname": "",
+      "hometown": "Hugo, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 104,
+    "fields": {
+      "first_name": "Bobby",
+      "last_name": "Muray",
+      "nickname": "Stone Pony",
+      "hometown": "Hastings, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 105,
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Swanson",
+      "nickname": "",
+      "hometown": "Inver Grove Heights, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 106,
+    "fields": {
+      "first_name": "Drew",
+      "last_name": "Johnson",
+      "nickname": "",
+      "hometown": "Shakopee, MN",
+      "years_active": "4",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 107,
+    "fields": {
+      "first_name": "Chuck",
+      "last_name": "Carter",
+      "nickname": "Sr.",
+      "hometown": "Omaha, NE",
+      "years_active": "2",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 108,
+    "fields": {
+      "first_name": "Nate",
+      "last_name": "Asper",
+      "nickname": "",
+      "hometown": "South St. Paul, MN",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 109,
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "House",
+      "nickname": "",
+      "hometown": "Woodbury, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 110,
+    "fields": {
+      "first_name": "Frank",
+      "last_name": "Bevans",
+      "nickname": "",
+      "hometown": "",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 111,
+    "fields": {
+      "first_name": "Chad",
+      "last_name": "Andersen",
+      "nickname": "",
+      "hometown": "Minneapolis, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 112,
+    "fields": {
+      "first_name": "Mik",
+      "last_name": "Easthouse",
+      "nickname": "",
+      "hometown": "Minneapolis, MN",
+      "years_active": "6",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 113,
+    "fields": {
+      "first_name": "Jacob",
+      "last_name": "Leary",
+      "nickname": "",
+      "hometown": "South St. Paul, MN",
+      "years_active": "",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 114,
+    "fields": {
+      "first_name": "Rhett",
+      "last_name": "Kivland",
+      "nickname": "",
+      "hometown": "Minneapolis, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 115,
+    "fields": {
+      "first_name": "Jeff",
+      "last_name": "Lamotte",
+      "nickname": "",
+      "hometown": "Northfield, MN",
+      "years_active": "3",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 116,
+    "fields": {
+      "first_name": "Tim",
+      "last_name": "Foster",
+      "nickname": "",
+      "hometown": "Rochester, MN",
+      "years_active": "",
+      "image": ""
+    }
+  },
+  {
+    "model": "players.player",
+    "pk": 117,
+    "fields": {
+      "first_name": "Jesse",
+      "last_name": "Linhoff",
+      "nickname": "",
+      "hometown": "Cloquet, MN",
+      "years_active": "5",
+      "image": ""
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 4,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-04-12",
+      "course_name": "Oak Glen",
+      "is_team_event": true,
+      "notes": "$52, cart \u2014 10-10:50 (28ppl) \u2014 Sydney & Jason",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 5,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-04-19",
+      "course_name": "River Oaks",
+      "is_team_event": true,
+      "notes": "$xx \u2014 10-10:50 (28ppl) \u2014 Dennis Neitz",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 6,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-04-26",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Tim",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 7,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-05-03",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Tim",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 8,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-05-10",
+      "course_name": "Eagle Valley",
+      "is_team_event": true,
+      "notes": "$69, cart, range \u2014 10:30-11:30 (28ppl) \u2014 Josh Schroetter",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 9,
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-05-17",
+      "course_name": "Troy Burne",
+      "is_team_event": true,
+      "notes": "$110, cart, range \u2014 10-11:30 (40ppl) \u2014 Dave Tentis",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 10,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-05-31",
+      "course_name": "Jungle Juice Open",
+      "is_team_event": true,
+      "notes": "",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 11,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-06-14",
+      "course_name": "Victory Links",
+      "is_team_event": true,
+      "notes": "$89, cart \u2014 8:30-9:20 (28ppl) \u2014 Tom Kirkland",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 12,
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-06-21",
+      "course_name": "The Wilds",
+      "is_team_event": true,
+      "notes": "$95, cart, range \u2014 1:00-2:20 (36ppl) \u2014 Pierson Pass",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 13,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-06-28",
+      "course_name": "Oak Marsh",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:10-10:10 (28ppl) \u2014 Steve Whillock",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 14,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-07-12",
+      "course_name": "White Eagle",
+      "is_team_event": true,
+      "notes": "$xx \u2014 8:50-9:50 (28ppl) \u2014 Scott Landin",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 15,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-07-19",
+      "course_name": "Bellwood Oaks",
+      "is_team_event": true,
+      "notes": "$xx \u2014 ????? \u2014 Mike Krug",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 16,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-07-26",
+      "course_name": "Matty D Invitational",
+      "is_team_event": true,
+      "notes": "",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 17,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-08-02",
+      "course_name": "Links at Northfork",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Nicki Maling",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 18,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-08-09",
+      "course_name": "Clifton Highlands",
+      "is_team_event": true,
+      "notes": "$67, cart, range \u2014 10-10:50 (28ppl) \u2014 Pete Law",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 19,
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-08-16",
+      "course_name": "Meadows at Mystic Lake",
+      "is_team_event": true,
+      "notes": "$110, cart, prepay \u2014 12:00-1:00 (28ppl) \u2014 Chris Olson",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 20,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-08-23",
+      "course_name": "River Falls Golf Club",
+      "is_team_event": true,
+      "notes": "$65, cart, range \u2014 9:00-9:50 (28ppl) \u2014 Eric Ciupik",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 21,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-09-06",
+      "course_name": "Willingers",
+      "is_team_event": true,
+      "notes": "$85, cart, range \u2014 9:00-9:50 (28ppl) \u2014 Eddie Dennis",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 22,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-09-13",
+      "course_name": "Hidden Greens",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Andy Gerber",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 23,
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-09-20",
+      "course_name": "BGA British Open",
+      "is_team_event": true,
+      "notes": "TBD",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 24,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-10-04",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$75, cart, range \u2014 8:30am shotgun (40ppl) \u2014 Tim",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 25,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-10-11",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 10-10:50 \u2014 Tim",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 26,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-10-18",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 10-10:50 \u2014 Tim",
+      "season": 2025
+    }
+  },
+  {
+    "model": "results.event",
+    "pk": 27,
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-11-26",
+      "course_name": "Inver Wood",
+      "is_team_event": true,
+      "notes": "",
+      "season": 2025
+    }
+  }
+]

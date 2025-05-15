@@ -1,0 +1,1334 @@
+[
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Olson",
+      "nickname": "Roy"
+    },
+    "pk": 2
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jeremiah",
+      "last_name": "Ballard",
+      "nickname": "Commish"
+    },
+    "pk": 3
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Jungers",
+      "nickname": "Beetle"
+    },
+    "pk": 4
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Matthew",
+      "last_name": "Daulton",
+      "nickname": "Matty D"
+    },
+    "pk": 5
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Joshua",
+      "last_name": "Leary",
+      "nickname": "Donkey"
+    },
+    "pk": 6
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Luke",
+      "last_name": "Johnson",
+      "nickname": "20"
+    },
+    "pk": 7
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Matthew",
+      "last_name": "Valiant",
+      "nickname": "Matty V"
+    },
+    "pk": 8
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "James",
+      "last_name": "Leary",
+      "nickname": "Jim"
+    },
+    "pk": 9
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jon",
+      "last_name": "Feliciano",
+      "nickname": "Jonny Law"
+    },
+    "pk": 10
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Benjamin-Charles",
+      "last_name": "Hodge",
+      "nickname": "Boneman"
+    },
+    "pk": 11
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Michael",
+      "last_name": "Degraw",
+      "nickname": "Big Mike"
+    },
+    "pk": 12
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jake",
+      "last_name": "Schwartz",
+      "nickname": "Eagle"
+    },
+    "pk": 13
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Brian-James",
+      "last_name": "King",
+      "nickname": "Kinger"
+    },
+    "pk": 14
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Peter",
+      "last_name": "Law",
+      "nickname": "Pete Heat"
+    },
+    "pk": 15
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Cassie",
+      "last_name": "Daulton",
+      "nickname": "Sandy"
+    },
+    "pk": 16
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Havens",
+      "nickname": "Tank"
+    },
+    "pk": 17
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Dumpprope",
+      "nickname": "Dumps"
+    },
+    "pk": 18
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Nik",
+      "last_name": "Esch",
+      "nickname": ""
+    },
+    "pk": 19
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Josh",
+      "last_name": "Schroetter",
+      "nickname": "Goat"
+    },
+    "pk": 20
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Eric",
+      "last_name": "Kropp",
+      "nickname": "40"
+    },
+    "pk": 21
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Torben",
+      "last_name": "Jepsen",
+      "nickname": "Top Heavy"
+    },
+    "pk": 22
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Kropp",
+      "nickname": "AK"
+    },
+    "pk": 23
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Charlie",
+      "last_name": "Carter",
+      "nickname": "Chuck"
+    },
+    "pk": 24
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Hoistad",
+      "nickname": "Big Foot"
+    },
+    "pk": 25
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Christopher",
+      "last_name": "Olson",
+      "nickname": "CO"
+    },
+    "pk": 26
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Kameron",
+      "last_name": "Keich",
+      "nickname": "Cali"
+    },
+    "pk": 27
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ethan",
+      "last_name": "Cornell",
+      "nickname": "Freethan"
+    },
+    "pk": 28
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Johnson",
+      "nickname": "TJ"
+    },
+    "pk": 29
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jeff",
+      "last_name": "Cherry",
+      "nickname": "Papa Cherry"
+    },
+    "pk": 30
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Scott",
+      "last_name": "Lamotte",
+      "nickname": "Scotty"
+    },
+    "pk": 31
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Michael",
+      "last_name": "Krug",
+      "nickname": "KrugBall"
+    },
+    "pk": 32
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Dustin",
+      "last_name": "Mcintyre",
+      "nickname": "37"
+    },
+    "pk": 33
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Gene",
+      "last_name": "Cao",
+      "nickname": "Geno"
+    },
+    "pk": 34
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Shaun",
+      "last_name": "Quinn",
+      "nickname": "The Don"
+    },
+    "pk": 35
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Gary",
+      "last_name": "Madison",
+      "nickname": "Gary"
+    },
+    "pk": 36
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Kelly",
+      "last_name": "Kropp",
+      "nickname": "Pops"
+    },
+    "pk": 37
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Ehret",
+      "nickname": "Tito"
+    },
+    "pk": 38
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Randy",
+      "last_name": "Franchette",
+      "nickname": "Wink"
+    },
+    "pk": 39
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jimbo",
+      "last_name": "Leary",
+      "nickname": "Jimbo"
+    },
+    "pk": 40
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Zach",
+      "last_name": "Kulak",
+      "nickname": "The Mayor"
+    },
+    "pk": 41
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Kristen",
+      "last_name": "Coonrod",
+      "nickname": "Tomboy"
+    },
+    "pk": 42
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Mike",
+      "last_name": "Mexner",
+      "nickname": "Ox"
+    },
+    "pk": 43
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Lanik",
+      "nickname": "Josey Wales"
+    },
+    "pk": 44
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Crowe",
+      "nickname": "The Prosecuter"
+    },
+    "pk": 45
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Ramirez",
+      "nickname": "Joe"
+    },
+    "pk": 46
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Cherry",
+      "nickname": "Deano"
+    },
+    "pk": 47
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Mike",
+      "last_name": "Satterstrom",
+      "nickname": "Satt"
+    },
+    "pk": 48
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Derek",
+      "last_name": "Ommen",
+      "nickname": "Bryce"
+    },
+    "pk": 49
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Dan",
+      "last_name": "Loughney",
+      "nickname": "Dano"
+    },
+    "pk": 50
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Cembrinski",
+      "nickname": "Neighbor Bro"
+    },
+    "pk": 51
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Erickson",
+      "nickname": "Andy"
+    },
+    "pk": 52
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Olson",
+      "nickname": "TO"
+    },
+    "pk": 53
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Lucas",
+      "last_name": "Christanson",
+      "nickname": "Luke"
+    },
+    "pk": 54
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Steve",
+      "last_name": "Daulton",
+      "nickname": "Steveo"
+    },
+    "pk": 55
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ashley",
+      "last_name": "Remers",
+      "nickname": "Smashley"
+    },
+    "pk": 56
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Nick",
+      "last_name": "St. Martin",
+      "nickname": "Nick"
+    },
+    "pk": 57
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Chris",
+      "last_name": "Sims",
+      "nickname": "Sims"
+    },
+    "pk": 58
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Koich",
+      "nickname": "Alex"
+    },
+    "pk": 59
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Sam",
+      "last_name": "Price",
+      "nickname": "Sam"
+    },
+    "pk": 60
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Conley",
+      "nickname": "Conley"
+    },
+    "pk": 61
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Bryce",
+      "last_name": "Hanson",
+      "nickname": "Bryce"
+    },
+    "pk": 62
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tony",
+      "last_name": "Gubash",
+      "nickname": "Tony"
+    },
+    "pk": 63
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tyler",
+      "last_name": "Thompson",
+      "nickname": "TNT"
+    },
+    "pk": 64
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Lucas",
+      "last_name": "Baumtrog",
+      "nickname": "Lucas"
+    },
+    "pk": 65
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Eric",
+      "last_name": "Ciupik",
+      "nickname": "Chup"
+    },
+    "pk": 66
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Marriott",
+      "nickname": "Alex"
+    },
+    "pk": 67
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Casey",
+      "last_name": "Cole",
+      "nickname": "Roy's Buddy"
+    },
+    "pk": 68
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "Appel",
+      "nickname": "Apple"
+    },
+    "pk": 69
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "John",
+      "last_name": "Mollberg",
+      "nickname": "John"
+    },
+    "pk": 70
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Stefan",
+      "last_name": "Domeier",
+      "nickname": "Stiffy"
+    },
+    "pk": 71
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Lardani",
+      "nickname": "Drew"
+    },
+    "pk": 72
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Duane",
+      "last_name": "Cloud",
+      "nickname": "Bonehead"
+    },
+    "pk": 73
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Skeens",
+      "nickname": "Ryan"
+    },
+    "pk": 74
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Allison",
+      "last_name": "Dumpprope",
+      "nickname": "Ali"
+    },
+    "pk": 75
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andy",
+      "last_name": "Alonso",
+      "nickname": "Andy"
+    },
+    "pk": 76
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Dan",
+      "last_name": "Flynn",
+      "nickname": "Dan"
+    },
+    "pk": 77
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Mike",
+      "last_name": "Lanik",
+      "nickname": "Mike"
+    },
+    "pk": 78
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "James III",
+      "last_name": "Leary",
+      "nickname": "JP3"
+    },
+    "pk": 79
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jordan",
+      "last_name": "Ongstad",
+      "nickname": "Jordan"
+    },
+    "pk": 80
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Luke",
+      "last_name": "Ryan",
+      "nickname": "Luke"
+    },
+    "pk": 81
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Miller",
+      "nickname": "Ryan"
+    },
+    "pk": 82
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tom",
+      "last_name": "Lanik",
+      "nickname": "Tom"
+    },
+    "pk": 83
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jessica",
+      "last_name": "Krug",
+      "nickname": "Jess"
+    },
+    "pk": 84
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Danica",
+      "last_name": "Leary",
+      "nickname": "Dani"
+    },
+    "pk": 85
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Luke",
+      "last_name": "Scanlan",
+      "nickname": "Soap"
+    },
+    "pk": 86
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Austin",
+      "last_name": "Cherry",
+      "nickname": "Saints"
+    },
+    "pk": 87
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Juan",
+      "last_name": "Coleman",
+      "nickname": ""
+    },
+    "pk": 88
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Virgil",
+      "last_name": "Pawlenty",
+      "nickname": "Virgin"
+    },
+    "pk": 89
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Pat",
+      "last_name": "Todd",
+      "nickname": ""
+    },
+    "pk": 90
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jake",
+      "last_name": "Gleason",
+      "nickname": ""
+    },
+    "pk": 91
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Randy",
+      "last_name": "Todd",
+      "nickname": "Randy"
+    },
+    "pk": 92
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Sam",
+      "last_name": "McGuire",
+      "nickname": "Sam"
+    },
+    "pk": 93
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Long",
+      "nickname": "Andy"
+    },
+    "pk": 94
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Greg",
+      "last_name": "Sattler",
+      "nickname": ""
+    },
+    "pk": 95
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Ben",
+      "last_name": "Winecke",
+      "nickname": "Ben"
+    },
+    "pk": 96
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "John",
+      "last_name": "Grimes",
+      "nickname": ""
+    },
+    "pk": 97
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Ewing",
+      "nickname": ""
+    },
+    "pk": 98
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jordon",
+      "last_name": "Meyer",
+      "nickname": "Jdon"
+    },
+    "pk": 99
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Will",
+      "last_name": "Lambach",
+      "nickname": ""
+    },
+    "pk": 100
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Will",
+      "last_name": "Coonrod",
+      "nickname": ""
+    },
+    "pk": 101
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Bobby",
+      "last_name": "Zilisch",
+      "nickname": ""
+    },
+    "pk": 102
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Johnny",
+      "last_name": "Goth",
+      "nickname": ""
+    },
+    "pk": 103
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Bobby",
+      "last_name": "Muray",
+      "nickname": "Stone Pony"
+    },
+    "pk": 104
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Swanson",
+      "nickname": ""
+    },
+    "pk": 105
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Drew",
+      "last_name": "Johnson",
+      "nickname": ""
+    },
+    "pk": 106
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Chuck",
+      "last_name": "Carter",
+      "nickname": "Sr."
+    },
+    "pk": 107
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Nate",
+      "last_name": "Asper",
+      "nickname": ""
+    },
+    "pk": 108
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Alex",
+      "last_name": "House",
+      "nickname": ""
+    },
+    "pk": 109
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Frank",
+      "last_name": "Bevans",
+      "nickname": ""
+    },
+    "pk": 110
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Chad",
+      "last_name": "Andersen",
+      "nickname": ""
+    },
+    "pk": 111
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Mik",
+      "last_name": "Easthouse",
+      "nickname": ""
+    },
+    "pk": 112
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jacob",
+      "last_name": "Leary",
+      "nickname": ""
+    },
+    "pk": 113
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Rhett",
+      "last_name": "Kivland",
+      "nickname": ""
+    },
+    "pk": 114
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jeff",
+      "last_name": "Lamotte",
+      "nickname": ""
+    },
+    "pk": 115
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Tim",
+      "last_name": "Foster",
+      "nickname": ""
+    },
+    "pk": 116
+  },
+  {
+    "model": "players.player",
+    "fields": {
+      "first_name": "Jesse",
+      "last_name": "Linhoff",
+      "nickname": ""
+    },
+    "pk": 117
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-04-12",
+      "course_name": "Oak Glen",
+      "is_team_event": true,
+      "notes": "$52, cart \u2014 10-10:50 (28ppl) \u2014 Sydney & Jason",
+      "season": 2025
+    },
+    "pk": 4
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-04-19",
+      "course_name": "River Oaks",
+      "is_team_event": true,
+      "notes": "$xx \u2014 10-10:50 (28ppl) \u2014 Dennis Neitz",
+      "season": 2025
+    },
+    "pk": 5
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-04-26",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Tim",
+      "season": 2025
+    },
+    "pk": 6
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-05-03",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Tim",
+      "season": 2025
+    },
+    "pk": 7
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-05-10",
+      "course_name": "Eagle Valley",
+      "is_team_event": true,
+      "notes": "$69, cart, range \u2014 10:30-11:30 (28ppl) \u2014 Josh Schroetter",
+      "season": 2025
+    },
+    "pk": 8
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-05-17",
+      "course_name": "Troy Burne",
+      "is_team_event": true,
+      "notes": "$110, cart, range \u2014 10-11:30 (40ppl) \u2014 Dave Tentis",
+      "season": 2025
+    },
+    "pk": 9
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-05-31",
+      "course_name": "Jungle Juice Open",
+      "is_team_event": true,
+      "notes": "",
+      "season": 2025
+    },
+    "pk": 10
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-06-14",
+      "course_name": "Victory Links",
+      "is_team_event": true,
+      "notes": "$89, cart \u2014 8:30-9:20 (28ppl) \u2014 Tom Kirkland",
+      "season": 2025
+    },
+    "pk": 11
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-06-21",
+      "course_name": "The Wilds",
+      "is_team_event": true,
+      "notes": "$95, cart, range \u2014 1:00-2:20 (36ppl) \u2014 Pierson Pass",
+      "season": 2025
+    },
+    "pk": 12
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-06-28",
+      "course_name": "Oak Marsh",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:10-10:10 (28ppl) \u2014 Steve Whillock",
+      "season": 2025
+    },
+    "pk": 13
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-07-12",
+      "course_name": "White Eagle",
+      "is_team_event": true,
+      "notes": "$xx \u2014 8:50-9:50 (28ppl) \u2014 Scott Landin",
+      "season": 2025
+    },
+    "pk": 14
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-07-19",
+      "course_name": "Bellwood Oaks",
+      "is_team_event": true,
+      "notes": "$xx \u2014 ????? \u2014 Mike Krug",
+      "season": 2025
+    },
+    "pk": 15
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-07-26",
+      "course_name": "Matty D Invitational",
+      "is_team_event": true,
+      "notes": "",
+      "season": 2025
+    },
+    "pk": 16
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-08-02",
+      "course_name": "Links at Northfork",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Nicki Maling",
+      "season": 2025
+    },
+    "pk": 17
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-08-09",
+      "course_name": "Clifton Highlands",
+      "is_team_event": true,
+      "notes": "$67, cart, range \u2014 10-10:50 (28ppl) \u2014 Pete Law",
+      "season": 2025
+    },
+    "pk": 18
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-08-16",
+      "course_name": "Meadows at Mystic Lake",
+      "is_team_event": true,
+      "notes": "$110, cart, prepay \u2014 12:00-1:00 (28ppl) \u2014 Chris Olson",
+      "season": 2025
+    },
+    "pk": 19
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-08-23",
+      "course_name": "River Falls Golf Club",
+      "is_team_event": true,
+      "notes": "$65, cart, range \u2014 9:00-9:50 (28ppl) \u2014 Eric Ciupik",
+      "season": 2025
+    },
+    "pk": 20
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-09-06",
+      "course_name": "Willingers",
+      "is_team_event": true,
+      "notes": "$85, cart, range \u2014 9:00-9:50 (28ppl) \u2014 Eddie Dennis",
+      "season": 2025
+    },
+    "pk": 21
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-09-13",
+      "course_name": "Hidden Greens",
+      "is_team_event": true,
+      "notes": "$xx \u2014 9:00-9:50 (28ppl) \u2014 Andy Gerber",
+      "season": 2025
+    },
+    "pk": 22
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "Major Tournament",
+      "date": "2025-09-20",
+      "course_name": "BGA British Open",
+      "is_team_event": true,
+      "notes": "TBD",
+      "season": 2025
+    },
+    "pk": 23
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-10-04",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$75, cart, range \u2014 8:30am shotgun (40ppl) \u2014 Tim",
+      "season": 2025
+    },
+    "pk": 24
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-10-11",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 10-10:50 \u2014 Tim",
+      "season": 2025
+    },
+    "pk": 25
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-10-18",
+      "course_name": "Loggers Trail",
+      "is_team_event": true,
+      "notes": "$xx \u2014 10-10:50 \u2014 Tim",
+      "season": 2025
+    },
+    "pk": 26
+  },
+  {
+    "model": "results.event",
+    "fields": {
+      "name": "2-Man Scramble",
+      "date": "2025-11-26",
+      "course_name": "Inver Wood",
+      "is_team_event": true,
+      "notes": "",
+      "season": 2025
+    },
+    "pk": 27
+  }
+]
