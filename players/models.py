@@ -3,6 +3,13 @@
 # It stores player profile data and EXPOSES CUSTOM LOGIC for career stats
 # such as events played and wins, based on results in the Score model.
 
+# 1.  Defines the PLAYER SCHEMA (data Fields)
+# 2.1 Controls how PLAYERS are displayed using __str__ - method determines what shows up when a player is referenced
+# 2.2 in the admin panel, debug logs, template loops, drop downs
+# 3.  Provides custom properties for dynamic stats (@property methods update the stats in the score model)
+# 4. Links to other models (score.player, score.teammate, score.event)
+
+# The players/models.py is the definintion of what a player is, how they appear on the page and how to calc their stats from the DB
 
 
 #-------IMPORT DEPENDENCIES-------#
