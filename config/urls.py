@@ -29,13 +29,16 @@
 # 4.3 This root file ties them all together, acting like a table of contents for the entire site/project
 
 
-
+#-----------------IMPORT DEPENDENCIES-----------------#
 from django.contrib import admin
 from django.urls import path, include
 from results.views import schedule_view
 from results.api_views import schedule_api
 from players.api_views import players_api
+#-----------------IMPORT DEPENDENCIES-----------------#
 
+
+#-----------------------------------------DEFINE PATHS-------------------------------------------------------#
 urlpatterns = [
     path('admin/', admin.site.urls),                            # DJANGO admin interface
     path('', include('core.urls')),                             # Home page and other static pages
@@ -46,3 +49,4 @@ urlpatterns = [
     path('api/schedule/', schedule_api, name='schedule_api'),   # API end point for SCHEDULE data  (json)
     path('api/players/', players_api, name='players_api'),      # API end point for PLAYER data (json)
 ]
+#-----------------------------------------DEFINE PATHS--------------------------------------------------------#
