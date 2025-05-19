@@ -1,23 +1,52 @@
+<!-- File Purpose: (LEGACY) PLAYER EDIT FORM - NO LONGER ACTIVE IN THE LIVE APP -->
+<!-- This template was originally used for editing Tour Players from the public site -->
+<!-- I have DISABLED this functionality to prevent user manipulation or accidental edits -->
+<!-- All player records are now managed securely through the Django Admin Panel only -->
+<!-- Template kept for reference and potential future internal use through authorized users? or admin feature?-->
+
+<!-- In Django templates, anything inside {% %} is a tag, it handles logic like LOOPS, CONDITIONALS, or SECURITY TOKENS-->
+
 {% extends 'core/base.html' %}
+
 {% block content %}
 
-<h1>Edit Player</h1>
+
+
+<!-- HEADER -->
+<h1>Edit Player (Disabled in Live App)</h1>
+
+
+
+<!-- FORM: This form used to allow editing player info from the public UI -->
+<!-- I removed the view that powers this to avoid front-end CRUD access -->
 
 <form method="post" enctype="multipart/form-data">
+
+    <!--CSRF = Cross-Site Request Forgery (protention token to the HTML form)  -->
+    <!-- DJANGO unclues this hidden input automatically when csrf_token is written in DJANGO TEMPLATE SYSTEM -->
   {% csrf_token %}
 
+  <!-- These fields would allow full control over player bios, stats, and images -->
   {{ form.first_name.label_tag }} {{ form.first_name }}<br>
   {{ form.last_name.label_tag }} {{ form.last_name }}<br>
   {{ form.nickname.label_tag }} {{ form.nickname }}<br>
   {{ form.hometown.label_tag }} {{ form.hometown }}<br>
   {{ form.years_active.label_tag }} {{ form.years_active }}<br>
   {{ form.career_events_played.label_tag }} {{ form.career_events_played }}<br>
- 
   {{ form.career_wins.label_tag }} {{ form.career_wins }}<br>
   {{ form.image.label_tag }} {{ form.image }}<br><br>
+  <!-- why the space inside curly brace? Just for readability -->
+   <!-- why the space between elements? because im rendering two SEPERATE elements -->
 
+  <!-- Button is no longer reachable in production -->
   <button type="submit">Update Player</button>
 </form>
 
+
+
+<!-- CANCEL: This would take you back to the player’s detail page -->
 <a href="{% url 'player_detail' object.pk %}">Cancel</a>
+
+
+
 {% endblock %}

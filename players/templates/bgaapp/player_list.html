@@ -1,7 +1,21 @@
+<!-- File Purpose: DISPLAY ALL BGA TOUR PLAYERS in a responsive card layout -->
+<!-- This is an ACTIVE TEMPLATE rendered by the PLAYERS app -->
+<!-- Users can view player bios and stats by clicking a card, which links to player_detail.html -->
+<!-- Player cards show image, name, stats, and optional Hall of Fame or accolades info -->
+<!-- Uses Bootstrap grid system + card component for layout -->
+<!-- Template extends base.html and loads static files for default images -->
+
+<!-- As of writing this, 2 things NEED WORK -->
+<!-- 1. HOF Status and 2. Accolades will someday be dynamically linked to legacy app in SEASON AWARDS-->
+
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
+
+
+
+<!-- INTERNAL STYLES: Gold text for Hall of Fame badge -->
 <style>
   .hof-highlight {
     color: goldenrod;
@@ -9,44 +23,75 @@
   }
 </style>
 
+
+
+<!-- MAIN CONTAINER -->
 <div class="container mt-5">
   <h1 class="mb-4">BGA Players</h1>
 
+  <!-- Bootstrap grid: 1 column on small screens, 3 columns on medium and up -->
   <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <!-- LOOP over all players passed into the template -->
     {% for player in object_list %}
+
+      <!-- Each player appears inside a <col> with a clickable card -->
       <div class="col">
         <a href="{% url 'player_detail' player.pk %}" class="text-decoration-none text-dark">
           <div class="card h-100 shadow-sm">
+
+            <!-- CONDITIONAL IMAGE LOGIC -->
             {% if player.image %}
+              <!-- Show player’s uploaded image -->
               <img src="{{ player.image.url }}" class="card-img-top" alt="{{ player }}">
             {% else %}
+              <!-- Show fallback image if player has no image -->
               <img src="{% static 'default_player.jpg' %}" class="card-img-top" alt="No Image">
             {% endif %}
+
+            <!-- CARD BODY: Player info -->
             <div class="card-body">
+
+              <!-- PLAYER NAME with optional nickname -->
               <h5 class="card-title">
-                {{ player.first_name }} 
+                {{ player.first_name }}
                 {% if player.nickname %}"{{ player.nickname }}" {% endif %}
                 {{ player.last_name }}
               </h5>
+
+              <!-- PLAYER STATS -->
               <p class="card-text">
                 <strong>Hometown:</strong> {{ player.hometown }}<br>
                 <strong>Years Active:</strong> {{ player.years_active }}<br>
                 <strong>Events Played:</strong> {{ player.career_events_played }}<br>
                 <strong>Career Wins:</strong> {{ player.career_wins }}<br>
+
+                <!-- HALL OF FAME BADGE -->
                 {% if player.hof_inducted %}
                   <span class="hof-highlight">🥇🧥 HOF Class of {{ player.hof_year }}</span>
                 {% endif %}
               </p>
+
             </div>
+
+            <!-- OPTIONAL ACCOLADES FOOTER -->
             {% if player.accolades %}
               <div class="card-footer bg-light">
                 <small class="text-muted">🏅 Accolades: {{ player.accolades }}</small>
               </div>
             {% endif %}
+
           </div>
         </a>
       </div>
+
     {% endfor %}
+    <!-- END PLAYER LOOP -->
+
   </div>
 </div>
+
+
+
 {% endblock %}
+<!-- END of content block -->

@@ -1,13 +1,44 @@
+<!-- File Purpose: (LEGACY) PLAYER DELETE CONFIRMATION FORM - NO LONGER ACTIVE IN THE LIVE APP -->
+<!-- This template was originally used to delete Tour PLAYERS through the public site -->
+<!-- I DISABLED this functionality to PROTECT PLAYER DATA from being deleted accidentally or malicioussly -->
+<!-- All PLAYER data is now managed through the DJANGO Admin Panel ONLY -->
+<!-- Template kept for reference and potential internal/admin use in future -->
+
+<!-- In Django templates, anything inside {% %} is a tag: it controls logic, security, or flow -->
+<!-- In contrast, {{ }} is used to display dynamic values like the player's name -->
+
+
 {% extends 'core/base.html' %}
+
 {% block content %}
 
-<h1>Delete Player</h1>
+
+
+<!-- HEADER -->
+<h1>Delete Player (Disabled in Live App)</h1>
+
+<!-- MESSAGE: Shows the name of the player that would be deleted -->
+<!-- {{ object }} automatically renders the string representation of the player model -->
 <p>Are you sure you want to delete "{{ object }}"?</p>
 
+
+
+<!-- DELETE FORM: This form would POST the deletion request -->
+<!-- Form is disabled in practice because the view was removed -->
 <form method="post">
+
+  <!-- CSRF protection token -->
   {% csrf_token %}
+
+  <!-- DELETE BUTTON: This would submit the deletion — no longer reachable in production -->
   <button type="submit">Yes, delete</button>
 </form>
 
+
+
+<!-- CANCEL: Would return to the player’s detail page instead of deleting -->
 <a href="{% url 'player_detail' object.pk %}">Cancel</a>
+
+
+
 {% endblock %}

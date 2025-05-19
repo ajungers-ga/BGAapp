@@ -1,7 +1,17 @@
+<!-- File Purpose: PLAYER PROFILE PAGE in the BGA Tour Tracker -->
+<!-- This is an ACTIVE template used to show player bios + stats + dynamic win history -->
+<!-- It extends base.html, loads static files, and uses Bootstrap styling for layout -->
+<!-- event_wins is passed in from the view and shows a list of tournaments this player has won -->
+
+
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
+
+
+
+<!-- INTERNAL STYLES: Gold text for Hall of Fame display -->
 <style>
   .hof-highlight {
     color: goldenrod;
@@ -9,46 +19,75 @@
   }
 </style>
 
+
+
+<!-- MAIN CONTAINER for player profile -->
 <div class="container mt-5">
+
+  <!-- PLAYER CARD: centered and capped at 600px width -->
   <div class="card mx-auto shadow" style="max-width: 600px;">
+
+    <!-- PLAYER IMAGE (if available) -->
     {% if object.image %}
-    <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object }}">
+      <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object }}">
     {% endif %}
 
+
+
+    <!-- CARD BODY: Player bio and career info -->
     <div class="card-body">
+
+      <!-- PLAYER NAME and optional nickname -->
       <h2 class="card-title">
         {{ object.first_name }} {% if object.nickname %}"{{ object.nickname }}" {% endif %} {{ object.last_name }}
       </h2>
 
+      <!-- BIO SECTION: Key player info -->
       <p class="card-text">
         <strong>Hometown:</strong> {{ object.hometown }}<br>
         <strong>Years Active:</strong> {{ object.years_active }}<br>
         <strong>Events Played:</strong> {{ object.career_events_played }}<br>
         <strong>Career Wins:</strong> {{ object.career_wins }}<br>
+
+        <!-- HALL OF FAME BADGE (conditional) -->
         {% if object.hof_inducted %}
-        <span class="hof-highlight">🥇🧥 HOF Class of {{ object.hof_year }}</span><br>
+          <span class="hof-highlight">🥇🧥 HOF Class of {{ object.hof_year }}</span><br>
         {% endif %}
       </p>
+
       <hr>
+
+      <!-- CAREER WIN LIST -->
       <h5>🏅 Career Wins</h5>
+
       {% if event_wins %}
-      <ul class="list-unstyled">
-        {% for win in event_wins %}
-        <a href="{% url 'leaderboard' win.event.id %}" class="text-decoration-none">
-          🏆 Win – {{ win.event.name }} – {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
-        </a>
-        {% endfor %}
-      </ul>
+        <!-- Display a list of events the player has won -->
+        <ul class="list-unstyled">
+          {% for win in event_wins %}
+            <a href="{% url 'leaderboard' win.event.id %}" class="text-decoration-none">
+              🏆 Win – {{ win.event.name }} – {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
+            </a>
+          {% endfor %}
+        </ul>
       {% else %}
-      <p class="text-muted">No wins recorded for this player yet.</p>
+        <!-- If player has no wins -->
+        <p class="text-muted">No wins recorded for this player yet.</p>
       {% endif %}
 
-
     </div>
-  </div>
+    <!-- END CARD BODY -->
 
+  </div>
+  <!-- END PLAYER CARD -->
+
+
+
+  <!-- BACK BUTTON: Returns to the full list of players -->
   <div class="mt-3 text-center">
     <a href="{% url 'player_list' %}" class="btn btn-outline-primary">← Back to All Players</a>
   </div>
+
 </div>
+<!-- END MAIN CONTAINER -->
+
 {% endblock %}
