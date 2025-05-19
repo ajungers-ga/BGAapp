@@ -21,4 +21,4 @@ class PlayerForm(forms.ModelForm):  # Used in player create/edit views
         model = Player             # Ties this form to the Player model
         fields = '__all__'         # Includes all fields (first_name, last_name, nickname, etc.)
                                    # Form will render default widgets for each field
-# ------------------------------Player Form-------------------------------#
+# ------------------------------Player Form-------------------------------#96
