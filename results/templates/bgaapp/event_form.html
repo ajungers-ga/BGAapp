@@ -1,25 +1,46 @@
+<!-- File Purpose: EDIT AN EVENT in the BGA Tour Tracker -->
+<!-- This is an ACTIVE TEMPLATE for editing tournament details like name, date, location, etc. -->
+<!-- It extends base.html for layout and loads custom form filters from form_tags -->
+<!-- After submitting the form, users can also jump straight to the leaderboard for that event -->
+
 {% extends 'core/base.html' %}
-{% load form_tags %}
+{% load form_tags %}  <!-- Custom template filter used to add Bootstrap classes to form fields -->
 
 {% block content %}
+
+
+
+<!-- MAIN CONTAINER for the form -->
 <div class="container mt-4">
   <h1>Edit Event</h1>
 
-  <form method="post" class="row g-3">
-    {% csrf_token %}
-    {{ form.name|add_class:"form-select" }}
-    {{ form.date|add_class:"form-control" }}
-    {{ form.course_name|add_class:"form-control" }}
-    {{ form.season|add_class:"form-control" }}
-    {{ form.is_team_event|add_class:"form-check-input" }}
-    {{ form.notes|add_class:"form-control" }}
 
+
+  <!-- DJANGO FORM (method = post) -->
+  <!-- Using Bootstrap grid system: row with gaps -->
+  <form method="post" class="row g-3">
+    {% csrf_token %}  <!-- Security token for POST forms -->
+
+    <!-- Each field rendered manually so I can apply styling via add_class -->
+    {{ form.name|add_class:"form-select" }}          <!-- Dropdown for event name (used for majors) -->
+    {{ form.date|add_class:"form-control" }}         <!-- Date input for when event is played -->
+    {{ form.course_name|add_class:"form-control" }}  <!-- Name of course -->
+    {{ form.season|add_class:"form-control" }}       <!-- Year/season (e.g., 2025) -->
+    {{ form.is_team_event|add_class:"form-check-input" }}  <!-- Checkbox if event is a team format -->
+    {{ form.notes|add_class:"form-control" }}        <!-- Optional notes field -->
+
+
+
+    <!-- SUBMIT + CANCEL BUTTONS -->
     <div class="col-12">
       <button type="submit" class="btn btn-success">Update Event</button>
       <a href="{% url 'event_list' %}" class="btn btn-secondary ms-2">Cancel</a>
     </div>
   </form>
 
+
+
+  <!-- OPTIONAL BUTTON: Only appears when editing an existing event (not on "create new") -->
   {% if object %}
     <div class="mt-3">
       <a href="{% url 'leaderboard' object.pk %}" class="btn btn-outline-dark">
@@ -27,5 +48,8 @@
       </a>
     </div>
   {% endif %}
+
 </div>
+<!-- END CONTAINER -->
+
 {% endblock %}

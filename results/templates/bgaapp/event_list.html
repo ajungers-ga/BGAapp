@@ -1,19 +1,35 @@
+<!-- File Purpose: CREATE + VIEW ALL BGA EVENTS in one place -->
+<!-- This is an ACTIVE TEMPLATE in the results app -->
+<!-- It renders a form to create a new tournament + a list of all existing events -->
+<!-- It uses form filters from form_tags.py to apply Bootstrap classes -->
+<!-- Extends base.html and follows the BGA layout structure -->
+
 {% extends 'core/base.html' %}
 {% load form_tags %}
 
 {% block content %}
 
+
+
+<!-- MAIN CONTAINER -->
 <div class="container mt-4">
   <h1 class="mb-4">Tour Results</h1>
 
+
+
+  <!-- FORM CARD: Used to create a new BGA event -->
   <div class="card mb-4">
     <div class="card-header">
       <h2 class="h5 mb-0">Create a New Event</h2>
     </div>
     <div class="card-body">
+
+      <!-- EVENT FORM (method = POST) -->
+      <!-- Fields styled using custom |add_class filter -->
       <form method="post" class="row g-3">
         {% csrf_token %}
 
+        <!-- Each field rendered manually with Bootstrap layout -->
         <div class="col-md-6">
           <label for="name" class="form-label">Event Name:</label>
           {{ form.name|add_class:"form-select" }}
@@ -44,6 +60,7 @@
           {{ form.notes|add_class:"form-control" }}
         </div>
 
+        <!-- SUBMIT BUTTON -->
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Add Event</button>
         </div>
@@ -51,21 +68,30 @@
     </div>
   </div>
 
+
+
+  <!-- SEPARATOR LINE -->
   <hr>
 
+
+
+  <!-- EVENTS LIST SECTION -->
   <h2>All Events</h2>
   <ul class="list-group">
+
     {% for event in events %}
       <li class="list-group-item">
+
+        <!-- EVENT SUMMARY -->
         <strong>{{ event.name }}</strong> at {{ event.course_name }} on {{ event.date }}
-        {% if event.is_team_event %}(2-Man Team){% else %}(Solo Event){% endif %}<br>
+        {% if event.is_team_event %}
+          (2-Man Team)
+        {% else %}
+          (Solo Event)
+        {% endif %}
+        <br>
+
+        <!-- ACTION BUTTONS: Edit and Delete -->
         <a href="{% url 'event_update' event.pk %}" class="btn btn-sm btn-outline-primary mt-2">Edit</a>
         <a href="{% url 'event_delete' event.pk %}" class="btn btn-sm btn-outline-danger mt-2">Delete</a>
       </li>
-    {% empty %}
-      <li class="list-group-item">No events yet.</li>
-    {% endfor %}
-  </ul>
-</div>
-
-{% endblock %}

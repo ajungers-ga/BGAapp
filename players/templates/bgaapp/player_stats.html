@@ -4,6 +4,8 @@
 <!-- Template extends base.html and uses Bootstrap classes for styling -->
 <!-- Data is passed in from the view as a list of all players ordered by career success -->
 
+<!-- Each player name is wrapped in a link that dynamically points to their profile. I used { % url 'player_detail' player.id % } -->
+
 
 {% extends 'core/base.html' %}
 {% load static %}
