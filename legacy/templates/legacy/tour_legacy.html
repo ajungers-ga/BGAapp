@@ -1,13 +1,33 @@
+<!-- File Purpose: LEGACY HOME PAGE for the BGA Tour Tracker -->
+<!-- This template shows a list of past seasons (2019–2024) as buttons -->
+<!-- When a user clicks a season, they are taken to the season_detail page for that year -->
+
 {% extends 'core/base.html' %}
+
+<!-- Inject this page’s unique content into the shared layout from base.html -->
 {% block content %}
 
+
+
+<!-- HEADER: Title and instruction -->
 <h1>Tour Legacy</h1>
 <p>Select a season to view historical results:</p>
 
+
+
+<!-- SEASON BUTTONS SECTION -->
+<!-- Use a flex container to show the years as individual buttons -->
+<!-- The 'seasons' list is passed in from the view — it contains years like 2019-2025 -->
 <div class="d-flex flex-wrap gap-2">
   {% for year in seasons %}
-    <a class="btn btn-secondary" href="/legacy/{{ year }}/">{{ year }} Season</a>
+    <!-- Each button links to /legacy/<year>/ which maps to season_detail view -->
+    <a class="btn btn-secondary" href="/legacy/{{ year }}/">
+      {{ year }} Season
+    </a>
   {% endfor %}
 </div>
 
+
+
 {% endblock %}
+<!-- END of content block -->

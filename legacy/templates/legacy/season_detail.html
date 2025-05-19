@@ -1,35 +1,64 @@
+<!-- File Purpose: Display all BGA Tour events for a specific SEASON (2019–2025) -->
+<!-- This template is part of the LEGACY app -->
+<!-- It extends base.html and injects content into the block content section -->
+<!-- Events are passed in as a list from the season_detail view -->
+<!-- Each event gets its own row with name, date, course, and a link to the leaderboard -->
+
 {% extends 'core/base.html' %}
+
+<!-- Inject this page’s unique content into base.html layout -->
 {% block content %}
 
+
+
+<!-- HEADER: Shows which season the user is looking at -->
 <h1>{{ season }} Season Results</h1>
 
+
+
+<!-- CHECK IF THERE ARE ANY EVENTS FOR THIS SEASON -->
 {% if events %}
+  <!-- If events exist, loop through them and display each one in a styled list -->
   <ul class="list-group">
- {% for event in events %}
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    <div>
-      <strong>{{ event.name }}</strong> — {{ event.course_name }} on {{ event.date|date:"F j, Y" }}
-    </div>
 
-    {% if event.scores.count > 0 %}
-      <a href="{% url 'leaderboard' event.id %}" class="btn btn-sm btn-outline-primary">
-        View Leaderboard
-      </a>
-    {% else %}
-      <a href="{% url 'leaderboard' event.id %}" class="btn btn-sm btn-outline-danger">
-        No Scores to Display
-      </a>
-    {% endif %}
-  </li>
+    {% for event in events %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
 
-{% endfor %}
+        <!-- LEFT SIDE: Show event name, course, and formatted date -->
+        <div>
+          <strong>{{ event.name }}</strong> — {{ event.course_name }} 
+          on {{ event.date|date:"F j, Y" }}
+        </div>
+
+        <!-- RIGHT SIDE: Show a button based on whether scores exist -->
+        {% if event.scores.count > 0 %}
+          <!-- If scores exist, show normal “View Leaderboard” button -->
+          <a href="{% url 'leaderboard' event.id %}" class="btn btn-sm btn-outline-primary">
+            View Leaderboard
+          </a>
+        {% else %}
+          <!-- If no scores exist, show a red warning-style button -->
+          <a href="{% url 'leaderboard' event.id %}" class="btn btn-sm btn-outline-danger">
+            No Scores to Display
+          </a>
+        {% endif %}
+
+      </li>
+    {% endfor %}
 
   </ul>
-  
+
 {% else %}
+  <!-- If no events are found for this season -->
   <p>No events recorded for this season yet.</p>
 {% endif %}
 
+
+
+<!-- BACK BUTTON: Return to the main Tour Legacy page -->
 <a class="btn btn-secondary mt-3" href="{% url 'tour_legacy' %}">← Back to Legacy</a>
 
+
+
 {% endblock %}
+<!-- END of content block -->
