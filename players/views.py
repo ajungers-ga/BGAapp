@@ -12,11 +12,11 @@
 # (s/o my classmate -  Zack, for breaking that down for me in unit 4 group collab)
 
 # views in order top down
-# 1. PLAYER LIST VIEW #-----# (Tour Players Page)
-# 2. PLAYER DETAIL VIEW #---# (Tour Player Detail card (profile page))
-# 3. PLAYER UPDATE VIEW #---# (INACTIVE: update player (profile page))
-# 4. PLAYER DELETE VIEW #---# (INACTIVE: delete players from the Tour Players Page)
-# 5. PLAYER STATS VIEW #----# (Career Stats Page)
+# (line39)  1. PLAYER LIST VIEW #-----# (Tour Players Page)
+# (line94)  2. PLAYER DETAIL VIEW #---# (Tour Player Detail card (profile page))
+# (line132) 3. PLAYER UPDATE VIEW #---# (INACTIVE: update player (profile page))
+# (line158) 4. PLAYER DELETE VIEW #---# (INACTIVE: delete players from the Tour Players Page)
+# (line178) 5. PLAYER STATS VIEW #----# (Career Stats Page)
 
 
 
@@ -73,7 +73,7 @@ class PlayerListView(ListView):
         # Both are required to process a file-uploading form properly
 
         if form.is_valid():
-            # Checks the form's built-in validation logic
+            # Checks the forms built in validation logic
             # Makes sure all required fields are filled, types are correct, no validation errors
 
             form.save()                     
@@ -108,10 +108,10 @@ class PlayerDetailView(DetailView):
         # super() = gets the default context data (includes 'object', which is the Player)
 
         player = self.get_object()
-        # self.get_object() = grabs the Player object based on the primary key in the URL (e.g., /players/3/)
+        # self.get_object() = grabs the Player object based on the primary key in the URL (like /players/3/)
 
         # BELOW = Query the Score model to find wins for this player
-        # Q(player=player) | Q(teammate=player) = include scores where player OR teammate is this person
+        # Q(player=player) | Q(teammate=player) = include scores where player OR (|) teammate is this person
         # placement__in = make sure we match either "1" or "1st" in the placement field
         # .select_related("event") = preloads the linked Event data to avoid extra DB hits per loop
         context['event_wins'] = Score.objects.filter(

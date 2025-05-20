@@ -4,7 +4,22 @@
 # - EventForm: for entering or editing tournaments
 # - ScoreForm: for entering or editing player scores
 
-# Widgets and attributes are used to control how fields appear in the browser.
+# Widgets and attributes let me control how each form field shows up in the browser
+# i define them inside the Meta class using a widgets = {} dictionary
+# For example:
+# - 'date': forms.DateInput - makes the DATE field show up as a calendar input (<input type="date">)
+# - 'notes': forms.Textarea - makes the NOTES field a bigger text box (instead of a small single line)
+
+# Inside each widget, I use attrs={} to fine-tune how the field looks:
+# - 'class': lets me apply Bootstrap styling (like 'form-control' or 'form-check-input')
+# - 'placeholder': adds helper text inside the input to guide the user
+# - 'type': lets me force the HTML input type (like 'date', 'text', etc.)
+
+# These widgets dont change the actual model or form logic — they just control the frontend experience
+
+
+
+
 
 #---------IMPORT DEPENDENCIES----------#
 from django import forms
