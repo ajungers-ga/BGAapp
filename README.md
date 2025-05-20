@@ -1,8 +1,10 @@
 # 🏌️‍♂️ BGA League Tracker — Final Project (General Assembly)
 
-This project is the **capstone of my Software Engineering program at General Assembly** — and a personal passion project I plan to maintain and grow for years to come.
+This application is the **capstone project** of my Software Engineering program at General Assembly — and a long-term passion project designed to track the history, stats, and competitiveness of the **Beast Golf Association (BGA)**, a Minnesota-based tour of legendary 2-man scrambles and major tournaments.
 
-It tracks events, players, and historical performance in the **Beast Golf Association**, a competitive and fun league touring the great Golf Courses in Minnesota.
+I built it to showcase my full-stack development skills while creating something useful and meaningful for my community.
+
+🔗 **Live Site:** [https://bgaapp.fly.dev/](https://bgaapp.fly.dev/)
 
 ---
 
@@ -10,47 +12,73 @@ It tracks events, players, and historical performance in the **Beast Golf Associ
 
 **Backend:**
 - Python 3.11  
-- Django 5.2  
-- Django Admin  
-- PostgreSQL (Fly.io Postgres cluster)
+- Django 5.0  
+- PostgreSQL (hosted via Fly.io)
 
 **Frontend:**
-- Django Templates  
+- Django Templates (MVT)  
 - Bootstrap 5  
-- Custom CSS
+- Custom CSS (`styles.css`)
 
 **Deployment & DevOps:**
-- Fly.io (Docker-based deployment)  
-- Git & GitHub  
-- Admin login & fixture data loading in production
+- Fly.io (Docker-based deployment)
+- Git & GitHub
+- Admin login & live database seeded via fixture
 
 ---
 
-## 🧠 New Tech I Learned On My Own
+## 💡 Key Features
 
-To bring this project to life, I stepped beyond the GA curriculum and learned:
+- Countdown and display of **next and most recent event** on the homepage
+- Full **event management system**: create, edit, delete events + dynamic schedule view
+- **Score submission** with player matching, placement calculation, and tie handling
+- **Leaderboard medals** 🥇🥈🥉 based on dynamic sorting and placement logic
+- **Auto-complete player name form** via `<datalist>`
+- Tour player profiles showing **dynamic career stats** (events played, wins, majors)
+- Legacy archive of **all BGA seasons**, dynamically grouped by year
 
-- ✅ How to deploy a Django app using **Fly.io**
-- ✅ How to provision and use a **PostgreSQL cluster in production**
-- ✅ How to manage **CSRF protection** and domain trust settings in a live web app
-- ✅ How to load clean fixture data in a Dockerized Django container
-- ✅ Advanced Django modeling techniques including:
-  - Calculated fields via `@property`
-  - Finalized event logic
-  - Tie/placement scoring with medals 🥇🥈🥉
+---
+
+## 🧠 What I Taught Myself
+
+This project pushed me beyond the GA curriculum. I independently learned how to:
+
+- ✅ Deploy a full Django app using **Fly.io**
+- ✅ Provision and manage a **PostgreSQL production cluster**
+- ✅ Load and sanitize **fixture data** inside Docker containers
+- ✅ Secure the app with **CSRF protection**, domain trust settings, and secret keys
+- ✅ Build **calculated fields** in models (e.g., career wins, events played) using `@property`
+- ✅ Recalculate **placement logic with tie detection** across leaderboard events
+- ✅ Implement **finalization logic** to control when results affect career stats
 
 ---
 
 ## 🔒 Admin Panel (Live)
 
-[https://bgaapp.fly.dev/admin](https://bgaapp.fly.dev/admin)
+Access the admin backend (requires login):
+
+👉 [https://bgaapp.fly.dev/admin](https://bgaapp.fly.dev/admin)
 
 ---
 
-## 🌱 Future Features
+## 📅 Roadmap: Future Features
 
-- Full season-by-season results archive (backfilling 2019–2024)
-- Public player profiles with headshots, nicknames, and stats
-- Tournament photo galleries
-- Interactive charts and filters
-- Team builder + signup forms for upcoming events
+- Backfill complete **results history from 2019–2024**
+- Public **player bios** with headshots, nicknames, and sortable stats
+- Tournament **photo galleries**
+- **Interactive charts and filters** for advanced stat breakdowns
+- Team signup form for **upcoming events**
+- Admin modals for easier score editing/deletion
+- Smarter logic for **course-specific par values**
+
+---
+
+## 📸 Screenshots (Coming Soon)
+
+Stay tuned! Visual walkthrough of leaderboard, admin panel, and player profiles.
+
+---
+
+## 🧑‍💻 Author
+
+Built by [Alex Jungers](https://github.com/ajungers-ga) — Software Engineer, golfer, stats nerd
