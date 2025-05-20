@@ -5,6 +5,19 @@
 # Imports forms, models, and Score data for cross-app logic (like events played and wins)
 # This file handles both displaying players and processing form submissions (like editing or creating)
 
+# Why use reverse_lazy instead of reverse()?
+# Because all of my reverse_lazy references exist INSIDE a class definition,
+# which loads as soon as DJANGO starts, but the URL patterns may not be loaded,
+# which would BREAK reverse(), BUT reverse_lazy() DELAYS that lookup until the view actually runs 
+# (s/o my classmate -  Zack, for breaking that down for me in unit 4 group collab)
+
+# views in order top down
+# 1. PLAYER LIST VIEW #-----# (Tour Players Page)
+# 2. PLAYER DETAIL VIEW #---# (Tour Player Detail card (profile page))
+# 3. PLAYER UPDATE VIEW #---# (INACTIVE: update player (profile page))
+# 4. PLAYER DELETE VIEW #---# (INACTIVE: delete players from the Tour Players Page)
+# 5. PLAYER STATS VIEW #----# (Career Stats Page)
+
 
 
 
@@ -23,7 +36,7 @@ from results.models import Score                        # imported to calculate 
 
 
 
-#----------------------------PLAYER LIST VIEW (ALL PLAYERS PAGE)----------------------------#
+#---------------------------- 1. PLAYER LIST VIEW (ALL PLAYERS PAGE)----------------------------#
 class PlayerListView(ListView):
     model = Player
     template_name = 'bgaapp/player_list.html'
@@ -78,24 +91,36 @@ class PlayerListView(ListView):
 
 
 
-#----------------------------PLAYER DETAIL VIEW (PROFILE PAGE)----------------------------#
+#---------------------------- 2. PLAYER DETAIL VIEW (PROFILE PAGE)----------------------------#
 class PlayerDetailView(DetailView):
     model = Player
+    # model = This view is tied to the Player model — it will display a single Player’s profile page
+
     template_name = 'bgaapp/player_detail.html'
+    # template_name = This is the HTML file that shows player details (name, image, hometown, stats, etc.)
 
+    # BELOW = Overriding DJANGO’S get_context_data method to add custom variables to the template
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        player = self.get_object()  # Load the player from the URL’s primary key (pk)
+        # self = PYTHON’S reference to the current class instance (PlayerDetailView)
+        # **kwargs = lets Django pass in additional context arguments (like object metadata)
 
-        # BELOW = Get all event wins where this player was either player or teammate
-        # models.Q() lets me OR conditions (player= or teammate=)
-        # placement__in = handles both "1" and "1st" as valid first place strings
+        context = super().get_context_data(**kwargs)
+        # super() = gets the default context data (includes 'object', which is the Player)
+
+        player = self.get_object()
+        # self.get_object() = grabs the Player object based on the primary key in the URL (e.g., /players/3/)
+
+        # BELOW = Query the Score model to find wins for this player
+        # Q(player=player) | Q(teammate=player) = include scores where player OR teammate is this person
+        # placement__in = make sure we match either "1" or "1st" in the placement field
+        # .select_related("event") = preloads the linked Event data to avoid extra DB hits per loop
         context['event_wins'] = Score.objects.filter(
             models.Q(player=player) | models.Q(teammate=player),
             placement__in=["1", "1st"]
-        ).select_related("event")  # Optimizes DB query by joining related event data
+        ).select_related("event")
 
         return context
+        # Return the updated context dictionary — now includes both the Player AND their event wins
 #----------------------------PLAYER DETAIL VIEW (PROFILE PAGE)----------------------------#
 
 
@@ -103,12 +128,25 @@ class PlayerDetailView(DetailView):
 
 
 
-#----------------------------PLAYER UPDATE VIEW (EDIT PAGE)----------------------------#
+
+#---------------------------- 3. PLAYER UPDATE VIEW (EDIT PAGE)----------------------------#
+# INACTIVE! This view is DISCONNECTED from the public site to protect player data
 class PlayerUpdateView(UpdateView):
     model = Player
+    # model = Tells Django which MODEL this view is updating (in this case, a Player object)
+
     form_class = PlayerForm
+    # form_class = Connects the view to my custom PLAYER FORM (defined in forms.py)
+    # This is the form users will fill out when editing an existing player
+
     template_name = 'bgaapp/player_form.html'
-    success_url = reverse_lazy('player_list')  # Redirect back to list after update
+    # template_name = Tells Django which HTML template to render for the edit form
+    # This file will contain {{ form }} and a submit button
+
+    success_url = reverse_lazy('player_list')
+    # success_url = Where to redirect after a successful form submission
+    # reverse_lazy = used instead of reverse() to avoid issues at import time (recommended in class-based views)
+    # 'player_list' = Name of the route in urls.py → sends user back to the full player list page
 #----------------------------PLAYER UPDATE VIEW (EDIT PAGE)----------------------------#
 
 
@@ -116,29 +154,53 @@ class PlayerUpdateView(UpdateView):
 
 
 
-#----------------------------PLAYER DELETE VIEW (CONFIRM DELETE PAGE)----------------------------#
+
+#---------------------------- 4. PLAYER DELETE VIEW (CONFIRM DELETE PAGE)----------------------------#
+# INACTIVE! This view is DISCONNECTED from the public site to protect player data
+# It was originally used to delete players via the front-end, but I disabled this
+# Deletion can now only happen internally via the Django Admin Panel
+
 class PlayerDeleteView(DeleteView):
     model = Player
+    # model = The model this view will delete (Player)
+
     template_name = 'bgaapp/player_confirm_delete.html'
-    success_url = reverse_lazy('player_list')  # Redirect to list after deletion
+    # template_name = HTML template that shows the deletion confirmation prompt
+
+    success_url = reverse_lazy('player_list')
+    # success_url = After deletion, redirect to the main player list page
+    # reverse_lazy = resolves the 'player_list' route name safely at runtime
+
 #----------------------------PLAYER DELETE VIEW (CONFIRM DELETE PAGE)----------------------------#
 
 
 
-
-
-
-#----------------------------PLAYER STATS VIEW (CAREER STATS PAGE)----------------------------#
+#---------------------------- 5. PLAYER STATS VIEW (CAREER STATS PAGE)----------------------------#
 class PlayerStatsView(TemplateView):
     template_name = 'bgaapp/player_stats.html'
+    # template_name = This is the HTML file that renders the career stats table
+    # Uses {{ player.first_name }}, {{ player.career_wins }}, etc. inside a Bootstrap table
 
+    # BELOW = Overriding DJANGO’S get_context_data method to pass in my own custom data
     def get_context_data(self, **kwargs):
+        # self = PYTHONS reference to the CURRENT INSTANCE of the class (PlayerStatsView)
+        # **kwargs = allows Django to pass in extra info (like object metadata or session state)
+
         context = super().get_context_data(**kwargs)
-        
-        # BELOW = sort all players in DESCENDING ORDER of career_wins
-        # lambda p: p.career_wins → pulls wins from each player
-        players = sorted(Player.objects.all(), key=lambda p: p.career_wins, reverse=True)
+        # super() = calling Django’s built-in method to initialize the default context
+        # This ensures any standard variables are still included (even though I’m not using any)
+
+        # Custom logic: grab ALL players and sort by career_wins (highest first)
+        players = sorted(
+            Player.objects.all(),                # Pull all player objects from the database
+            key=lambda p: p.career_wins,         # lambda function = get the career_wins for each player
+            reverse=True                         # reverse=True = sort from most to least
+        )
 
         context['players'] = players
+        # Add the sorted player list to the context dictionary so it can be used in the template
+        # Template will loop through {{ players }} to render stats
+
         return context
+        # Return the full context to be passed into player_stats.html
 #----------------------------PLAYER STATS VIEW (CAREER STATS PAGE)----------------------------#
