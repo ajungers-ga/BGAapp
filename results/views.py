@@ -16,8 +16,8 @@
 # /(line132)    / 3. EventUpdateView          / (Edit Event)
 # /(line154)    / 4. EventDeleteView          / (Delete Event)
 # /(line178)    / 5. leaderboard_view         / (Leaderboard + Add Score)
-# 6. edit_score_view       (Edit Score)
-# 7. delete_score          (Delete Score from Event)
+# /(line369)    / 6. edit_score_view          / (Edit Score)
+# /(line445)    / 7. delete_score             / (Delete Score from Event)
 
 #-------------------------------IMPORT DEPENDENCIES--------------------------------#
 from django.shortcuts import render, redirect, get_object_or_404
@@ -368,25 +368,50 @@ def leaderboard_view(request, pk):
 
 #---------------------------- 6. EDIT SCORE VIEW (Edit Submitted Score) ----------------------------#
 @require_http_methods(["GET", "POST"])
+# @ is the PTHON DECORATOR SYMBOL (shorthand for "wrap this FUNCTION W/ another FUNCTION")
+# Stops users from accessing it via weird methods like DELETE or PUT
+# GET = show the form with the current score info pre filled
+# POST = process the form submission and update the Score in the DB
 def edit_score_view(request, score_id):
     score = get_object_or_404(Score, id=score_id)
+    # STEP 1 = Find the specific SCORE we want to edit, using its unique ID (score_id)...
+    # get_object_or_404 = builtin DJANGO FUNCTION — returns the object or shows 404 page if not found
+
     event = score.event
+    # STEP 2 = Load the EVENT this SCORE is tied to (used later for placement)
 
     if request.method == "POST":
+    # Step 3 = If the user submitted the form via (POST), its processed below
+    
         form = ScoreForm(request.POST, instance=score)
+        # STEP 4 = Create a new ScoreForm using the submitted form data AND tie it to the existing SCORE instance
+        # instance=score is KEY — tells DJANGO im EDITING this EXACT SCORE object (not creating a new one)
+        # W/o instance=score, DJANGO would try to make a whole NEW SCORE object
+    
         if form.is_valid():
+        # STEP 5 = If the form passes validation, update the Score fields and save to DB
             updated_score = form.save(commit=False)
+            # save(commit=False) = holds off on saving the changes so the extra fields can be modified first 
             updated_score.to_par = updated_score.score - 72
+            # Manually recalculate the to_par field (just like in leaderboard_view) (NEEDS WORK -PAR72 is not global)
             updated_score.save()
-
-            # Recalculate placements
+            # This line saves the updated Score object to the DB
+           
+            # STEP 6 = Recalculate leaderboard placements for the full event
             ordered_scores = event.scores.order_by('score')
+            # Grab ALL scores for this event, ordered lowest to highest (classic leaderboard logic)
+            
             placement = 1
             last_score = None
             actual_placement = 1
+            # placement = display placement for ties (can stay the same across multiple scores)
+            # actual_placement = always increases by 1 and controls next available place number
+            # last_score = tracks what the previous score value was so we can detect TIES 
+
 
             for s in ordered_scores:
                 if last_score is not None and s.score == last_score:
+                    #Tie Check = If this score is the same as the one before it, assign the same PLACEMENT
                     s.placement = f"{placement}"
                 else:
                     placement = actual_placement
@@ -394,40 +419,74 @@ def edit_score_view(request, score_id):
                 s.save()
                 last_score = s.score
                 actual_placement += 1
+                # Placement logic loops through the scores and handles ties so same scores = same place
 
             return redirect('leaderboard', pk=event.pk)
+            # After everything is updated, redirect user back to the same leaderboard page
+            # pk=event.pk = keeps the user inside the correct event context
     else:
         form = ScoreForm(instance=score)
+        # If user is just visiting the edit page (GET request), show them a pre filled ScoreForm
+        # instance=score = pre-loads the form fields with current data for this score
 
     return render(request, 'bgaapp/edit_score.html', {
         'form': form,
         'score': score,
         'event': event
     })
+    # STEP 7 = render the edit_score.html template
+    # Passes 3 objects:
+    # 'form' = the form itself (for display)
+    # 'score' = the actual score object (can show values in the template)
+    # 'event' = used for the header/title or back button link
 #--------------------------------------------------------------------------------------------------#
 
 
 #---------------------------- 7. DELETE SCORE VIEW (Remove a Score + Recalculate) ----------------------------#
 def delete_score(request, pk):
     score = get_object_or_404(Score, pk=pk)
-    event = score.event
-    score.delete()
+    # STEP 1 = Get the specific SCORE to delete using its primary key (pk)
+    # get_object_or_404 = DJANGO FUNCTION that either returns the Score or shows a 404 page if it doesn’t exist
 
-    # Recalculate placements after deletion
+    event = score.event
+    # STEP 2 = Grab the EVENT this score belongs to (used later to recalculate placements and redirect properly)
+
+    score.delete()
+    # STEP 3 = Delete the selected SCORE from the database
+    # DJANGO handles this with a single .delete() call on the object
+    # This is a PERMANENT delete — the record is removed from the scores table
+
+    # STEP 4 = Recalculate leaderboard placements after the deletion
     ordered_scores = event.scores.order_by('score')
+    # After deleting, re-pull all remaining scores for this event, sorted lowest to highest
+
     placement = 1
     last_score = None
     actual_placement = 1
+    # placement = tracks visible placement (so tied scores share the same number)
+    # last_score = helps us detect if the current score matches the previous one (TIE CHECK)
+    # actual_placement = always increases by 1 — even if placement doesn't (used to assign the next available slot)
 
     for s in ordered_scores:
         if last_score is not None and s.score == last_score:
+            # If this score is a TIE with the last one, give it the SAME placement
             s.placement = f"{placement}"
         else:
+            # If NOT a tie, assign the next available placement number
             placement = actual_placement
             s.placement = f"{placement}"
-        s.save()
+        s.save() # save is DJANGO METHOD, () must be included. Thats how PYTHOIN knows to execute METHOD
+        # Save the updated placement to the DB
+
         last_score = s.score
+        # Update last_score tracker for the next loop
         actual_placement += 1
+        # Always increment actual_placement no matter what
+        # Even if there’s a tie and placement stays the same, this tracks how many scores we’ve looped through
 
     return redirect('leaderboard', pk=event.pk)
+    # STEP 5 = After recalculating, send user back to the leaderboard for the same event
+    # pk=event.pk = keeps the user within the correct event context
+
 #--------------------------------------------------------------------------------------------------#
+
