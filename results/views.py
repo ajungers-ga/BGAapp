@@ -9,12 +9,13 @@
 # Same as players/views — since class based views are loaded at import time, 
 # reverse_lazy delays the URL resolution until the view is used
 
-# View Order from top down:
-# (line34) 1. schedule_view         (Upcoming Events Page)
-# (line60) 2. EventListView         (List + Create Events)
-# 3. EventUpdateView       (Edit Event)
-# 4. EventDeleteView       (Delete Event)
-# 5. leaderboard_view      (Leaderboard + Add Score)
+# /block begins / View Order from top down    / What it shows
+
+# /(line34)     / 1. schedule_view            / (Upcoming Events Page)
+# /(line60)     / 2. EventListView            / (List + Create Events)
+# /(line132)    / 3. EventUpdateView          / (Edit Event)
+# /(line154)    / 4. EventDeleteView          / (Delete Event)
+# /(line178)    / 5. leaderboard_view         / (Leaderboard + Add Score)
 # 6. edit_score_view       (Edit Score)
 # 7. delete_score          (Delete Score from Event)
 
@@ -154,75 +155,199 @@ class EventUpdateView(UpdateView):
 #---------------------------- 4. EVENT DELETE VIEW (Confirm & Delete Event) ----------------------------#
 class EventDeleteView(DeleteView):
     model = Event
+    # model = Tells DJANGO this view is tied to the EVENT model — we’ll be deleting one Event at a time
+
     template_name = 'bgaapp/event_confirm_delete.html'
-    success_url = reverse_lazy('event_list')  # go back to list after deletion
-#--------------------------------------------------------------------------------------------------#
+    # template_name = This is the HTML file that shows the confirmation message:
+    # “Are you sure you want to delete this event?”
+    # Template uses {{ object.name }} and a <form method="post"> to confirm deletion
+
+    success_url = reverse_lazy('event_list')
+    # success_url = After deletion, redirect back to the main list of events
+    # reverse_lazy = delays the URL resolution until the view runs — safer to use in class based views
+    # 'event_list' = refers to the named route from results/urls.py
+
+#---------------------------- 4. EVENT DELETE VIEW (Confirm & Delete Event) ----------------------------#
+
+
+
+
+
 
 
 #---------------------------- 5. LEADERBOARD VIEW (View + Add Scores) ----------------------------#
 def leaderboard_view(request, pk):
+    # leaderboard_view = A FUNCTION based view that handles BOTH:
+    # 1. Showing the current leaderboard (GET request)
+    # 2. Adding a new score to that leaderboard (POST request)
+    # pk = The primary key of the Event being viewed (passed from the URL)    
     event = get_object_or_404(Event, pk=pk)
+        # Look up the Event using its primary key
+        # If no Event exists with that pk, show a 404 error page
     scores = event.scores.order_by('score')
+        # Get all SCORE objects linked to this EVENT
+        # .scores = reverse relationship (Score model has a FK to Event)
+        # .order_by('score') = sort scores from lowest to highest (golf style leaderboard)
+    
 
     if request.method == 'POST':
+        # If user submitted the form, process the POST request below
         form = ScoreForm(request.POST)
+            # Create a ScoreForm instance using the data from the form
+            # request.POST = all text input from the submitted form
         if form.is_valid():
+            # Check if the form passed DJANGOS built in validation
             score_entry = form.save(commit=False)
+                # Create a new Score object from the form, but DON’T save to DB yet
+                # I will manually attach the event + match the player names first
 
             player_name = form.cleaned_data['player']
             teammate_name = form.cleaned_data['teammate']
+                # Pull the cleaned text inputs from the form (both required for my logic)
             valid = True
-
-            # Try to match typed name to Player model
+                # Flag that tracks whether both names were matched to real Player objects
+                
+            # BELOW  = Try to match typed name to Player model 
+            # .strip is PYTHON string METHOD (remove whitespace around text like space)
+            # .split= turns string into multiple pieces with "space" and how many times to split
             try:
-                first, last = player_name.strip().split(" ", 1)
+                first, last = player_name.strip().split(" ", 1) 
                 score_entry.player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
+                # player.objects.get = DJANGO ORM to query player model, goal is first and last name match exact
+                # __iexact is LOOKUP MODIFER in DJANGO that is case-INSENSITIVE (alex === Alex, ALEX, alEx)
+                    
+            # BELOW = Try/except block handles errors from query like if .split fals or player does not exist
+            # if either of those happen, add an error message to the form. 
+            # valid = False UNTIL the USER fixes the error (never the systems fault ;) )
             except (ValueError, Player.DoesNotExist):
                 form.add_error('player', f"No player found for '{player_name}'.")
                 valid = False
 
             if teammate_name:
+                # check if a teammate name was submitted on the form 
+                # (teammate is optional, bc 1. not all players are in system 2. Some events are solo play/no teams)
                 try:
                     first, last = teammate_name.strip().split(" ", 1)
+                    # clean up and split the teammate name
+                    # .strip() = removes whitespace like spacces
+                    # .split (" ", 1) = splits teammate name string into 2 pieces (first & last)
                     score_entry.teammate = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
+                    # DJANGO ORM to look up teammate in the PLAYER MODEL
+                    # .get(...) = find one UNIQUE MATCH
+                    # __iexact = LOOKUP MODIFER in DJANGO that is case-INSENSITIVE (alex === Alex, ALEX, alEx)
+                    
+                    
+            # BELOW = Try/except block handles errors from query like if .split fals or player does not exist
+            # if either of those happen, add an error message to the form. 
+            # valid = False UNTIL the USER fixes the error (never the systems fault ;) )
                 except (ValueError, Player.DoesNotExist):
                     form.add_error('teammate', f"No player found for '{teammate_name}'.")
                     valid = False
+                    
+                    
             else:
                 score_entry.teammate = None
+                # if the teammate field was left blank, no problem. 
+                # Set to the database so it knows score is solo (slight issue with this below)
+                # i dont have EVERY SINGLE PLAYER in the data base from the inceptioon of BGA...
+                # ... only players who have 5+ events OR a tour win were added to the original player list
+                # so in the circumstance that I seed all the old EVENTS - there will be leaderboards w/ mostly...
+                # teams of 2 but also will APPEAR like some players posted SOLO scores in these 2man scrambles
+                # solution is prob to bite the bullet and ADD EVERY SINGLE PLAYER to the database thru admin/portal
+                
 
             if not valid:
+                # if anything went wrong with the LOOKUP (set valid to False), do not save the score, reload the page with error messages
                 return render(request, 'bgaapp/leaderboard.html', {
                     'event': event,
                     'scores': scores,
                     'form': form,
-                    'all_players': Player.objects.all()
+                    'all_players': Player.objects.all() # .all is DJANGO METHOD, () must be included. Thats how PYTHOIN knows to execute METHOD
                 })
+                # return render(...) = DJANGO response FUNCTION to re render the leaderboard template
+                # 'event': event = passing the SPECIFIC EVENT to the template, used to show EVENT name @top
+                # 'scores': scores = passing the current leaderbaord data(scores already submitted)
+                # 'form': form = passing the SCOREFORM that was submitted
+                # 'all_players': Player.objects.all() = passed so the template can build the data list of name suggstions
+                
 
             score_entry.event = event
+            # this line connects the SCORE to the current EVENT (score_entry is new score object)
+            # manually assigning the score_entry to its related EVENT field
+            # This is CRUCIAL bc the form doesent know which event its apart of w/o assigning the SPECIFIC EVENT
+           
             score_entry.to_par = score_entry.score - 72
-            score_entry.save()
+            # This line calculates score entered against par. ISSUE = NOT ALL COURSES ARE PAR 72 (NEEDS WORK)
+            # score_entry.score = is the raw score submitted by the user
+            # 72 = DEFAULT PAR VALUE (considering creating more in depth COURSE SPECIFIC LOGIC...
+            # ... and creating variable of par at that corse, again NEEDS WORK)
+            # if a score comes in at 68 the return will show a score of -4 (score minus par) 68 - 72 = -4
+            # if a score comes in at 76 the return will show a score of +4 (score minus par) 76 - 72 = +4
+            
+            score_entry.save() # save is DJANGO METHOD, () must be included. Thats how PYTHOIN knows to execute METHOD
+            # This is where the score finally gets saved to the DB
+            # before this line, it was just a form object living in memory (commit=False)
+            # This writes the FULL SCORE ENTRY to the SCORES TABLE with: the linked event, player &teammate,
+            # raw score(like 76) and the SCORE converted RELATIVE to par (like +4)
 
             # Recalculate placements after score added
             ordered_scores = event.scores.order_by('score')
+            # Pull all SCORES linked to this specific EVENT
+            # .scores = reverse relatiuon from EVENT to SCORE via the foreign key (like results/7/)
+            # .order_by('score') = sort all SCORES F/ lowest to highest (lowest score wins)
             placement = 1
+            # placement = 1 is the VARAIABLE that tracks the CURRENT PLACEMENT value
+            # placement starts at 1(firstplace)
+            # gets reused in the loop and assigned to each score
             last_score = None
+            # THIS LINE IS KEY in tracking tie logic. 
+            # helps check - 'Is this score the same as the last one?'
+            # if YES - its a tie, give the players/ teams the SAME PLACEMENT
+            # if NO - ok, move to the next placement
             actual_placement = 1
+            # Tracks how many scores in the loop so far
+            # it always goes UP BY 1, (unless in the event of a tie, they share that placement like 2nd and next score placement = 4th)
+            # Used to assign the correct NEXT PLACEMENT only where there is NOT A TIE
 
             for s in ordered_scores:
+            # start looping through the sorted list of scores (ordered_scores)
+            # s = each INDIVIDUAL SCORE OBJECT on the list
+            # ordered top to bottom (lowest score to highest score)
                 if last_score is not None and s.score == last_score:
-                    s.placement = f"{placement}"  # same as previous
+            # Check if the CURRENT SCORE is a TIE w/ previous one
+            # last_score is not None = skip this check for the FIRST SCORE in the list
+            # s.score == last_score = detection for a TIE (give the same placement)
+                    s.placement = f"{placement}"  
+            # If its a TIE, assign the SAME PLACEMENT as the last one
+            # using f-string to turn the integer into a string (1 = 1st = first) (2 = 2nd = second) etc
+            # multiple SCORE OBJECTS have the low score of 71? BOTH get PLACEMENT of 1/1st/first
                 else:
                     placement = actual_placement
                     s.placement = f"{placement}"
-                s.save()
+            # ABOVE block runs if the SCORE IS NOT A TIE
+            # assign the next avaialble placement using actual_placement
+            # placement = actual_placement UPDATES THE PLACEMENT tracker for future comparisons
+            # then that number(placement) is assigned to the current score
+                s.save() # save is DJANGO METHOD, () must be included. Thats how PYTHOIN knows to execute METHOD
+                # saving the UPDATED SCORE back to the DB
+                # Now it has a NEW PLACEMENT value displayed in the leaderboard and medal logic) 
                 last_score = s.score
+                # UPDATE the last_score tracker to this SCORES value
+                # used for comparison on the next loop to check for ties
                 actual_placement += 1
+                # += 1 is to make sure this value is always bumped by 1. 
+                # example 1. Alex 68(placement=1), Jon 68(placement=1) Steve 70 (placement=2),BUT actual_placement = 3
 
             return redirect('leaderboard', pk=event.pk)
+            # if the form was submitted correctly, redirect the user to the leaderboard from that event
+            # pk=event.pk = pass the same EVENTS primary key so the user lands back on the SAME leaderboard
 
     else:
         form = ScoreForm()
+        # This else runs IF the request was NOT a form submission
+        # meaning if the user is visiting the page with a GET request (clicking into a leaderboard)..
+        # a new blank SCOREFORM for them to fill out
+        # This is what powers the "ADD NEW SCORE" form at bottom of leadeerboard page
 
     return render(request, 'bgaapp/leaderboard.html', {
         'event': event,
@@ -230,6 +355,14 @@ def leaderboard_view(request, pk):
         'form': form,
         'all_players': Player.objects.all()
     })
+    # This block is the final response - the HTML page that gets returned for both:
+    # 1. Visiting the leaderboard (GET)
+    # 2. Submitting a broken or invalid (POST) with errors
+    # 'event' = displays EVENT name, Course, Date
+    # 'scores' = Table of all submitted scores (used for rendering)
+    # 'form' = SCORE ENTRY FORM
+    # 'all_players' = populates the <datalist> for the autocomplete suggestions 
+    
 #--------------------------------------------------------------------------------------------------#
 
 
