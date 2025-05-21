@@ -27,6 +27,9 @@ from results.models import Event        # importing Event model from results app
 # These are passed to the template so they can be displayed in highlight cards
 
 #-----------------------------HOME PAGE VIEW--------------------------------#
+# The COUNTDOWN TRACKER is not found in this file, It exists entirely in the core/home.html, NOT in PYTHONviews
+
+
 def home(request):
     today = timezone.now().date() 
     # timzeone.now = DJANGOS timezone-aware FUNCTION to get the EXACT time in USERS location
@@ -39,6 +42,7 @@ def home(request):
     next_event = Event.objects.filter(date__gte=today).order_by('date').first()
     # Event.objects = access the EVENT models data using DJANGOS OBJECT RELATIONAL MAPPING (lets me interact w/database using PYTHON instead of writing raw SQL)
     # .filter(date__gte=today) = filter EVENTS where the DATE is greater than to today (today or in the future)
+    # date__gte? -underscores are DJANGO way of CHAINING look up - (lookup MODIFIER meaning greater than or equal to)
     # .order_by('date') = sort through those EVENTS ascending in order by date (soonest first and so on)
     # .first = return only the FIRST EVENT in the sorted list aka the NEXT EVENT
     #------------------------------------------------------------------------#
@@ -48,6 +52,7 @@ def home(request):
     last_event = Event.objects.filter(date__lt=today).order_by('-date').first()
     # Event.objects = access the EVENT models data using DJANGOS OBJECT RELATIONAL MAPPING (ORM)
     # .filter(date__lt=today) = filter EVENTS where the DATE is less than today (aka events that already happened)
+    # date__lt? -underscores are DJANGO way of CHAINING look up - (lookup MODIFIER meaning LESS THAN)
     # .order_by('-date') = sort those EVENTS in descending order (most recent first, going backwards)
     # .first = return only the FIRST EVENT in that list — aka the LAST EVENT that was played
     #--------------------------------------------------------------------------#

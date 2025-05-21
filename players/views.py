@@ -193,10 +193,11 @@ class PlayerStatsView(TemplateView):
         # Custom logic: grab ALL players and sort by career_wins (highest first)
         players = sorted(
             Player.objects.all(),                # Pull all player objects from the database
-            key=lambda p: p.career_wins,         # lambda function = get the career_wins for each player
+            key=lambda p: p.career_wins,         # lambda function(anonymous function, defining function w/o using def) = get the career_wins for each player
             reverse=True                         # reverse=True = sort from most to least
         )
-
+        # lambda is a built in PYTHON KEYWORD
+        # lambda p: p.career_wins, is saying 'for each player(p), use their career_wins value as the SORTING KEY
         context['players'] = players
         # Add the sorted player list to the context dictionary so it can be used in the template
         # Template will loop through {{ players }} to render stats
