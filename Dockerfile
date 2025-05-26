@@ -22,3 +22,7 @@ COPY . .
 
 # Run migrations and collect static files
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8080"]
+
+# Collect static files at build time
+RUN python manage.py collectstatic --noinput
+
