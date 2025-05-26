@@ -39,8 +39,20 @@
               {% endif %}
               {{ score.placement }}
             </td>
-            <td>{{ score.player }}</td>
-            <td>{{ score.teammate }}</td>
+            <td>
+              {% if score.player %}
+                <a href="{% url 'player_detail' score.player.id %}">{{ score.player }}</a>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+            <td>
+              {% if score.teammate %}
+                <a href="{% url 'player_detail' score.teammate.id %}">{{ score.teammate }}</a>
+              {% else %}
+                —
+              {% endif %}
+            </td>
             <td>{{ score.score }}</td>
             <td>{{ score.to_par }}</td>
             <td>
