@@ -558,7 +558,7 @@ def schedule_view(request):
     return render(request, 'bgaapp/schedule.html', {'events': events})
 
 # 2. EVENT LIST VIEW (Superuser Only)
-class EventListView(AdminOnlyMixin, ListView):
+class EventListView(ListView):
     model = Event
     template_name = 'bgaapp/event_list.html'
     context_object_name = 'events'
