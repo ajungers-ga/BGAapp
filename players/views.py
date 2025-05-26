@@ -224,10 +224,15 @@ from django.db import models
 from .models import Player
 from results.models import Score
 
+
+#-------------------------------------------#
 class PlayerListView(ListView):
     model = Player
     template_name = 'bgaapp/player_list.html'
+#---------------------------------------------#
 
+
+#-----------------------------------------------------#
 class PlayerDetailView(DetailView):
     model = Player
     template_name = 'bgaapp/player_detail.html'
@@ -240,7 +245,10 @@ class PlayerDetailView(DetailView):
             placement__in=["1", "1st"]
         ).select_related("event")
         return context
+#------------------------------------------------------------#
 
+
+#------------------------------------------------------------#
 class PlayerStatsView(TemplateView):
     template_name = 'bgaapp/player_stats.html'
 
@@ -253,12 +261,4 @@ class PlayerStatsView(TemplateView):
         )
         context['players'] = players
         return context
-
-#---------------------------- RESTORED PLAYER DETAIL VIEW ----------------------------#
-from django.views.generic import DetailView
-from .models import Player
-
-class PlayerDetailView(DetailView):
-    model = Player
-    template_name = 'bgaapp/player_detail.html'
-#--------------------------------------------------------------------------------------#
+#------------------------------------------------------------#
