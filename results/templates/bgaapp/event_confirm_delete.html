@@ -1,22 +1,24 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div class="container mt-4">
 
-{% if request.user.is_superuser %}
+  {% if request.user.is_superuser %}
+  <!-- Back Button -->
+  <button class="btn btn-secondary mb-3" onclick="history.back()">← Back</button>
 
-<h1>Delete Event</h1>
+  <h1>Delete Event</h1>
+  <p>Are you sure you want to delete "<strong>{{ object.name }}</strong>"?</p>
 
-<p>Are you sure you want to delete "{{ object.name }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a href="{% url 'event_list' %}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Yes, delete</button>
-</form>
+  {% else %}
+  <p class="text-muted">You do not have permission to delete events.</p>
+  {% endif %}
 
-<a href="{% url 'event_list' %}">Cancel</a>
-
-{% else %}
-<p class="text-muted">You do not have permission to delete events.</p>
-{% endif %}
-
+</div>
 {% endblock %}

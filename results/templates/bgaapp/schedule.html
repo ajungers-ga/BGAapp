@@ -1,28 +1,18 @@
-<!-- File Purpose: DISPLAY UPCOMING BGA EVENTS in a card layout -->
-<!-- This is an ACTIVE TEMPLATE used to show all upcoming tournaments to players or guests -->
-<!-- Data passed in as a list of Event objects, likely filtered by date (future only) -->
-<!-- Layout uses Bootstrap card/grid system for readability and responsiveness -->
-<!-- Template extends base.html and loads static files as needed -->
-
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
 
-
-
 <!-- MAIN CONTAINER -->
 <div class="container mt-5">
+  <button class="btn btn-secondary mb-4" onclick="history.back()">← Back</button>
+
   <h1 class="mb-4">Upcoming BGA Events</h1>
-
-
 
   <!-- CHECK: Only render cards if events exist -->
   {% if events %}
-
     <!-- Responsive 2-column layout on medium+ screens, 1 column on small screens -->
     <div class="row row-cols-1 row-cols-md-2 g-4">
-
       {% for event in events %}
         <!-- EACH EVENT gets its own card -->
         <div class="col">
@@ -36,12 +26,9 @@
               <p class="card-text">
                 <strong>Course:</strong> {{ event.course_name }}<br>
                 <strong>Date:</strong> {{ event.date|date:"F j, Y" }}<br>
-                <!-- DJANGOS built in filter to format the date into a readable format. -->
-                <!-- F = full month name | j = day of month | Y = 4 digit year-->
                 <strong>Format:</strong> {{ event.get_name_display }}<br>
                 <strong>Season:</strong> {{ event.season }}<br>
 
-                <!-- OPTIONAL NOTES FIELD (if exists) -->
                 {% if event.notes %}
                   <strong>Notes:</strong> {{ event.notes }}
                 {% endif %}
@@ -55,14 +42,11 @@
           </div>
         </div>
       {% endfor %}
-
     </div>
-
   {% else %}
     <!-- FALLBACK: No upcoming events -->
     <p class="text-muted">There are no upcoming events currently scheduled.</p>
   {% endif %}
-
 </div>
 <!-- END CONTAINER -->
 
