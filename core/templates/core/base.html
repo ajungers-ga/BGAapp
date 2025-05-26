@@ -1,9 +1,3 @@
-  <!-- File Purpose: LAYOUT WRAPPER - Global layout for all pages in the BGA Tour Tracker app -->
-  <!-- This file provides structure, Bootstrap styling, and logo + nav elements -->
-  <!-- Every other page EXTENDS this base using {% extends 'core/base.html' %} -->
-  <!-- I tweaked the some styling with display flex and spacing like gap-4 -->
-
-<!-- DJANGOS TEMPLATE SYSTEM: Required at the top of templates to ENABLE LINKING to static files-->
 {% load static %} 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,37 +5,20 @@
 <head>
   <meta charset="UTF-8">
   <title>BGA Tour</title>
-
-  <!-- File Purpose: Global layout for all pages in the BGA Tour Tracker app -->
-  <!-- This file provides structure, Bootstrap styling, and logo + nav elements -->
-  <!-- Every other page EXTENDS this base using {% extends 'core/base.html' %} -->
-
-  <!-- Linking default BOOTSTRAP STYLES -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Linking my custom STYLESHEET -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-  <!-- Linking BOOTSTRAP JavaScript (used for dropdowns, modal logic, etc) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head> 
 
 <body class="bg-light text-dark">
   <div class="container py-4">
-
-    <!-- BGA HEADER SECTION (Logo + Navbar) -->
-    <!-- Layout: Logo and Nav buttons tightly aligned with no margin -->
     <div class="d-flex align-items-center justify-content-start gap-4 mb-1" style="padding: 0; margin: 0;">
-      
-      <!-- Logo (linked to home page) -->
       <a href="{% url 'home' %}" style="display: inline-block;">
         <img 
           src="{% static 'images/bgalogos/BGA_LogoSeries_Logo-6.png' %}" 
           alt="BGA Logo" 
           style="height: 225px; width: auto; object-fit: contain;">
       </a>
-
-      <!-- Navbar Buttons (aligned next to logo, using Bootstrap button styles) -->
       <nav class="d-flex align-items-center flex-wrap gap-2">
         <a class="btn btn-primary btn-sm" href="/">Home</a>
         <a class="btn btn-outline-primary btn-sm" href="/players/">Tour Players</a>
@@ -51,16 +28,10 @@
         <a class="btn btn-outline-secondary btn-sm" href="/legacy/">Tour Legacy</a>
       </nav>
     </div>
-    <!-- END HEADER SECTION -->
-
-    <!-- Tight horizontal rule line under logo/nav -->
     <hr class="my-1">
     <hr>
-
-    <!-- DJANGOS TEMPLATE SYSTEM: Marks a section where a CHILD template (like leaderboard.html) can inject their unique content -->
     {% block content %}
     {% endblock %}
-
   </div>
 </body>
 

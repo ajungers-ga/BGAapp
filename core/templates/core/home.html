@@ -1,22 +1,10 @@
-<!-- File Purpose: HOMEPAGE for the BGA Tour Tracker -->
-<!-- Extends the global layout in base.html and injects homepage-specific content -->
-<!-- Shows welcome message, countdown timer, and quick info on next + last events -->
-
 {% extends 'core/base.html' %}
 
-<!-- DJANGOS TEMPLATE SYSTEM: This section gets inserted into base.html where the block content tag is -->
 {% block content %}
 
-
-
-<!---------/////--------Main Container for homepage content---------/////--------->
 <div class="container mt-5">
   <h1 class="mb-4">Welcome to the BGA Tour Tracker</h1>
 
-
-
-  <!----------------------------Countdown Timer Section-------------------------->
-  <!-- Custom section to build excitement for upcoming events (Jungle Juice Open) -->
   <div class="container mt-4">
     <div class="p-4 text-center bg-warning bg-gradient rounded shadow">
       <h2 class="mb-3">Countdown to the 2025 Jungle Juice Open</h2>
@@ -25,7 +13,6 @@
     </div>
   </div>
 
-  <!-----COUNTDOWN SCRIPT: Runs every second to update the countdown timer---->
   <script>
     const eventDate = new Date("June 1, 2025 11:00:00 GMT-0500").getTime();
     
@@ -37,68 +24,43 @@
         document.getElementById("countdown").innerHTML = "⛳ It's Jungle Juice Time!";
         return;
       }
-// Convert Milliseconds into Days, Hours, Minutes, Seconds
+
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-// math.floor makes sure im keeping WHOLE units of time (not .5 seconds rather 500ms)
-// BELOW update the html
+
       document.getElementById("countdown").innerHTML =
         `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
-    setInterval(updateCountdown, 1000);  // Runs every 1000 miliseconds
-    updateCountdown();                   // Also runs once on page load
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
-  <!--------------------------END COUNTDOWN SCRIPT---------------------------->
-<!----------------------------Countdown Timer Section-------------------------->
 
-
-  <!---------------------------------EVENT HIGHLIGHTS SECTION---------------------------------------->
-    <!-- Section Purpose: Show quick info about the NEXT and LAST events on the homepage -->
-    <!-- Uses Django Template Logic to check if next_event / last_event exist -->
-    <!-- If they do: display details and buttons -->
-    <!-- If they don’t: show a warning/empty message -->
   <h2>Event Highlights</h2>
 
   {% if next_event %}
     <div class="alert alert-success mt-3">
       <h5>Next Event:</h5>
-
       <strong>{{ next_event.date }} — {{ next_event.course_name }}</strong><br>
-
       <span>Type: {{ next_event.name }}</span><br>
-
       <a href="{% url 'event_update' next_event.pk %}" class="btn btn-sm btn-outline-primary mt-2">Edit Event</a>
     </div>
-
   {% else %}
     <div class="alert alert-warning mt-3">No future events scheduled.</div>
   {% endif %}
 
-
   {% if last_event %}
     <div class="alert alert-info mt-4">
       <h5>Last Event Played:</h5>
-
       <strong>{{ last_event.date }} — {{ last_event.course_name }}</strong><br>
-
       <span>Type: {{ last_event.name }}</span><br>
-
       <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-secondary mt-2">View Leaderboard</a>
     </div>
-    
   {% else %}
     <div class="alert alert-secondary mt-3">No past events found.</div>
   {% endif %}
-
 </div>
-  <!---------------------------------EVENT HIGHLIGHTS SECTION---------------------------------------->
-
-<!-----------------END MAIN CONTAINER------------------>
-
-
 
 {% endblock %}
-<!-- END block content injected into base.html -->
