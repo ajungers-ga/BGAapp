@@ -3,8 +3,6 @@
 
 {% block content %}
 <div class="container mt-4">
-  <a href="/" class="btn btn-secondary mb-3">← Back to Home</a>
-
   <h1 class="mb-4">Tour Results</h1>
 
   {% if request.user.is_superuser %}
@@ -60,9 +58,14 @@
           (Solo Event)
         {% endif %}
         <br>
+
+        <a href="{% url 'leaderboard' event.pk %}" class="btn btn-sm btn-outline-primary mt-2">
+          View Leaderboard
+        </a>
+
         {% if request.user.is_superuser %}
-        <a href="{% url 'event_update' event.pk %}" class="btn btn-sm btn-outline-primary mt-2">Edit</a>
-        <a href="{% url 'event_delete' event.pk %}" class="btn btn-sm btn-outline-danger mt-2">Delete</a>
+          <a href="{% url 'event_update' event.pk %}" class="btn btn-sm btn-outline-primary mt-2 ms-2">Edit</a>
+          <a href="{% url 'event_delete' event.pk %}" class="btn btn-sm btn-outline-danger mt-2 ms-2">Delete</a>
         {% endif %}
       </li>
     {% endfor %}
