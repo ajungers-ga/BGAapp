@@ -1,55 +1,31 @@
-<!-- File Purpose: EDIT OR DELETE a player's score for a specific BGA event -->
-<!-- This is an ACTIVE TEMPLATE used inside the leaderboard system -->
-<!-- Allows users to edit player, teammate, or score — or delete the entry entirely -->
-<!-- Extends base.html for layout and uses custom form tag filters for Bootstrap styling -->
-<!-- Use of PIPE OPERATOR (|)  means 'take the value on the left and pass it through the filter on right' -->
-<!-- .pk represents the primary key (unique ID of a specific model instance) -->
-
-
 {% extends 'core/base.html' %}
 {% load form_tags %}
 
 {% block content %}
 
-
-
-<!-- MAIN CONTAINER -->
 <div class="container mt-4">
-
-  <!-- PAGE HEADER: Shows what event this score belongs to -->
   <h2>Edit Score — {{ event.course_name }} on {{ event.date }}</h2>
 
-
-
-  <!-- SCORE EDIT FORM -->
+  {% if request.user.is_superuser %}
   <form method="post" class="row g-3">
     {% csrf_token %}
-
-    <!-- PLAYER FIELD: Uses custom add_class filter to apply Bootstrap styling -->
     {{ form.player|add_class:"form-select" }}
-
-    <!-- TEAMMATE FIELD (optional depending on event format) -->
     {{ form.teammate|add_class:"form-select" }}
-
-    <!-- SCORE FIELD -->
     {{ form.score|add_class:"form-control" }}
 
-    <!-- ACTION BUTTONS: Submit update or cancel -->
     <div class="col-12">
       <button type="submit" class="btn btn-success">Update Score</button>
       <a href="{% url 'leaderboard' event.pk %}" class="btn btn-secondary ms-2">Cancel</a>
     </div>
   </form>
 
-
-
-  <!-- DELETE SCORE FORM(separate form to POST deletion) NEEDS WORK (Add confirmation logic before deletion) -->
   <form action="{% url 'delete_score' score.pk %}" method="post" class="mt-3">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Delete Score</button>
   </form>
-
+  {% else %}
+  <p class="text-muted">You do not have permission to edit scores.</p>
+  {% endif %}
 </div>
-<!-- END CONTAINER -->
 
 {% endblock %}

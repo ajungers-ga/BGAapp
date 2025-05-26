@@ -1,35 +1,16 @@
-<!-- File Purpose: LEADERBOARD PAGE for a specific BGA Event -->
-<!-- This is an ACTIVE TEMPLATE showing all submitted scores -->
-<!-- Users can view score placements, edit scores, delete scores, or submit new ones -->
-<!-- Highlights top scores with medals if event is finalized -->
-<!-- Uses .as_p for quick form rendering and a datalist for player name suggestions -->
-<!-- Use of PIPE OPERATOR (|)  means 'take the value on the left and pass it through the filter on right' -->
-<!-- .pk and .id refer to the primary key (unique identifier for event or score) -->
-
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
-
-
-
-<!-- MAIN CONTAINER -->
 <div class="container mt-5">
-
-  <!-- HEADER: Show event name (or major label if available) -->
   <h1>
     {{ event.major_label|default:event.name }} Leaderboard
   </h1>
-
-  <!-- EVENT DETAILS -->
   <p>
     <strong>Date:</strong> {{ event.date }}<br>
     <strong>Course:</strong> {{ event.course_name }}
   </p>
 
-
-
-  <!-- LEADERBOARD TABLE -->
   {% if scores %}
     <table class="table table-striped">
       <thead>
@@ -39,16 +20,12 @@
           <th>Teammate</th>
           <th>Score</th>
           <th>To Par</th>
-          <th></th> <!-- Empty column for buttons -->
+          <th></th>
         </tr>
       </thead>
       <tbody>
-
         {% for score in scores %}
-          <!-- Style under-par scores green and bold -->
           <tr class="{% if score.to_par < 0 %}table-success fw-bold{% endif %}">
-
-            <!-- PLACEMENT + OPTIONAL MEDALS -->
             <td>
               {% if event.finalized %}
                 {% if "1" in score.placement %}🥇
@@ -58,55 +35,39 @@
               {% endif %}
               {{ score.placement }}
             </td>
-
-            <!-- PLAYER NAME, TEAMMATE, SCORE DATA -->
             <td>{{ score.player }}</td>
             <td>{{ score.teammate }}</td>
             <td>{{ score.score }}</td>
             <td>{{ score.to_par }}</td>
-
-            <!-- EDIT / DELETE BUTTONS -->
             <td>
+              {% if request.user.is_superuser %}
               <a href="{% url 'edit_score' score.id %}" class="btn btn-sm btn-warning">Edit</a>
               <a href="{% url 'delete_score' score.id %}" class="btn btn-sm btn-danger">Delete</a>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
-
       </tbody>
     </table>
-
   {% else %}
-    <!-- FALLBACK: No scores submitted -->
     <p class="text-muted">No scores submitted yet.</p>
   {% endif %}
 
-
-
   <hr>
 
-
-
-  <!-- SCORE ENTRY FORM -->
+  {% if request.user.is_superuser %}
   <h3 class="mt-4">Add New Score</h3>
-
-  <!-- Uses .as_p to render the form fields quickly with paragraph tags -->
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-success">Submit Score</button>
   </form>
+  {% endif %}
 
-
-
-  <!-- PLAYER NAME AUTOCOMPLETE using <datalist> -->
   <datalist id="player-options">
     {% for player in all_players %}
       <option value="{{ player.first_name }} {{ player.last_name }}"></option>
     {% endfor %}
   </datalist>
-
 </div>
-<!-- END CONTAINER -->
-
 {% endblock %}

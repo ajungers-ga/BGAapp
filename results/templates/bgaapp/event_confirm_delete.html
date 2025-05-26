@@ -1,40 +1,22 @@
-<!-- File Purpose: DELETE CONFIRMATION PAGE for a BGA Event -->
-<!-- This is an ACTIVE TEMPLATE shown when a user confirms they want to delete a tournament -->
-<!-- It extends base.html and provides a basic prompt and form to confirm deletion -->
-
 {% extends 'core/base.html' %}
 
 {% block content %}
 
+{% if request.user.is_superuser %}
 
-
-<!-- HEADER -->
 <h1>Delete Event</h1>
 
-
-
-<!-- CONFIRMATION MESSAGE -->
-<!-- Shows the name of the event being deleted using the object context -->
 <p>Are you sure you want to delete "{{ object.name }}"?</p>
 
-
-
-<!-- DELETE FORM: method = POST so Django knows this is an action -->
 <form method="post">
-
-  <!-- CSRF protection token (required for POST forms) -->
   {% csrf_token %}
-
-  <!-- SUBMIT button to confirm deletion -->
   <button type="submit">Yes, delete</button>
 </form>
 
-
-
-<!-- CANCEL LINK: Brings user back to the full list of events -->
 <a href="{% url 'event_list' %}">Cancel</a>
 
-
+{% else %}
+<p class="text-muted">You do not have permission to delete events.</p>
+{% endif %}
 
 {% endblock %}
-<!-- END content block -->

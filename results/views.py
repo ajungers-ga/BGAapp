@@ -29,7 +29,24 @@ from .forms import EventForm, ScoreForm
 from django.views.decorators.http import require_http_methods
 from players.models import Player
 from django.db.models import Q
+
+# POST PRESENTATION, PRE LAUNCH (1.0)
+from django.contrib.auth.mixins import UserPassesTestMixin
+
+# POST PRESENTATION, PRE LAUNCH (2.0)
+from django.contrib.auth.decorators import user_passes_test
 #-------------------------------IMPORT DEPENDENCIES--------------------------------#
+
+
+
+# POST PRESENTATION, PRE LAUNCH (1.1)
+class AdminOnlyMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+# POST PRESENTATION, PRE LAUNCH (2.1)
+def superuser_only(user):
+    return user.is_superuser
 
 
 #---------------------------- 1. SCHEDULE VIEW (Upcoming Events Page) ----------------------------#
@@ -59,7 +76,7 @@ def schedule_view(request):
 
 
 #---------------------------- 2. EVENT LIST VIEW (All Events + Create Form) ----------------------------#
-class EventListView(ListView):
+class EventListView(AdminOnlyMixin, ListView): # POST PRESENTATION, PRE LAUNCH (1.2)
     model = Event
     # model = This view is tied to the EVENT model — it will load ALL EVENT objects from the DB
 
@@ -131,7 +148,7 @@ class EventListView(ListView):
 
 
 #---------------------------- 3. EVENT UPDATE VIEW (Edit Existing Event) ----------------------------#
-class EventUpdateView(UpdateView):
+class EventUpdateView(AdminOnlyMixin, UpdateView): # POST PRESENTATION, PRE LAUNCH (1.3)
     model = Event
     # model = This view is tied to the EVENT model — it knows we’re editing an existing Event instance
 
@@ -153,7 +170,7 @@ class EventUpdateView(UpdateView):
 
 
 #---------------------------- 4. EVENT DELETE VIEW (Confirm & Delete Event) ----------------------------#
-class EventDeleteView(DeleteView):
+class EventDeleteView(AdminOnlyMixin, DeleteView): # POST PRESENTATION, PRE LAUNCH (1.4)
     model = Event
     # model = Tells DJANGO this view is tied to the EVENT model — we’ll be deleting one Event at a time
 
@@ -176,6 +193,8 @@ class EventDeleteView(DeleteView):
 
 
 #---------------------------- 5. LEADERBOARD VIEW (View + Add Scores) ----------------------------#
+# POST PRESENTATION, PRE LAUNCH (2.2)
+@user_passes_test(superuser_only)
 def leaderboard_view(request, pk):
     # leaderboard_view = A FUNCTION based view that handles BOTH:
     # 1. Showing the current leaderboard (GET request)
@@ -198,7 +217,7 @@ def leaderboard_view(request, pk):
         if form.is_valid():
             # Check if the form passed DJANGOS built in validation
             score_entry = form.save(commit=False)
-                # Create a new Score object from the form, but DON’T save to DB yet
+                # Create a new Score object from the form, but DONT save to DB yet
                 # I will manually attach the event + match the player names first
 
             player_name = form.cleaned_data['player']
@@ -367,6 +386,9 @@ def leaderboard_view(request, pk):
 
 
 #---------------------------- 6. EDIT SCORE VIEW (Edit Submitted Score) ----------------------------#
+# POST PRESENTATION, PRE LAUNCH (2.3)
+@user_passes_test(superuser_only)
+
 @require_http_methods(["GET", "POST"])
 # @ is the PTHON DECORATOR SYMBOL (shorthand for "wrap this FUNCTION W/ another FUNCTION")
 # Stops users from accessing it via weird methods like DELETE or PUT
@@ -443,6 +465,9 @@ def edit_score_view(request, score_id):
 
 
 #---------------------------- 7. DELETE SCORE VIEW (Remove a Score + Recalculate) ----------------------------#
+# POST PRESENTATION, PRE LAUNCH (2.4)
+@user_passes_test(superuser_only)
+
 def delete_score(request, pk):
     score = get_object_or_404(Score, pk=pk)
     # STEP 1 = Get the specific SCORE to delete using its primary key (pk)

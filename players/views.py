@@ -31,13 +31,22 @@ from django.db import models                            # needed for Q object (a
 from .models import Player                              # local app model for BGA players
 from .forms import PlayerForm                           # custom form class
 from results.models import Score                        # imported to calculate wins using the Score model
+
+# POST PRESENTATION, PRE LAUNCH (3.0)
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 #----------------------------------IMPORT DEPENDENCIES----------------------------------#
 
+# POST PRESENTATION, PRE LAUNCH (3.1)
+class AdminOnlyMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 
 #---------------------------- 1. PLAYER LIST VIEW (ALL PLAYERS PAGE)----------------------------#
-class PlayerListView(ListView):
+# POST PRESENTATION, PRE LAUNCH (3.2)
+class PlayerListView(AdminOnlyMixin, ListView):
     model = Player
     template_name = 'bgaapp/player_list.html'
 
@@ -117,7 +126,7 @@ class PlayerDetailView(DetailView):
         context['event_wins'] = Score.objects.filter(
             models.Q(player=player) | models.Q(teammate=player),
             placement__in=["1", "1st"]
-        ).select_related("event")
+        ).select_related("event") # THIS IS THE MAGIC TO DYNAMIC LINK WINS TO PROFILE PAGE
 
         return context
         # Return the updated context dictionary — now includes both the Player AND their event wins

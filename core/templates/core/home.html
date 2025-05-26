@@ -28,7 +28,7 @@
   <!-----COUNTDOWN SCRIPT: Runs every second to update the countdown timer---->
   <script>
     const eventDate = new Date("June 1, 2025 11:00:00 GMT-0500").getTime();
-
+    
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = eventDate - now;
@@ -37,12 +37,13 @@
         document.getElementById("countdown").innerHTML = "⛳ It's Jungle Juice Time!";
         return;
       }
-
+// Convert Milliseconds into Days, Hours, Minutes, Seconds
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+// math.floor makes sure im keeping WHOLE units of time (not .5 seconds rather 500ms)
+// BELOW update the html
       document.getElementById("countdown").innerHTML =
         `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
