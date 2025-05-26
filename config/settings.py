@@ -1,5 +1,3 @@
-
-
 """
 Django settings for config project.
 
@@ -18,7 +16,7 @@ SECRET_KEY = 'django-insecure-8*-1r!d55niwe(gkhvwb2+#_tr)!@xlad5+xl)-p^c2wiy!19*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.fly.dev', 'bgaapp.fly.dev']  
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.fly.dev', 'bgaapp.fly.dev']
 
 # Application definition
 INSTALLED_APPS = [
@@ -75,7 +73,6 @@ DATABASES = {
     )
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -92,14 +89,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "core/static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# ✅ REMOVE any MEDIA_URL / MEDIA_ROOT – Cloudinary will handle all media
 
-
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Allow POST requests from Fly.io domain
-CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
-
+# ✅ Enable Cloudinary for image uploads
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
@@ -107,3 +99,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '695292321163319',
     'API_SECRET': 'C6jniJXwkHVZzPG23Xx7aPVinBI',
 }
+
+CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
