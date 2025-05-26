@@ -16,7 +16,9 @@
   <div class="card mx-auto shadow" style="max-width: 600px;">
 
     {% if object.image %}
-      <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object }}">
+      <img src="{{ object.image.url }}" alt="{{ object }}"
+        class="mx-auto d-block rounded-circle"
+        style="width: 180px; height: 180px; object-fit: cover; margin-top: 20px;">
     {% endif %}
 
     <div class="card-body">
