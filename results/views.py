@@ -563,6 +563,10 @@ class EventListView(ListView):
     template_name = 'bgaapp/event_list.html'
     context_object_name = 'events'
 
+    def get_queryset(self):
+        # Sort events by descending date (newest to oldest)
+        return Event.objects.order_by('-date')
+
     def get_context_data(self, extra_context=None):
         context = super().get_context_data()
         context['form'] = EventForm()
@@ -573,6 +577,7 @@ class EventListView(ListView):
         if form.is_valid():
             form.save()
         return redirect('event_list')
+
 
 # 3. EVENT UPDATE VIEW (Superuser Only)
 class EventUpdateView(AdminOnlyMixin, UpdateView):
