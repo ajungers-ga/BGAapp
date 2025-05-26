@@ -15,6 +15,8 @@
 #-------IMPORT DEPENDENCIES-------#
 from django.db import models
 from decimal import Decimal
+from cloudinary_storage.storage import MediaCloudinaryStorage
+
 #-------IMPORT DEPENDENCIES-------#
 
 
@@ -25,7 +27,14 @@ class Player(models.Model):
     nickname = models.CharField(max_length=50, blank=True)                       # String, optional *Keep this? Maybe add logic to show first name OR nickname?*
     hometown = models.CharField(max_length=50, blank=True)                       # String, optional
     years_active = models.CharField(max_length=20, blank=True)                   # String, optional *Keep this? Maybe rework this to show rookie season*
-    image = models.ImageField(upload_to='player_images/', blank=True, null=True) # String, optional NEEDS WORK - Why dont images display properly? tbd
+    image = models.ImageField(
+        storage=MediaCloudinaryStorage(),
+        upload_to='player_images/',
+        blank=True,
+        null=True
+    )
+
+
     hof_inducted = models.BooleanField(default=False)                            # Boolean (true/false) - shows IF a player is in the hall of fame
     hof_year = models.PositiveIntegerField(blank=True, null=True)                # Integer, must be positive. Perfect for representing a Year. Had the BGA been running for 3000 years I would have used the generic IntegerField()
     accolades = models.TextField(blank=True)                                     # NEEDS WORK (1. Create Awards app. 2. Dynamically link Award (from year) to profile page?)
