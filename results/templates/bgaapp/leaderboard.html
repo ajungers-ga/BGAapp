@@ -32,25 +32,23 @@
           <tr class="{% if score.to_par < 0 %}table-success fw-bold{% endif %}">
             <td>
               {% if event.finalized %}
-                {% if "1" in score.placement %}🥇
-                {% elif "2" in score.placement %}🥈
-                {% elif "3" in score.placement %}🥉
+                {% if score.placement == "1" %}🥇
+                {% elif score.placement == "2" %}🥈
+                {% elif score.placement == "3" %}🥉
                 {% endif %}
               {% endif %}
               {{ score.placement }}
             </td>
             <td>
-              {% if score.player %}
-                <a href="{% url 'player_detail' score.player.id %}">{{ score.player }}</a>
-              {% else %}
-                —
-              {% endif %}
+              <a href="{% url 'player_detail' score.player.id %}">
+                {{ score.player }}
+              </a>
             </td>
             <td>
               {% if score.teammate %}
-                <a href="{% url 'player_detail' score.teammate.id %}">{{ score.teammate }}</a>
-              {% else %}
-                —
+                <a href="{% url 'player_detail' score.teammate.id %}">
+                  {{ score.teammate }}
+                </a>
               {% endif %}
             </td>
             <td>{{ score.score }}</td>
