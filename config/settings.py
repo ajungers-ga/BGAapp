@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -98,3 +100,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Allow POST requests from Fly.io domain
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'diqrrzwhp',
+    'API_KEY': '695292321163319',
+    'API_SECRET': 'C6jniJXwkHVZzPG23Xx7aPVinBI',
+}
