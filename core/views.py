@@ -14,6 +14,7 @@
 from django.shortcuts import render     # Needed to render HTML templates with context
 from django.utils import timezone       # Provides timezone-aware datetime objects
 from results.models import Event        # importing Event model from results app
+from django.shortcuts import render
 
 #----------------------------------IMPORT DEPENDENCIES----------------------------------#
 
@@ -68,5 +69,11 @@ def home(request):
     'last_event': last_event    # context variable #2 → also used in the homepage display
 })
     #---------------------------------------------------------------------------#
+
+#---------------------------------------------------------------------------#
+def mattydinv_view(request):
+    return render(request, 'core/mattydinv.html')
+#---------------------------------------------------------------------------#
+
 
 #-----------------------------HOME PAGE VIEW--------------------------------#

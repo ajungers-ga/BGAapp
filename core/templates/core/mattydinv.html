@@ -1,0 +1,41 @@
+<!-- File Purpose: Dedicated page for the Matty D Invitational charity event -->
+
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+  <!-- Hero Section -->
+  <div class="text-center mb-4">
+    <h1 class="display-5 fw-bold text-danger">Matty D Invitational</h1>
+    <p class="lead">Hosted by Matt & Cassie Daulton — Supporting The Angel Foundation</p>
+    <img src="{% static 'images/mattyd.jpg' %}" alt="Matt and Cassie Daulton" class="img-fluid rounded-circle shadow mt-3" style="max-width: 300px;">
+  </div>
+
+  <!-- Mission Statement -->
+  <div class="card shadow mb-5">
+    <div class="card-body">
+      <h4 class="card-title text-center text-danger">Our Mission</h4>
+      <p class="card-text">
+        The Matty D Invitational began as a small 2-man scramble with 16 friends in 2016. After an unforgettable event at Southern Hills the following year, the tournament took on a deeper meaning following Rob Sage’s cancer diagnosis and passing in 2018. Inspired by the strength of community, the event has since partnered with the <strong>Angel Foundation</strong> — a Twin Cities-based nonprofit supporting individuals and families navigating cancer with financial help, education, and emotional support.
+        <br><br>
+        Since 2018, the Matty D Invitational has raised over $15,000 and continues to grow. Now hosted at <a href="https://www.summitgolfclub.com/" target="_blank">Summit Golf Club</a>, the 2025 event will feature a 4-man scramble and a post-round banquet at <a href="https://www.carbones.com/locations/northfield/" target="_blank">Carbone’s in Northfield</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- 2025 Event Info -->
+  <div class="mb-5 text-center">
+    <h4>🎯 2025 Tournament Info</h4>
+    <ul class="list-unstyled">
+      <li><strong>Date:</strong> July 26, 2025</li>
+      <li><strong>Format:</strong> 4-Man Scramble</li>
+      <li><strong>Location:</strong> <a href="https://www.summitgolfclub.com/" target="_blank">Summit Golf Club</a></li>
+      <li><strong>Banquet:</strong> <a href="https://www.carbones.com/locations/northfield/" target="_blank">Carbone’s - Northfield</a></li>
+    </ul>
+    <a href="https://bgaapp.fly.dev/results/16/leaderboard/" class="btn btn-danger mt-3">View 2025 Leaderboard</a>
+  </div>
+
+</div>
+{% endblock %}

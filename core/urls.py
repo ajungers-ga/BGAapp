@@ -14,6 +14,7 @@
 #-------IMPORT DEPENDENCIES-------#
 from django.urls import path
 from . import views
+from .views import mattydinv_view
 #-------IMPORT DEPENDENCIES-------#
 
 
@@ -22,5 +23,6 @@ from . import views
 #--------------------DEFINE ROUTES--------------------------#
 urlpatterns = [
     path('', views.home, name='home'),  # Route for homepage
+    path('mattydinv/', mattydinv_view, name='mattydinv'),
 ]
 #--------------------DEFINE ROUTES--------------------------#
