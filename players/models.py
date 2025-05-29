@@ -34,15 +34,15 @@ class Player(models.Model):
         null=True
     )
 
-
     hof_inducted = models.BooleanField(default=False)                            # Boolean (true/false) - shows IF a player is in the hall of fame
     hof_year = models.PositiveIntegerField(blank=True, null=True)                # Integer, must be positive. Perfect for representing a Year. Had the BGA been running for 3000 years I would have used the generic IntegerField()
     accolades = models.TextField(blank=True)                                     # NEEDS WORK (1. Create Awards app. 2. Dynamically link Award (from year) to profile page?)
+
+    wins = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal("0.00"))  # New field to store win total directly
 #----------------------DEFINE THE PLAYER SCHEMA (data fields)-------------------------#
 
-  
-  
-  
+
+
     # String representation for Player objects (used in admin, dropdowns, and logs)
     # If the player has a nickname, format as: First 'Nickname' Last (this has become annoying when adding players to an event)
     # Otherwise, just return: First Last
@@ -53,7 +53,7 @@ class Player(models.Model):
 
 
 #---------------------------------COMPUTED PROPERTIES-----------------------------------------#
-    @property # This is a PYTHON DECORATIOR that lets me call a METHOD like an attribute. (read only) Using it to dynamically calulate fields w/o storing them in the DB
+    @property # This is a PYTHON DECORATOR that lets me call a METHOD like an attribute. (read only) Using it to dynamically calulate fields w/o storing them in the DB
     def career_events_played(self):
         from results.models import Score
         # Count total number of events this player has participated in
@@ -62,37 +62,6 @@ class Player(models.Model):
 
     @property
     def career_wins(self):
-        from collections import defaultdict
-        from decimal import Decimal
-        from results.models import Score  
-
-        # Start from 0.0 total wins
-        win_total = Decimal("0.0")
-
-        # Step 1: Get all 1st place finishes for this player (solo or team event)
-        relevant_scores = Score.objects.filter(
-            models.Q(player=self) | models.Q(teammate=self), # Q() is DJANGO query obj ussed for OR logic. (GET ALL SCORES WHERE THE PLAYER IS EITHER THE PLAYER OR TEAMMATE)
-            placement__in=["1", "1st"]                       # seperating arguments passed into the filter function
-        ).select_related("event")
-
-        # Step 2: Build a DICTIONARY to group ALL 1st place scores by EVENT ID
-        event_to_scores = defaultdict(list)
-        for score in Score.objects.filter(placement__in=["1", "1st"]):
-            event_to_scores[score.event_id].append(score)
-
-        # Step 3: Loop through relevent 1st place finishes for this player (self)
-        for score in relevant_scores:
-            tied_scores = event_to_scores[score.event_id]     # get all 1st-place scores for this event
-            tie_count = len(tied_scores)
-
-            # Skip if something is off (shouldnt happen)
-            if tie_count == 0:
-                continue
-
-            # Step 4: Divide win evenly among all 1st place scores (accounts for ties automatically)
-            win_share = Decimal("1.0") / Decimal(tie_count)
-            win_total += win_share
-
-        # Return the final win total, rounded to 2 decimal places. (1 decimal place would have worked, too)
-        return win_total.quantize(Decimal("0.01"))
-    #---------------------------------COMPUTED PROPERTIES-----------------------------------------#
+        # New logic: return the stored `wins` value, dynamically
+        return self.wins
+#---------------------------------COMPUTED PROPERTIES-----------------------------------------#
