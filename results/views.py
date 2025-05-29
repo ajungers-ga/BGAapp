@@ -18,6 +18,8 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseForbidden
+from decimal import Decimal
+
 #-------------------------------------------------------------------------#
 # POST PRESENTATION, PRE LAUNCH (1.1)
 class AdminOnlyMixin(UserPassesTestMixin):
@@ -165,7 +167,7 @@ def leaderboard_view(request, pk):
             for score in tied_winners:
                 for player in [score.player, score.teammate, score.third_player, score.fourth_player]:
                     if player:
-                        player.career_wins += win_share
+                        player.career_wins += Decimal(str(win_share))
                         player.save()
 
         # Mark event played for all players
