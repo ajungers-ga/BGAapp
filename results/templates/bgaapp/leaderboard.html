@@ -18,14 +18,7 @@
       <thead>
         <tr>
           <th>Placement</th>
-          <th>Player</th>
-          <th>Teammate</th>
-          {% if event.format == "3 Man Scramble" or event.format == "4 Man Scramble" %}
-            <th>Third Player</th>
-          {% endif %}
-          {% if event.format == "4 Man Scramble" %}
-            <th>Fourth Player</th>
-          {% endif %}
+          <th>Players</th>
           <th>Score</th>
           <th>To Par</th>
           <th></th>
@@ -45,26 +38,10 @@
             </td>
             <td>
               <a href="{% url 'player_detail' score.player.id %}">{{ score.player }}</a>
+              {% if score.teammate %}+ <a href="{% url 'player_detail' score.teammate.id %}">{{ score.teammate }}</a>{% endif %}
+              {% if score.third_player %}+ <a href="{% url 'player_detail' score.third_player.id %}">{{ score.third_player }}</a>{% endif %}
+              {% if score.fourth_player %}+ <a href="{% url 'player_detail' score.fourth_player.id %}">{{ score.fourth_player }}</a>{% endif %}
             </td>
-            <td>
-              {% if score.teammate %}
-                <a href="{% url 'player_detail' score.teammate.id %}">{{ score.teammate }}</a>
-              {% endif %}
-            </td>
-            {% if event.format == "3 Man Scramble" or event.format == "4 Man Scramble" %}
-              <td>
-                {% if score.third_player %}
-                  <a href="{% url 'player_detail' score.third_player.id %}">{{ score.third_player }}</a>
-                {% endif %}
-              </td>
-            {% endif %}
-            {% if event.format == "4 Man Scramble" %}
-              <td>
-                {% if score.fourth_player %}
-                  <a href="{% url 'player_detail' score.fourth_player.id %}">{{ score.fourth_player }}</a>
-                {% endif %}
-              </td>
-            {% endif %}
             <td>{{ score.score }}</td>
             <td>{{ score.to_par }}</td>
             <td>
