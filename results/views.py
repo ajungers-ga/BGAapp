@@ -88,6 +88,7 @@ def leaderboard_view(request, pk):
             fourth_name = form.cleaned_data.get('fourth_player')
             valid = True
 
+            # Parse player names
             try:
                 first, last = player_name.strip().split(" ", 1)
                 score_entry.player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
@@ -95,35 +96,20 @@ def leaderboard_view(request, pk):
                 form.add_error('player', f"No player found for '{player_name}'.")
                 valid = False
 
-            if teammate_name:
-                try:
-                    first, last = teammate_name.strip().split(" ", 1)
-                    score_entry.teammate = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
-                except (ValueError, Player.DoesNotExist):
-                    form.add_error('teammate', f"No player found for '{teammate_name}'.")
-                    valid = False
-            else:
-                score_entry.teammate = None
-
-            if third_name:
-                try:
-                    first, last = third_name.strip().split(" ", 1)
-                    score_entry.third_player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
-                except (ValueError, Player.DoesNotExist):
-                    form.add_error('third_player', f"No player found for '{third_name}'.")
-                    valid = False
-            else:
-                score_entry.third_player = None
-
-            if fourth_name:
-                try:
-                    first, last = fourth_name.strip().split(" ", 1)
-                    score_entry.fourth_player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
-                except (ValueError, Player.DoesNotExist):
-                    form.add_error('fourth_player', f"No player found for '{fourth_name}'.")
-                    valid = False
-            else:
-                score_entry.fourth_player = None
+            for field_name, player_field in {
+                'teammate': teammate_name,
+                'third_player': third_name,
+                'fourth_player': fourth_name
+            }.items():
+                if player_field:
+                    try:
+                        first, last = player_field.strip().split(" ", 1)
+                        setattr(score_entry, field_name, Player.objects.get(first_name__iexact=first, last_name__iexact=last))
+                    except (ValueError, Player.DoesNotExist):
+                        form.add_error(field_name, f"No player found for '{player_field}'.")
+                        valid = False
+                else:
+                    setattr(score_entry, field_name, None)
 
             if not valid:
                 return render(request, 'bgaapp/leaderboard.html', {
@@ -137,45 +123,64 @@ def leaderboard_view(request, pk):
             score_entry.to_par = score_entry.score - 72
             score_entry.save()
 
-            # Update placement logic after score is saved
-            ordered_scores = event.scores.order_by('score')
+            # Recalculate placements with tie logic
+            ordered_scores = list(event.scores.order_by('score'))
             placement = 1
-            last_score = None
-            actual_placement = 1
+            current_score = None
+            actual_place = 1
 
-            for s in ordered_scores:
-                if last_score is not None and s.score == last_score:
-                    s.placement = f"{placement}"
+            for i, s in enumerate(ordered_scores):
+                if i == 0:
+                    s.placement = str(actual_place)
+                elif s.score == current_score:
+                    s.placement = str(actual_place)
                 else:
-                    placement = actual_placement
-                    s.placement = f"{placement}"
+                    actual_place = i + 1
+                    s.placement = str(actual_place)
+                current_score = s.score
                 s.save()
-                last_score = s.score
-                actual_placement += 1
 
             return redirect('leaderboard', pk=event.pk)
+
     else:
         form = ScoreForm()
 
-    # FINALIZED EVENT LOGIC - CALCULATE WINS
+    # FINALIZED EVENT LOGIC - apply wins and medals
     if event.finalized:
-        tied_winners = scores.filter(placement='1')
-        if tied_winners.exists():
-            num_tied_teams = tied_winners.count()
-            win_share = round(1.0 / num_tied_teams, 2)
+        all_scores = list(scores)
+        if all_scores:
+            score_to_place = {}
+            current_place = 1
+            current_score = None
 
-            for score in tied_winners:
-                for player in [score.player, score.teammate, score.third_player, score.fourth_player]:
+            for i, s in enumerate(all_scores):
+                if i == 0:
+                    score_to_place[s.score] = current_place
+                elif s.score != current_score:
+                    current_place = i + 1
+                    score_to_place[s.score] = current_place
+                current_score = s.score
+
+            for s in all_scores:
+                s.placement = str(score_to_place[s.score])
+                s.save()
+
+            # Award wins to players tied for 1st
+            first_place_scores = [s for s in all_scores if score_to_place[s.score] == 1]
+            if first_place_scores:
+                win_share = round(1.0 / len(first_place_scores), 2)
+                for s in first_place_scores:
+                    for player in [s.player, s.teammate, s.third_player, s.fourth_player]:
+                        if player:
+                            player.career_wins += Decimal(str(win_share))
+                            player.save()
+
+            # Increment events played for all players
+            for s in all_scores:
+                for player in [s.player, s.teammate, s.third_player, s.fourth_player]:
                     if player:
-                        player.career_wins += Decimal(str(win_share))
+                        player.career_events_played += 1
                         player.save()
-
-        # Mark event played for all players
-        for score in scores:
-            for player in [score.player, score.teammate, score.third_player, score.fourth_player]:
-                if player:
-                    player.career_events_played += 1
-                    player.save()
 
     return render(request, 'bgaapp/leaderboard.html', {
         'event': event,
@@ -183,6 +188,7 @@ def leaderboard_view(request, pk):
         'form': form,
         'all_players': Player.objects.all()
     })
+
 
 # 6. EDIT SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
