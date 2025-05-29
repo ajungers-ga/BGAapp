@@ -3,25 +3,16 @@
 # - Allows me to view, add, or edit player info manually
 # - Useful for debugging name typos or adding players who weren’t created through the form
 
-
-
-
 #---------IMPORT DEPENDENCIES----------#
 from django.contrib import admin
 from .models import Player
 #---------IMPORT DEPENDENCIES----------#
 
-
-
-
 # ------------------------PlayerAdmin Class-----------------------------#
-# Registers the PLAYER model with the admin panel
-# This version uses the TRADITIONAL style instead of a PYTHON DECORATOR
-# After presentation, I plan to swap this out for @admin.register(Player) for consistency across the admin page
-
-# @admin.register(Player)                   TO BE IMPLEMENTED POST PRESENTATION
-# class PlayerAdmin(admin.ModelAdmin):      TO BE IMPLEMENTED POST PRESENTATION
-
-
-admin.site.register(Player)
+# Registers the PLAYER model with the admin panel using modern decorator syntax
+@admin.register(Player)
+class PlayerAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'nickname')  # Show useful columns
+    search_fields = ('first_name', 'last_name')             # Add a search bar
+    ordering = ('last_name', 'first_name')                  # Sort alphabetically by last name
 # ------------------------PlayerAdmin Class-----------------------------#

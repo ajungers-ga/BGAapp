@@ -24,38 +24,45 @@
 #---------IMPORT DEPENDENCIES----------#
 from django import forms
 from .models import Score, Event
-# from players.models import Player # COMMENTED OUT BC-
-#(using player names in score form but treating player and teamate as plain charfields, not as model-bound fields)
-
+# from players.models import Player  # COMMENTED OUT BC-
+# (using player names in score form but treating player and teammate as plain charfields, not as model-bound fields)
 #---------IMPORT DEPENDENCIES----------#
 
 
 
 # ----------------------------------------Score form------------------------------------#
-class ScoreForm(forms.ModelForm): # Results/#/Leaderboard/addNewScore form
+class ScoreForm(forms.ModelForm):  # Results/#/Leaderboard/addNewScore form
     player = forms.CharField(
         label='Player',
-        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'}) # This enables the autocomplete suggestions
+        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'})  # Enables the autocomplete suggestions
     )
     teammate = forms.CharField(
         label='Teammate',
         required=False,
-        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'}) # Matches an HTML <datalist> element
+        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'})  # Matches an HTML <datalist> element
+    )
+    third_player = forms.CharField(
+        label='Third Player',
+        required=False,
+        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'})  # Optional input
+    )
+    fourth_player = forms.CharField(
+        label='Fourth Player',
+        required=False,
+        widget=forms.TextInput(attrs={'list': 'player-options', 'class': 'form-control'})  # Optional input
     )
 
-    # META is a INNER class in DJANGO used to store CONFIGURATION for things like: 
+    # META is an INNER class in DJANGO used to store CONFIGURATION for things like: 
     # forms, widgets, models & even serializers
     class Meta:         
-        model = Score       # Telling DJANGO I want to use the SCORE model, 
-        fields = ['score']  # but ONLY include the SCORE field, (not all)
-                            # since the user MANUALLY CUSTOMIZES these fields, they are not included here
+        model = Score         # Telling DJANGO we want to use the SCORE model
+        fields = ['score']    # Only include SCORE field here (others are manually customized)
 # ----------------------------------------Score form------------------------------------#
 
 
 
-
 # -----------------------------Event form-----------------------------------------------#
-class EventForm(forms.ModelForm): # /tourResults/createNewEvent form
+class EventForm(forms.ModelForm):  # /tourResults/createNewEvent form
     class Meta:     
         model = Event
         fields = '__all__'  # or ['name', 'date', 'course', 'format', etc.]
@@ -67,4 +74,4 @@ class EventForm(forms.ModelForm): # /tourResults/createNewEvent form
                 'class': 'form-control'
             })
         }
-# -----------------------------Event form-----------------------------------------------#        
+# -----------------------------Event form-----------------------------------------------#

@@ -54,13 +54,17 @@ class Event(models.Model):
 # The EVENT is the tournament and the SCORE is one row on that leaderboard event
 # Since they are tied together, it makes sense to define them side by side in the same models.py folder
 
-#----------Score Model (defines one player or teams score in a given event)-------------------------------------#
+
+
+
 # ----------Score Model (defines one player or team's score in a given event)------------------------------- #
 class Score(models.Model):
     # 1. The Event this score belongs to (foreign key relationship)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='scores')
+    
     # 2. The primary PLAYER being scored (always required)
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='scores')
+    
     # 3. The teammate, if this was a team event (optional)
     teammate = models.ForeignKey(
         Player,
@@ -69,16 +73,39 @@ class Score(models.Model):
         null=True,
         related_name='teammate_scores'
     )
+
+    # 3b. Third player for 3-man or 4-man scrambles (optional)
+    third_player = models.ForeignKey(
+        Player,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='third_player_scores'
+    )
+
+    # 3c. Fourth player for 4-man scrambles (optional)
+    fourth_player = models.ForeignKey(
+        Player,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='fourth_player_scores'
+    )
+
     # 4. The raw score for this player/team (like 69.00)
     score = models.DecimalField(max_digits=5, decimal_places=2)
+    
     # 5. The score in relation to par (like -3.00)
     to_par = models.DecimalField(max_digits=5, decimal_places=2)
+    
     # 6. The final placement for this score (like "1", "2nd", "T-3")
     placement = models.CharField(max_length=20, blank=True)
+
     # 7. Show a readable label in admin/debug/console
     def __str__(self):
         label = self.event.major_label if self.event.is_major and self.event.major_label else self.event.name
         return f"{self.player} - {self.score} in {label} on {self.event.date}"
 # ----------------------------------------------------SCORE MODEL------------------------------------------------ #
+
 
     

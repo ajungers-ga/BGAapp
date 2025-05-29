@@ -529,6 +529,9 @@
 # Templates: event_list.html, schedule.html, leaderboard.html, event_form.html, event_confirm_delete.html, edit_score.html
 # Special logic: handles custom leaderboard sorting, placement logic, and to_par calculations
 
+
+
+#-----------------IMPORT DEPENDENCIES-------------------------------------#
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -541,7 +544,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseForbidden
-
+#-------------------------------------------------------------------------#
 # POST PRESENTATION, PRE LAUNCH (1.1)
 class AdminOnlyMixin(UserPassesTestMixin):
     def test_func(self):
@@ -577,6 +580,8 @@ class EventListView(ListView):
         if form.is_valid():
             form.save()
         return redirect('event_list')
+#-------------------------------------------------------------------------#
+
 
 
 # 3. EVENT UPDATE VIEW (Superuser Only)
@@ -585,13 +590,20 @@ class EventUpdateView(AdminOnlyMixin, UpdateView):
     form_class = EventForm
     template_name = 'bgaapp/event_form.html'
     success_url = reverse_lazy('event_list')
+#-------------------------------------------------------------------------#
+
+
 
 # 4. EVENT DELETE VIEW (Superuser Only)
 class EventDeleteView(AdminOnlyMixin, DeleteView):
     model = Event
     template_name = 'bgaapp/event_confirm_delete.html'
     success_url = reverse_lazy('event_list')
+#-------------------------------------------------------------------------#
 
+
+
+#-------------------------------------------------------------------------#
 # 5. LEADERBOARD VIEW (Public Read, Superuser Create)
 def leaderboard_view(request, pk):
     event = get_object_or_404(Event, pk=pk)
@@ -605,7 +617,9 @@ def leaderboard_view(request, pk):
         if form.is_valid():
             score_entry = form.save(commit=False)
             player_name = form.cleaned_data['player']
-            teammate_name = form.cleaned_data['teammate']
+            teammate_name = form.cleaned_data.get('teammate')
+            third_name = form.cleaned_data.get('third_player')
+            fourth_name = form.cleaned_data.get('fourth_player')
             valid = True
 
             try:
@@ -624,6 +638,26 @@ def leaderboard_view(request, pk):
                     valid = False
             else:
                 score_entry.teammate = None
+
+            if third_name:
+                try:
+                    first, last = third_name.strip().split(" ", 1)
+                    score_entry.third_player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
+                except (ValueError, Player.DoesNotExist):
+                    form.add_error('third_player', f"No player found for '{third_name}'.")
+                    valid = False
+            else:
+                score_entry.third_player = None
+
+            if fourth_name:
+                try:
+                    first, last = fourth_name.strip().split(" ", 1)
+                    score_entry.fourth_player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
+                except (ValueError, Player.DoesNotExist):
+                    form.add_error('fourth_player', f"No player found for '{fourth_name}'.")
+                    valid = False
+            else:
+                score_entry.fourth_player = None
 
             if not valid:
                 return render(request, 'bgaapp/leaderboard.html', {
@@ -662,7 +696,13 @@ def leaderboard_view(request, pk):
         'form': form,
         'all_players': Player.objects.all()
     })
+#-------------------------------------------------------------------------#
 
+
+
+
+
+#-------------------------------------------------------------------------#
 # 6. EDIT SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
 @require_http_methods(["GET", "POST"])
@@ -674,6 +714,29 @@ def edit_score_view(request, score_id):
         form = ScoreForm(request.POST, instance=score)
         if form.is_valid():
             updated_score = form.save(commit=False)
+
+            def resolve_player(name, field):
+                if name:
+                    try:
+                        first, last = name.strip().split(" ", 1)
+                        return Player.objects.get(first_name__iexact=first, last_name__iexact=last)
+                    except (ValueError, Player.DoesNotExist):
+                        form.add_error(field, f"No player found for '{name}'")
+                        return None
+                return None
+
+            updated_score.player = resolve_player(form.cleaned_data['player'], 'player')
+            updated_score.teammate = resolve_player(form.cleaned_data.get('teammate'), 'teammate')
+            updated_score.third_player = resolve_player(form.cleaned_data.get('third_player'), 'third_player')
+            updated_score.fourth_player = resolve_player(form.cleaned_data.get('fourth_player'), 'fourth_player')
+
+            if form.errors:
+                return render(request, 'bgaapp/edit_score.html', {
+                    'form': form,
+                    'score': score,
+                    'event': event
+                })
+
             updated_score.to_par = updated_score.score - 72
             updated_score.save()
 
@@ -701,14 +764,18 @@ def edit_score_view(request, score_id):
         'score': score,
         'event': event
     })
+#-------------------------------------------------------------------------#
+
 
 # 7. DELETE SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
 def delete_score(request, pk):
+    # Get the score object or return 404 if not found
     score = get_object_or_404(Score, pk=pk)
-    event = score.event
-    score.delete()
+    event = score.event  # Save the related event before deleting
+    score.delete()  # Remove the score from the database
 
+    # Recalculate placements after deletion
     ordered_scores = event.scores.order_by('score')
     placement = 1
     last_score = None
@@ -724,4 +791,5 @@ def delete_score(request, pk):
         last_score = s.score
         actual_placement += 1
 
+    # Redirect back to the leaderboard for this event
     return redirect('leaderboard', pk=event.pk)
