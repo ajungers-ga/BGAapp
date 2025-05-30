@@ -57,39 +57,43 @@ class Player(models.Model):
         ).count()
 
     # 4. Wins (accurately detects team participation + avoids inflated counts)
-    @property
-    def career_wins(self):
-        from results.models import Score
-        from collections import defaultdict
+    # Updated career_wins using only ID comparisons
+    
+@property
+def career_wins(self):
+    from results.models import Score
+    from collections import defaultdict
 
-        all_scores = Score.objects.filter(event__finalized=True).only(
-            'event_id', 'score', 'player_id', 'teammate_id', 'third_player_id', 'fourth_player_id'
-        )
+    all_scores = Score.objects.filter(event__finalized=True).only(
+        'event_id', 'score', 'player_id', 'teammate_id', 'third_player_id', 'fourth_player_id'
+    )
 
-        wins = 0.0
-        event_scores = defaultdict(list)
+    wins = 0.0
+    event_scores = defaultdict(list)
 
-        for score in all_scores:
-            event_scores[score.event_id].append(score)
+    for score in all_scores:
+        event_scores[score.event_id].append(score)
 
-        for _, scores in event_scores.items():
-            if not scores:
-                continue
+    for _, scores in event_scores.items():  # Ignore unused key
+        if not scores:
+            continue
 
-            min_score = min(s.score for s in scores)
-            winning_teams = [s for s in scores if s.score == min_score]
-            win_fraction = 1.0 / len(winning_teams)
+        min_score = min(s.score for s in scores)
+        winning_teams = [s for s in scores if s.score == min_score]
+        win_fraction = 1.0 / len(winning_teams)
 
-            for s in winning_teams:
-                if self.id in [
-                    getattr(s.player, 'id', None),
-                    getattr(s.teammate, 'id', None),
-                    getattr(s.third_player, 'id', None),
-                    getattr(s.fourth_player, 'id', None)
-                ]:
-                    wins += win_fraction
-                    break  # avoid double credit
+        for s in winning_teams:
+            if self.id in [
+                s.player_id,
+                s.teammate_id,
+                s.third_player_id,
+                s.fourth_player_id
+            ]:
+                wins += win_fraction
+                break  # avoid double credit
 
-        return round(wins, 2)
+    return round(wins, 2)
+
+
 
 #---------------------------------COMPUTED PROPERTIES-----------------------------------------#
