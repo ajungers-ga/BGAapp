@@ -14,32 +14,39 @@
       background: url("{% static 'images/bgabackground.png' %}") no-repeat center center fixed;
       background-size: cover;
     }
+    .background-overlay {
+      background-color: rgba(255, 255, 255, 0.8);  /* white overlay at 80% opacity */
+      min-height: 100vh;
+      width: 100%;
+    }
   </style>
 </head> 
 
 <body class="bg-light text-dark">
-  <div class="container py-4">
-    <div class="d-flex align-items-center justify-content-start gap-4 mb-1" style="padding: 0; margin: 0;">
-      <a href="{% url 'home' %}" style="display: inline-block;">
-        <img 
-          src="{% static 'images/bgalogos/BGA_LogoSeries_Logo-6.png' %}" 
-          alt="BGA Logo" 
-          style="height: 225px; width: auto; object-fit: contain;">
-      </a>
-      <nav class="d-flex align-items-center flex-wrap gap-2">
-        <a class="btn btn-primary btn-sm" href="/">Home</a>
-        <a class="btn btn-outline-primary btn-sm" href="/players/">Tour Players</a>
-        <a class="btn btn-outline-primary btn-sm" href="/results/">Tour Results</a>
-        <a class="btn btn-outline-secondary btn-sm" href="/schedule/">2025 Schedule</a>
-        <a class="btn btn-outline-secondary btn-sm" href="{% url 'player_stats' %}">Career Stats</a>
-        <a class="btn btn-outline-secondary btn-sm" href="/legacy/">Tour Legacy</a>
-        <a class="btn btn-outline-danger btn-sm" href="{% url 'mattydinv' %}">Matty D Invitational</a>
-      </nav>
+  <div class="background-overlay">
+    <div class="container py-4">
+      <div class="d-flex align-items-center justify-content-start gap-4 mb-1" style="padding: 0; margin: 0;">
+        <a href="{% url 'home' %}" style="display: inline-block;">
+          <img 
+            src="{% static 'images/bgalogos/BGA_LogoSeries_Logo-6.png' %}" 
+            alt="BGA Logo" 
+            style="height: 225px; width: auto; object-fit: contain;">
+        </a>
+        <nav class="d-flex align-items-center flex-wrap gap-2">
+          <a class="btn btn-primary btn-sm" href="/">Home</a>
+          <a class="btn btn-outline-primary btn-sm" href="/players/">Tour Players</a>
+          <a class="btn btn-outline-primary btn-sm" href="/results/">Tour Results</a>
+          <a class="btn btn-outline-secondary btn-sm" href="/schedule/">2025 Schedule</a>
+          <a class="btn btn-outline-secondary btn-sm" href="{% url 'player_stats' %}">Career Stats</a>
+          <a class="btn btn-outline-secondary btn-sm" href="/legacy/">Tour Legacy</a>
+          <a class="btn btn-outline-danger btn-sm" href="{% url 'mattydinv' %}">Matty D Invitational</a>
+        </nav>
+      </div>
+      <hr class="my-1">
+      <hr>
+      {% block content %}
+      {% endblock %}
     </div>
-    <hr class="my-1">
-    <hr>
-    {% block content %}
-    {% endblock %}
   </div>
 </body>
 
