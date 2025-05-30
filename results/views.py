@@ -181,18 +181,42 @@ def leaderboard_view(request, pk):
 def edit_score_view(request, score_id):
     score = get_object_or_404(Score, id=score_id)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ScoreForm(request.POST, instance=score)
         if form.is_valid():
-            form.save()
+            updated_score = form.save(commit=False)
+
+            # Re-parse names into Player instances
+            def parse_player_name(name_str):
+                try:
+                    first, last = name_str.strip().split(" ", 1)
+                    return Player.objects.get(first_name__iexact=first, last_name__iexact=last)
+                except Exception:
+                    return None
+
+            updated_score.player = parse_player_name(form.cleaned_data['player'])
+            updated_score.teammate = parse_player_name(form.cleaned_data.get('teammate', ''))
+            updated_score.third_player = parse_player_name(form.cleaned_data.get('third_player', ''))
+            updated_score.fourth_player = parse_player_name(form.cleaned_data.get('fourth_player', ''))
+
+            updated_score.save()
             return redirect('leaderboard', pk=score.event.pk)
     else:
-        form = ScoreForm(instance=score)  # pre fill the form with existing data
+        # Pre-fill the form using instance
+        initial_data = {
+            'player': f"{score.player.first_name} {score.player.last_name}" if score.player else '',
+            'teammate': f"{score.teammate.first_name} {score.teammate.last_name}" if score.teammate else '',
+            'third_player': f"{score.third_player.first_name} {score.third_player.last_name}" if score.third_player else '',
+            'fourth_player': f"{score.fourth_player.first_name} {score.fourth_player.last_name}" if score.fourth_player else '',
+            'score': score.score
+        }
+        form = ScoreForm(initial=initial_data)
 
     return render(request, 'bgaapp/edit_score.html', {
         'form': form,
-        'score': score,
+        'score': score
     })
+
 
 
 
