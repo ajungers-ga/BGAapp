@@ -218,10 +218,10 @@
 
 
 
-
 from django.views.generic import ListView, DetailView, TemplateView
 from django.db import models
-from django.db.models import Count, Q
+from django.db.models import Count, Q, F, Sum, Value
+from django.db.models.functions import Coalesce
 from .models import Player
 from results.models import Score
 
@@ -230,10 +230,12 @@ class PlayerListView(ListView):
     model = Player
     template_name = 'bgaapp/player_list.html'
 
-    # Optimize with select_related/prefetch_related if needed
     def get_queryset(self):
         return Player.objects.all().prefetch_related(
-            'score_set'  # Adjust based on actual related name
+            'scores',
+            'teammate_scores',
+            'third_player_scores',
+            'fourth_player_scores'
         )
 #---------------------------------------------#
 
@@ -247,10 +249,10 @@ class PlayerDetailView(DetailView):
         player = self.get_object()
         context['event_wins'] = Score.objects.filter(
             (
-                Q(player=player) |
-                Q(teammate=player) |
-                Q(third_player=player) |
-                Q(fourth_player=player)
+                models.Q(player=player) |
+                models.Q(teammate=player) |
+                models.Q(third_player=player) |
+                models.Q(fourth_player=player)
             ),
             placement__in=["1", "1st"]
         ).select_related("event")
@@ -264,18 +266,20 @@ class PlayerStatsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Prefetch related scores to avoid N+1 queries
-        players = Player.objects.all().prefetch_related('score_set')
-
-        # If possible, aggregate career_wins in the database
-        players = players.annotate(
-            total_wins=Count(
-                'score__id',
-                filter=Q(score__placement__in=["1", "1st"])
+        players = Player.objects.all().prefetch_related(
+            'scores',
+            'teammate_scores',
+            'third_player_scores',
+            'fourth_player_scores'
+        ).annotate(
+            total_wins=(
+                Coalesce(Count('scores', filter=Q(scores__placement__in=["1", "1st"])), 0) +
+                Coalesce(Count('teammate_scores', filter=Q(teammate_scores__placement__in=["1", "1st"])), 0) +
+                Coalesce(Count('third_player_scores', filter=Q(third_player_scores__placement__in=["1", "1st"])), 0) +
+                Coalesce(Count('fourth_player_scores', filter=Q(fourth_player_scores__placement__in=["1", "1st"])), 0)
             )
         ).order_by('-total_wins')
 
         context['players'] = players
         return context
 #------------------------------------------------------------#
-
