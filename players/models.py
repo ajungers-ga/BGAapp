@@ -7,7 +7,7 @@
 # 2.1 Controls how PLAYERS are displayed using __str__ - method determines what shows up when a player is referenced
 # 2.2 in the admin panel, debug logs, template loops, drop downs
 # 3.  Provides custom properties for dynamic stats (@property methods update the stats in the score model)
-# 4. Links to other models (score.player, score.teammate, score.event)
+# 4. Links to other models (score.player, score.teammate, score.third_player, score.fourth_player)
 
 # The players/models.py is the definition of what a player is, how they appear on the page and how to calc their stats from the DB
 
@@ -16,6 +16,7 @@ from django.db import models
 from decimal import Decimal
 from cloudinary_storage.storage import MediaCloudinaryStorage
 #-------IMPORT DEPENDENCIES-------#
+
 
 #----------------------DEFINE THE PLAYER SCHEMA (data fields)-------------------------#
 class Player(models.Model):
@@ -36,9 +37,11 @@ class Player(models.Model):
     accolades = models.TextField(blank=True)                                     # Long-form text for awards or shoutouts
 #----------------------DEFINE THE PLAYER SCHEMA (data fields)-------------------------#
 
+
     # 2.1 / 2.2 How the player appears in dropdowns, logs, etc
     def __str__(self):
         return f"{self.first_name} '{self.nickname}' {self.last_name}" if self.nickname else f"{self.first_name} {self.last_name}"
+
 
 #---------------------------------COMPUTED PROPERTIES-----------------------------------------#
 
@@ -53,12 +56,13 @@ class Player(models.Model):
             models.Q(fourth_player=self)
         ).count()
 
-    # 4. Wins (based on lowest score, ties = 0.5)
+    # 4. Wins (based on lowest score, ties = 0.5 or 0.25 in 4-man)
     @property
     def career_wins(self):
         from results.models import Score
         from collections import defaultdict
 
+        # Only count finalized events and scores where this player participated
         relevant_scores = Score.objects.filter(
             event__finalized=True
         ).filter(
@@ -71,9 +75,11 @@ class Player(models.Model):
         wins = 0.0
         event_scores = defaultdict(list)
 
+        # Group all scores by event
         for score in relevant_scores:
             event_scores[score.event_id].append(score)
 
+        # Check for wins in each event
         for event_id, scores in event_scores.items():
             if not scores:
                 continue
