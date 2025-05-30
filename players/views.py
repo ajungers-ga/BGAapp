@@ -12,13 +12,18 @@ class PlayerListView(ListView):
     paginate_by = 25
 
     def get_queryset(self):
-        return Player.objects.all().prefetch_related(
+        players = Player.objects.all().prefetch_related(
             'scores',
             'teammate_scores',
             'third_player_scores',
             'fourth_player_scores'
         )
+
+        # Sort players by career_events_played in descending order
+        players = sorted(players, key=lambda p: p.career_events_played, reverse=True)
+        return players
 #---------------------------------------------#
+
 
 #-----------------------------------------------------#
 class PlayerDetailView(DetailView):
