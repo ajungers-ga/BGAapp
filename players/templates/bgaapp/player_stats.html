@@ -28,11 +28,7 @@
             <td>{{ player.career_events_played }}</td>
             <td>{{ player.career_wins }}</td>
             <td>
-              {% if player.career_events_played > 0 %}
-                {{ player.career_wins|floatformat:1 }}/{{ player.career_events_played }} ({{ player.career_wins|divisibleby:player.career_events_played|floatformat:1 }}%)
-              {% else %}
-                —
-              {% endif %}
+              {{ player.win_percentage }}%
             </td>
             <td>
               {% if player.hof_inducted %}
@@ -69,4 +65,3 @@
 </div>
 
 {% endblock %}
-
