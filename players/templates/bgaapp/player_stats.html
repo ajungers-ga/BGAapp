@@ -19,7 +19,8 @@
       </thead>
       <tbody>
         {% for player in players %}
-          {% with total_events=player.scores_played|add:player.teammate_scores_played|add:player.third_player_scores_played|add:player.fourth_player_scores_played, total_wins=player.scores_wins|add:player.teammate_scores_wins|add:player.third_player_scores_wins|add:player.fourth_player_scores_wins %}
+          {% with total_events=player.scores_played|add:player.teammate_scores_played|add:player.third_player_scores_played|add:player.fourth_player_scores_played %}
+          {% with total_wins=player.scores_wins|add:player.teammate_scores_wins|add:player.third_player_scores_wins|add:player.fourth_player_scores_wins %}
           <tr>
             <td>
               <a href="{% url 'player_detail' player.id %}">
@@ -43,6 +44,7 @@
               {% endif %}
             </td>
           </tr>
+          {% endwith %}
           {% endwith %}
         {% endfor %}
       </tbody>
