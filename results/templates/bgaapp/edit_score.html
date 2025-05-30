@@ -6,20 +6,22 @@
   <h1>Edit Score</h1>
 
   {% if request.user.is_superuser %}
-  <form method="post" class="row g-3">
-    {% csrf_token %}
+    <form method="post" class="row g-3">
+      {% csrf_token %}
 
-    {{ form.player|add_class:"form-control" }}
-    {{ form.teammate|add_class:"form-control" }}
-    {{ form.third_player|add_class:"form-control" }}
-    {{ form.fourth_player|add_class:"form-control" }}
-    {{ form.score|add_class:"form-control" }}
+      {{ form.player|add_class:"form-control" }}
+      {{ form.teammate|add_class:"form-control" }}
+      {{ form.third_player|add_class:"form-control" }}
+      {{ form.fourth_player|add_class:"form-control" }}
+      {{ form.score|add_class:"form-control" }}
 
-    <div class="col-12">
-      <button type="submit" class="btn btn-success">Update Score</button>
-      <a href="{% url 'leaderboard' score.event.pk %}" class="btn btn-secondary ms-2">Cancel</a>
-    </div>
-  </form>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Update Score</button>
+        <a href="{% url 'leaderboard' score.event.pk %}" class="btn btn-secondary ms-2">Cancel</a>
+      </div>
+    </form>
+  {% else %}
+    <p>You do not have permission to edit scores.</p>
   {% endif %}
 </div>
 {% endblock %}

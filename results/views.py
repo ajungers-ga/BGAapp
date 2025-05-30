@@ -179,21 +179,19 @@ def leaderboard_view(request, pk):
 @user_passes_test(superuser_only)
 @require_http_methods(["GET", "POST"])
 def edit_score_view(request, score_id):
-    score = get_object_or_404(Score, pk=score_id)
+    score = get_object_or_404(Score, id=score_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ScoreForm(request.POST, instance=score)
         if form.is_valid():
             form.save()
             return redirect('leaderboard', pk=score.event.pk)
     else:
-        form = ScoreForm(instance=score)
+        form = ScoreForm(instance=score)  # pre fill the form with existing data
 
     return render(request, 'bgaapp/edit_score.html', {
         'form': form,
         'score': score,
-        'event': score.event,
-        'all_players': Player.objects.all()
     })
 
 
