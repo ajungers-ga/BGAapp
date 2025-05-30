@@ -24,7 +24,7 @@
       <tbody>
         {% for player in players %}
           <tr>
-            <td>{{ forloop.counter }}</td>
+            <td>{{ player.rank }}</td>
             <td>
               <div class="d-flex align-items-center">
                 {% if player.image %}
@@ -77,3 +77,4 @@
 </div>
 
 {% endblock %}
+

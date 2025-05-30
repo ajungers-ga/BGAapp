@@ -1,6 +1,6 @@
-
 from django.views.generic import ListView, DetailView
 from django.db import models
+from django.db.models import Count, Q, F, FloatField, ExpressionWrapper
 from .models import Player
 from results.models import Score
 
@@ -51,29 +51,35 @@ class PlayerStatsView(ListView):
             'teammate_scores',
             'third_player_scores',
             'fourth_player_scores'
+        ).annotate(
+            career_events_played=Count('scores', distinct=True) +
+                                 Count('teammate_scores', distinct=True) +
+                                 Count('third_player_scores', distinct=True) +
+                                 Count('fourth_player_scores', distinct=True),
+            career_wins=(
+                Count('scores', filter=Q(scores__placement__in=["1", "1st"]), distinct=True) +
+                Count('teammate_scores', filter=Q(teammate_scores__placement__in=["1", "1st"]), distinct=True) +
+                Count('third_player_scores', filter=Q(third_player_scores__placement__in=["1", "1st"]), distinct=True) +
+                Count('fourth_player_scores', filter=Q(fourth_player_scores__placement__in=["1", "1st"]), distinct=True)
+            )
+        ).annotate(
+            win_percentage=ExpressionWrapper(
+                F('career_wins') * 100.0 / F('career_events_played'),
+                output_field=FloatField()
+            )
         )
 
-        # Calculate additional stats
-        for player in players:
-            events_played = player.career_events_played
-            wins = player.career_wins
-            if events_played > 0:
-                player.win_percentage = round((wins / events_played) * 100, 1)
-            else:
-                player.win_percentage = 0.0
-
         # Sorting logic
-        sort = self.request.GET.get('sort', 'events_played')
+        sort = self.request.GET.get('sort', 'career_events_played')
         order = self.request.GET.get('order', 'desc')
 
         if sort == 'career_wins':
-            players = sorted(players, key=lambda p: p.career_wins, reverse=(order == 'desc'))
+            players = players.order_by(('-' if order == 'desc' else '') + 'career_wins')
         elif sort == 'win_percentage':
             # Filter players with at least 20 events played
-            players = [p for p in players if p.career_events_played >= 20]
-            players = sorted(players, key=lambda p: p.win_percentage, reverse=(order == 'desc'))
+            players = players.filter(career_events_played__gte=20).order_by(('-' if order == 'desc' else '') + 'win_percentage')
         else:  # Default to events played
-            players = sorted(players, key=lambda p: p.career_events_played, reverse=True)
+            players = players.order_by('-career_events_played')
 
         return players
 
