@@ -1,6 +1,5 @@
 from django.views.generic import ListView, DetailView
 from django.db import models
-from django.db.models import Count, Q, F, FloatField, ExpressionWrapper
 from .models import Player
 from results.models import Score
 
@@ -59,7 +58,7 @@ class PlayerStatsView(ListView):
             events_played = player.career_events_played
             wins = player.career_wins
             if events_played > 0:
-                player.win_percentage = round((wins / events_played) * 100, 1)
+                player.win_percentage = round((wins / events_played) * 100, 2)
             else:
                 player.win_percentage = 0.0
             filtered_players.append(player)
@@ -71,7 +70,6 @@ class PlayerStatsView(ListView):
         if sort == 'career_wins':
             filtered_players.sort(key=lambda p: p.career_wins, reverse=(order == 'desc'))
         elif sort == 'win_percentage':
-            # Filter players with at least 20 events played before sorting
             filtered_players = [p for p in filtered_players if p.career_events_played >= 20]
             filtered_players.sort(key=lambda p: p.win_percentage, reverse=(order == 'desc'))
         else:  # Default to events played
@@ -87,5 +85,4 @@ class PlayerStatsView(ListView):
         for idx, player in enumerate(context['object_list'], start=start_rank):
             player.rank = idx
         return context
-
 #------------------------------------------------------------#
