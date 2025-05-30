@@ -174,12 +174,29 @@ def leaderboard_view(request, pk):
         'all_players': Player.objects.all()
     })
 
+
 # 6. EDIT SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
 @require_http_methods(["GET", "POST"])
 def edit_score_view(request, score_id):
-    # (unchanged from your version)
-    ...
+    score = get_object_or_404(Score, pk=score_id)
+
+    if request.method == 'POST':
+        form = ScoreForm(request.POST, instance=score)
+        if form.is_valid():
+            form.save()
+            return redirect('leaderboard', pk=score.event.pk)
+    else:
+        form = ScoreForm(instance=score)
+
+    return render(request, 'bgaapp/edit_score.html', {
+        'form': form,
+        'score': score,
+        'event': score.event,
+        'all_players': Player.objects.all()
+    })
+
+
 
 # 7. DELETE SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
