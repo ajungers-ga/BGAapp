@@ -164,7 +164,7 @@ def leaderboard_view(request, pk):
                 s.placement = str(score_to_place[s.score])
                 s.save()
 
-            # 🟢 No need to manually modify career_wins or events played — they're properties now
+            
             pass
 
     return render(request, 'bgaapp/leaderboard.html', {
