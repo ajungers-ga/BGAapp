@@ -19,17 +19,23 @@
       </thead>
       <tbody>
         {% for player in players %}
+          {% with
+            player.scores_played|add:player.teammate_scores_played|add:player.third_player_scores_played|add:player.fourth_player_scores_played as total_events
+          %}
+          {% with
+            player.scores_wins|add:player.teammate_scores_wins|add:player.third_player_scores_wins|add:player.fourth_player_scores_wins as total_wins
+          %}
           <tr>
             <td>
               <a href="{% url 'player_detail' player.id %}">
                 {{ player.first_name }} {{ player.last_name }}
               </a>
             </td>
-            <td>{{ player.events_played }}</td>
-            <td>{{ player.career_wins }}</td>
+            <td>{{ total_events }}</td>
+            <td>{{ total_wins }}</td>
             <td>
-              {% if player.win_percentage %}
-                {{ player.win_percentage|floatformat:1 }}%
+              {% if total_events > 0 %}
+                {{ total_wins|divisibleby:total_events|floatformat:1 }}%
               {% else %}
                 —
               {% endif %}
@@ -42,6 +48,8 @@
               {% endif %}
             </td>
           </tr>
+          {% endwith %}
+          {% endwith %}
         {% endfor %}
       </tbody>
     </table>

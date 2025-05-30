@@ -53,23 +53,14 @@ class PlayerStatsView(ListView):
             'third_player_scores',
             'fourth_player_scores'
         ).annotate(
-            events_played=(
-                Count('scores__event', distinct=True) +
-                Count('teammate_scores__event', distinct=True) +
-                Count('third_player_scores__event', distinct=True) +
-                Count('fourth_player_scores__event', distinct=True)
-            ),
-            career_wins=(
-                Coalesce(Count('scores', filter=Q(scores__placement__in=["1", "1st"]), distinct=True), 0) +
-                Coalesce(Count('teammate_scores', filter=Q(teammate_scores__placement__in=["1", "1st"]), distinct=True), 0) +
-                Coalesce(Count('third_player_scores', filter=Q(third_player_scores__placement__in=["1", "1st"]), distinct=True), 0) +
-                Coalesce(Count('fourth_player_scores', filter=Q(fourth_player_scores__placement__in=["1", "1st"]), distinct=True), 0)
-            )
-        ).annotate(
-            win_percentage=ExpressionWrapper(
-                F('career_wins') * 100.0 / Coalesce(NullIf(F('events_played'), 0), 1),
-                output_field=FloatField()
-            )
-        ).order_by('-events_played')
+            scores_played=Count('scores'),
+            teammate_scores_played=Count('teammate_scores'),
+            third_player_scores_played=Count('third_player_scores'),
+            fourth_player_scores_played=Count('fourth_player_scores'),
+            scores_wins=Count('scores', filter=Q(scores__placement__in=["1", "1st"])),
+            teammate_scores_wins=Count('teammate_scores', filter=Q(teammate_scores__placement__in=["1", "1st"])),
+            third_player_scores_wins=Count('third_player_scores', filter=Q(third_player_scores__placement__in=["1", "1st"])),
+            fourth_player_scores_wins=Count('fourth_player_scores', filter=Q(fourth_player_scores__placement__in=["1", "1st"]))
+        )
         return players
 #------------------------------------------------------------#
