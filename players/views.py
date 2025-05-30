@@ -51,37 +51,33 @@ class PlayerStatsView(ListView):
             'teammate_scores',
             'third_player_scores',
             'fourth_player_scores'
-        ).annotate(
-            career_events_played=Count('scores', distinct=True) +
-                                 Count('teammate_scores', distinct=True) +
-                                 Count('third_player_scores', distinct=True) +
-                                 Count('fourth_player_scores', distinct=True),
-            career_wins=(
-                Count('scores', filter=Q(scores__placement__in=["1", "1st"]), distinct=True) +
-                Count('teammate_scores', filter=Q(teammate_scores__placement__in=["1", "1st"]), distinct=True) +
-                Count('third_player_scores', filter=Q(third_player_scores__placement__in=["1", "1st"]), distinct=True) +
-                Count('fourth_player_scores', filter=Q(fourth_player_scores__placement__in=["1", "1st"]), distinct=True)
-            )
-        ).annotate(
-            win_percentage=ExpressionWrapper(
-                F('career_wins') * 100.0 / F('career_events_played'),
-                output_field=FloatField()
-            )
         )
 
+        # Calculate additional stats
+        filtered_players = []
+        for player in players:
+            events_played = player.career_events_played
+            wins = player.career_wins
+            if events_played > 0:
+                player.win_percentage = round((wins / events_played) * 100, 1)
+            else:
+                player.win_percentage = 0.0
+            filtered_players.append(player)
+
         # Sorting logic
-        sort = self.request.GET.get('sort', 'career_events_played')
+        sort = self.request.GET.get('sort', 'events_played')
         order = self.request.GET.get('order', 'desc')
 
         if sort == 'career_wins':
-            players = players.order_by(('-' if order == 'desc' else '') + 'career_wins')
+            filtered_players.sort(key=lambda p: p.career_wins, reverse=(order == 'desc'))
         elif sort == 'win_percentage':
-            # Filter players with at least 20 events played
-            players = players.filter(career_events_played__gte=20).order_by(('-' if order == 'desc' else '') + 'win_percentage')
+            # Filter players with at least 20 events played before sorting
+            filtered_players = [p for p in filtered_players if p.career_events_played >= 20]
+            filtered_players.sort(key=lambda p: p.win_percentage, reverse=(order == 'desc'))
         else:  # Default to events played
-            players = players.order_by('-career_events_played')
+            filtered_players.sort(key=lambda p: p.career_events_played, reverse=True)
 
-        return players
+        return filtered_players
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
