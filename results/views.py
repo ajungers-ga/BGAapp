@@ -184,5 +184,7 @@ def edit_score_view(request, score_id):
 # 7. DELETE SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
 def delete_score(request, pk):
-    # (unchanged from your version)
-    ...
+    score = get_object_or_404(Score, pk=pk)
+    event_pk = score.event.pk  # Save event id before deleting
+    score.delete()
+    return redirect('leaderboard', pk=event_pk)
