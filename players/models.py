@@ -62,28 +62,31 @@ class Player(models.Model):
         from results.models import Score
         from collections import defaultdict
 
-        # Pull all finalized scores (do NOT prefilter to this player)
-        all_scores = Score.objects.filter(event__finalized=True)
+        all_scores = Score.objects.filter(event__finalized=True).only(
+            'event_id', 'score', 'player_id', 'teammate_id', 'third_player_id', 'fourth_player_id'
+        )
 
         wins = 0.0
         event_scores = defaultdict(list)
 
-        # Group all scores by event
         for score in all_scores:
             event_scores[score.event_id].append(score)
 
-        # Process win credit for each event
-        for event_id, scores in event_scores.items():
+        for _, scores in event_scores.items():
             if not scores:
                 continue
 
-            # Find the best (lowest) score
             min_score = min(s.score for s in scores)
             winning_teams = [s for s in scores if s.score == min_score]
             win_fraction = 1.0 / len(winning_teams)
 
             for s in winning_teams:
-                if self in [s.player, s.teammate, s.third_player, s.fourth_player]:
+                if self.id in [
+                    getattr(s.player, 'id', None),
+                    getattr(s.teammate, 'id', None),
+                    getattr(s.third_player, 'id', None),
+                    getattr(s.fourth_player, 'id', None)
+                ]:
                     wins += win_fraction
                     break  # avoid double credit
 
