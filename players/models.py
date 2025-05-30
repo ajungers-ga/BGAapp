@@ -56,34 +56,28 @@ class Player(models.Model):
             models.Q(fourth_player=self)
         ).count()
 
-    # 4. Wins (based on lowest score, ties = 0.5 or 0.25 in 4-man)
+    # 4. Wins (accurately detects team participation + avoids inflated counts)
     @property
     def career_wins(self):
         from results.models import Score
         from collections import defaultdict
 
-        # Only count finalized events and scores where this player participated
-        relevant_scores = Score.objects.filter(
-            event__finalized=True
-        ).filter(
-            models.Q(player=self) |
-            models.Q(teammate=self) |
-            models.Q(third_player=self) |
-            models.Q(fourth_player=self)
-        )
+        # Pull all finalized scores (do NOT prefilter to this player)
+        all_scores = Score.objects.filter(event__finalized=True)
 
         wins = 0.0
         event_scores = defaultdict(list)
 
         # Group all scores by event
-        for score in relevant_scores:
+        for score in all_scores:
             event_scores[score.event_id].append(score)
 
-        # Check for wins in each event
+        # Process win credit for each event
         for event_id, scores in event_scores.items():
             if not scores:
                 continue
 
+            # Find the best (lowest) score
             min_score = min(s.score for s in scores)
             winning_teams = [s for s in scores if s.score == min_score]
             win_fraction = 1.0 / len(winning_teams)
@@ -91,6 +85,7 @@ class Player(models.Model):
             for s in winning_teams:
                 if self in [s.player, s.teammate, s.third_player, s.fourth_player]:
                     wins += win_fraction
+                    break  # avoid double credit
 
         return round(wins, 2)
 
