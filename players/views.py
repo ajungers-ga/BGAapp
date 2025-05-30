@@ -52,19 +52,36 @@ class PlayerStatsView(ListView):
             'third_player_scores',
             'fourth_player_scores'
         )
-        # Sort by events played descending
-        players = sorted(players, key=lambda p: p.career_events_played, reverse=True)
-        return players
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add win percentage to each player object
-        for player in context['object_list']:
+        # Calculate additional stats
+        for player in players:
             events_played = player.career_events_played
             wins = player.career_wins
             if events_played > 0:
                 player.win_percentage = round((wins / events_played) * 100, 1)
             else:
                 player.win_percentage = 0.0
+
+        # Sorting logic
+        sort = self.request.GET.get('sort', 'events_played')
+        order = self.request.GET.get('order', 'desc')
+
+        if sort == 'career_wins':
+            players = sorted(players, key=lambda p: p.career_wins, reverse=(order == 'desc'))
+        elif sort == 'win_percentage':
+            players = sorted(players, key=lambda p: p.win_percentage, reverse=(order == 'desc'))
+        else:  # Default to events played
+            players = sorted(players, key=lambda p: p.career_events_played, reverse=True)
+
+        return players
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add rank to each player
+        page_number = self.request.GET.get('page', 1)
+        per_page = self.paginate_by
+        start_rank = (int(page_number) - 1) * per_page + 1
+        for idx, player in enumerate(context['object_list'], start=start_rank):
+            player.rank = idx
         return context
 #------------------------------------------------------------#
