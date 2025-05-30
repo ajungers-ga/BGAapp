@@ -1,3 +1,5 @@
+
+
 from django.views.generic import ListView, DetailView
 from django.db import models
 from .models import Player
