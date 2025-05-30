@@ -88,7 +88,6 @@ def leaderboard_view(request, pk):
             fourth_name = form.cleaned_data.get('fourth_player')
             valid = True
 
-            # Parse player names
             try:
                 first, last = player_name.strip().split(" ", 1)
                 score_entry.player = Player.objects.get(first_name__iexact=first, last_name__iexact=last)
@@ -145,7 +144,7 @@ def leaderboard_view(request, pk):
     else:
         form = ScoreForm()
 
-    # FINALIZED EVENT LOGIC - apply wins and medals
+    # FINALIZED EVENT LOGIC - apply placements
     if event.finalized:
         all_scores = list(scores)
         if all_scores:
@@ -165,22 +164,8 @@ def leaderboard_view(request, pk):
                 s.placement = str(score_to_place[s.score])
                 s.save()
 
-            # Award wins to players tied for 1st
-            first_place_scores = [s for s in all_scores if score_to_place[s.score] == 1]
-            if first_place_scores:
-                win_share = round(1.0 / len(first_place_scores), 2)
-                for s in first_place_scores:
-                    for player in [s.player, s.teammate, s.third_player, s.fourth_player]:
-                        if player:
-                            player.career_wins += Decimal(str(win_share))
-                            player.save()
-
-            # Increment events played for all players
-            for s in all_scores:
-                for player in [s.player, s.teammate, s.third_player, s.fourth_player]:
-                    if player:
-                        player.career_events_played += 1
-                        player.save()
+            # 🟢 No need to manually modify career_wins or events played — they're properties now
+            pass
 
     return render(request, 'bgaapp/leaderboard.html', {
         'event': event,
@@ -189,14 +174,13 @@ def leaderboard_view(request, pk):
         'all_players': Player.objects.all()
     })
 
-
 # 6. EDIT SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
 @require_http_methods(["GET", "POST"])
 def edit_score_view(request, score_id):
     # (unchanged from your version)
     ...
-    
+
 # 7. DELETE SCORE VIEW (Superuser Only)
 @user_passes_test(superuser_only)
 def delete_score(request, pk):
