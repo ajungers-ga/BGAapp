@@ -36,24 +36,56 @@ class Player(models.Model):
     accolades = models.TextField(blank=True)                                     # Long-form text for awards or shoutouts
 #----------------------DEFINE THE PLAYER SCHEMA (data fields)-------------------------#
 
-
+    # 2.1 / 2.2 How the player appears in dropdowns, logs, etc
     def __str__(self):
         return f"{self.first_name} '{self.nickname}' {self.last_name}" if self.nickname else f"{self.first_name} {self.last_name}"
 
-
-
 #---------------------------------COMPUTED PROPERTIES-----------------------------------------#
+
+    # 3. Events Played (if player appears in any slot)
     @property
     def career_events_played(self):
         from results.models import Score
-        return Score.objects.filter(models.Q(player=self) | models.Q(teammate=self)).count()
+        return Score.objects.filter(
+            models.Q(player=self) |
+            models.Q(teammate=self) |
+            models.Q(third_player=self) |
+            models.Q(fourth_player=self)
+        ).count()
 
+    # 4. Wins (based on lowest score, ties = 0.5)
     @property
     def career_wins(self):
         from results.models import Score
-        # Return number of wins this player was part of (solo or team)
-        return Score.objects.filter(
-            models.Q(player=self) | models.Q(teammate=self),
-            placement__in=["1", "1st"]
-        ).count()
+        from collections import defaultdict
+
+        relevant_scores = Score.objects.filter(
+            event__finalized=True
+        ).filter(
+            models.Q(player=self) |
+            models.Q(teammate=self) |
+            models.Q(third_player=self) |
+            models.Q(fourth_player=self)
+        )
+
+        wins = 0.0
+        event_scores = defaultdict(list)
+
+        for score in relevant_scores:
+            event_scores[score.event_id].append(score)
+
+        for event_id, scores in event_scores.items():
+            if not scores:
+                continue
+
+            min_score = min(s.score for s in scores)
+            winning_teams = [s for s in scores if s.score == min_score]
+            win_fraction = 1.0 / len(winning_teams)
+
+            for s in winning_teams:
+                if self in [s.player, s.teammate, s.third_player, s.fourth_player]:
+                    wins += win_fraction
+
+        return round(wins, 2)
+
 #---------------------------------COMPUTED PROPERTIES-----------------------------------------#
