@@ -6,19 +6,14 @@
 
 <!-- Each player name is wrapped in a link that dynamically points to their profile. I used { % url 'player_detail' player.id % } -->
 
-
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
 
-
-
 <!-- MAIN CONTAINER -->
 <div class="container mt-5">
   <h1 class="mb-4">Career Stats</h1>
-
-
 
   <!-- CHECK: Only display table if players exist -->
   {% if players %}
@@ -52,10 +47,10 @@
             <td>{{ player.nickname }}</td>
 
             <!-- Events Played column -->
-            <td>{{ player.career_events_played }}</td>
+            <td>{{ player.events_played }}</td>
 
             <!-- Career Wins column -->
-            <td>{{ player.career_wins }}</td>
+            <td>{{ player.total_wins }}</td>
 
             <!-- Hall of Fame column: show year if inducted -->
             <td>
@@ -70,6 +65,23 @@
       </tbody>
 
     </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination mt-4">
+      <span class="page-links">
+        {% if page_obj.has_previous %}
+          <a class="btn btn-outline-secondary btn-sm" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current mx-2">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+          <a class="btn btn-outline-secondary btn-sm" href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+      </span>
+    </div>
 
   {% else %}
     <!-- No player data fallback -->
