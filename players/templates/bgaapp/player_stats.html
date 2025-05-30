@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <div class="container mt-5">
   <h1 class="mb-4">Career Stats</h1>
 
@@ -12,13 +11,13 @@
         <tr>
           <th>Rank</th>
           <th>Name</th>
+          <th>Events Played</th>
           <th>
             <a href="?sort=career_wins&order=desc">Career Wins ⬇️</a>
           </th>
           <th>
             <a href="?sort=win_percentage&order=desc">Win % ⬇️</a>
           </th>
-          <th>Events Played</th>
           <th>HOF</th>
         </tr>
       </thead>
@@ -31,9 +30,9 @@
                 {{ player.first_name }} {{ player.last_name }}
               </a>
             </td>
+            <td>{{ player.career_events_played }}</td>
             <td>{{ player.career_wins }}</td>
             <td>{{ player.win_percentage }}%</td>
-            <td>{{ player.career_events_played }}</td>
             <td>
               {% if player.hof_inducted %}
                 Yes ({{ player.hof_year }})
@@ -67,5 +66,4 @@
     <p class="text-muted">No player data available yet.</p>
   {% endif %}
 </div>
-
 {% endblock %}

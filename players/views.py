@@ -69,6 +69,8 @@ class PlayerStatsView(ListView):
         if sort == 'career_wins':
             players = sorted(players, key=lambda p: p.career_wins, reverse=(order == 'desc'))
         elif sort == 'win_percentage':
+            # Filter players with at least 20 events played
+            players = [p for p in players if p.career_events_played >= 20]
             players = sorted(players, key=lambda p: p.win_percentage, reverse=(order == 'desc'))
         else:  # Default to events played
             players = sorted(players, key=lambda p: p.career_events_played, reverse=True)
@@ -77,11 +79,11 @@ class PlayerStatsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add rank to each player
         page_number = self.request.GET.get('page', 1)
         per_page = self.paginate_by
         start_rank = (int(page_number) - 1) * per_page + 1
         for idx, player in enumerate(context['object_list'], start=start_rank):
             player.rank = idx
         return context
+
 #------------------------------------------------------------#
