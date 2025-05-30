@@ -19,11 +19,9 @@
       </thead>
       <tbody>
         {% for player in players %}
-          {% with
-            player.scores_played|add:player.teammate_scores_played|add:player.third_player_scores_played|add:player.fourth_player_scores_played as total_events
-          %}
-          {% with
-            player.scores_wins|add:player.teammate_scores_wins|add:player.third_player_scores_wins|add:player.fourth_player_scores_wins as total_wins
+          {% with 
+            total_events=player.scores_played|add:player.teammate_scores_played|add:player.third_player_scores_played|add:player.fourth_player_scores_played 
+            total_wins=player.scores_wins|add:player.teammate_scores_wins|add:player.third_player_scores_wins|add:player.fourth_player_scores_wins
           %}
           <tr>
             <td>
@@ -35,7 +33,7 @@
             <td>{{ total_wins }}</td>
             <td>
               {% if total_events > 0 %}
-                {{ total_wins|divisibleby:total_events|floatformat:1 }}%
+                {{ total_wins|floatformat:1 }}/{{ total_events }} ({{ total_wins|divisibleby:total_events|floatformat:1 }}%)
               {% else %}
                 —
               {% endif %}
@@ -48,7 +46,6 @@
               {% endif %}
             </td>
           </tr>
-          {% endwith %}
           {% endwith %}
         {% endfor %}
       </tbody>
