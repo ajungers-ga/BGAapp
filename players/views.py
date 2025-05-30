@@ -1,3 +1,5 @@
+
+
 from django.views.generic import ListView, DetailView
 from django.db import models
 from .models import Player
@@ -72,7 +74,7 @@ class PlayerStatsView(ListView):
         elif sort == 'win_percentage':
             filtered_players = [p for p in filtered_players if p.career_events_played >= 20]
             filtered_players.sort(key=lambda p: p.win_percentage, reverse=(order == 'desc'))
-        else:  # Default to events played
+        else:
             filtered_players.sort(key=lambda p: p.career_events_played, reverse=True)
 
         return filtered_players
@@ -84,5 +86,6 @@ class PlayerStatsView(ListView):
         start_rank = (int(page_number) - 1) * per_page + 1
         for idx, player in enumerate(context['object_list'], start=start_rank):
             player.rank = idx
+        context['players'] = context['object_list']  # Added to match template variable
         return context
 #------------------------------------------------------------#
