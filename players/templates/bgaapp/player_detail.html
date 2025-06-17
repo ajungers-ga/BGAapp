@@ -21,7 +21,7 @@
         style="width: 180px; height: 180px; object-fit: cover; margin-top: 20px;">
     {% endif %}
 
-    <div class="card-body">
+    <div class="card-body text-center">
 
       <h2 class="card-title">
         {{ object.first_name }} {% if object.nickname %}"{{ object.nickname }}" {% endif %} {{ object.last_name }}
@@ -38,25 +38,57 @@
       </p>
 
       <hr>
+      <h5 class="text-center">🏅 Career Wins</h5>
 
-      <h5>🏅 Career Wins</h5>
+      {% if major_wins or two_man_wins or four_man_wins %}
 
-      {% if event_wins|length > 0 %}
-        <p style="color: red;">🚨 Template sees {{ event_wins|length }} wins</p>
-        <ul class="list-group">
-          {% for win in event_wins %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span>
-                {{ win.event.major_label|default:win.event.name }} — {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
-              </span>
-              <a href="{% url 'leaderboard' win.event.id %}" class="btn btn-sm btn-outline-primary">Leaderboard</a>
-            </li>
-          {% endfor %}
-        </ul>
+        {% if major_wins %}
+          <h6 class="text-center mt-3">🏆 Major Tournament Wins</h6>
+          <ul class="list-group mb-3">
+            {% for win in major_wins %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                  {{ win.event.major_label|default:win.event.name }} — {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
+                </span>
+                <a href="{% url 'leaderboard' win.event.id %}" class="btn btn-sm btn-outline-primary">Leaderboard</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if two_man_wins %}
+          <hr>
+          <h6 class="text-center mt-3">👬 2-Man Scramble Wins</h6>
+          <ul class="list-group mb-3">
+            {% for win in two_man_wins %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                  {{ win.event.name }} — {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
+                </span>
+                <a href="{% url 'leaderboard' win.event.id %}" class="btn btn-sm btn-outline-primary">Leaderboard</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if four_man_wins %}
+          <hr>
+          <h6 class="text-center mt-3">👨‍👨‍👦‍👦 4-Man Scramble Wins</h6>
+          <ul class="list-group mb-3">
+            {% for win in four_man_wins %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                  {{ win.event.name }} — {{ win.event.date|date:"F j, Y" }} @ {{ win.event.course_name }}
+                </span>
+                <a href="{% url 'leaderboard' win.event.id %}" class="btn btn-sm btn-outline-primary">Leaderboard</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
       {% else %}
-        <p class="text-muted">No wins recorded for this player yet.</p>
+        <p class="text-muted text-center">No wins recorded for this player yet.</p>
       {% endif %}
-
 
     </div>
   </div>
