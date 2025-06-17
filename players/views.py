@@ -96,7 +96,6 @@
 # #------------------------------------------------------------#
 
 
-
 from django.views.generic import ListView, DetailView
 from django.db import models
 from .models import Player
@@ -140,10 +139,22 @@ class PlayerDetailView(DetailView):
             placement__in=["1", "1st"]
         ).select_related("event")
 
-        # Group wins by event type
-        context['major_wins'] = [w for w in all_wins if w.event.is_major]
-        context['two_man_wins'] = [w for w in all_wins if not w.event.is_major and w.teammate and not w.third_player]
-        context['four_man_wins'] = [w for w in all_wins if w.third_player]
+        # Group wins and sort each group by most recent date
+        context['major_wins'] = sorted(
+            [w for w in all_wins if w.event.is_major],
+            key=lambda w: w.event.date,
+            reverse=True
+        )
+        context['two_man_wins'] = sorted(
+            [w for w in all_wins if not w.event.is_major and w.teammate and not w.third_player],
+            key=lambda w: w.event.date,
+            reverse=True
+        )
+        context['four_man_wins'] = sorted(
+            [w for w in all_wins if w.third_player],
+            key=lambda w: w.event.date,
+            reverse=True
+        )
 
         return context
 #------------------------------------------------------------#
