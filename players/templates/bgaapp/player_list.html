@@ -8,20 +8,39 @@
     color: goldenrod;
     font-weight: bold;
   }
+
+  .player-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto 0;
+    display: block;
+  }
+
+  .player-card {
+    height: 100%;
+    text-align: center;
+  }
+
+  .card-body p {
+    margin-bottom: 0.5rem;
+  }
 </style>
 
 <div class="container mt-5">
-  <h1 class="mb-4">BGA Players</h1>
+  <h1 class="mb-4 text-center">BGA Players</h1>
 
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for player in object_list %}
       <div class="col">
         <a href="{% url 'player_detail' player.pk %}" class="text-decoration-none text-dark">
-          <div class="card h-100 shadow-sm">
+          <div class="card player-card shadow-sm">
+
             {% if player.image %}
-              <img src="{{ player.image.url }}" class="card-img-top" alt="{{ player }}">
+              <img src="{{ player.image.url }}" class="player-img" alt="{{ player }}">
             {% else %}
-              <img src="{% static 'default_player.jpg' %}" class="card-img-top" alt="No Image">
+              <img src="{% static 'default_player.jpg' %}" class="player-img" alt="No Image">
             {% endif %}
 
             <div class="card-body">
@@ -31,15 +50,14 @@
                 {{ player.last_name }}
               </h5>
 
-              <p class="card-text">
-                <strong>Hometown:</strong> {{ player.hometown }}<br>
-                <strong>Years Active:</strong> {{ player.years_active }}<br>
-                <strong>Events Played:</strong> {{ player.career_events_played }}<br>
-                <strong>Career Wins:</strong> {{ player.career_wins }}<br>
-                {% if player.hof_inducted %}
-                  <span class="hof-highlight">🥇🧥 HOF Class of {{ player.hof_year }}</span>
-                {% endif %}
-              </p>
+              <p><strong>Hometown:</strong> {{ player.hometown }}</p>
+              <p><strong>Years Active:</strong> {{ player.years_active }}</p>
+              <p><strong>Events Played:</strong> {{ player.career_events_played }}</p>
+              <p><strong>Career Wins:</strong> {{ player.career_wins }}</p>
+
+              {% if player.hof_inducted %}
+                <p class="hof-highlight">🥇🧥 HOF Class of {{ player.hof_year }}</p>
+              {% endif %}
             </div>
 
             {% if player.accolades %}
@@ -54,7 +72,7 @@
   </div>
 
   <!-- Pagination Controls -->
-  <div class="pagination mt-4">
+  <div class="pagination mt-4 text-center">
     <span class="page-links">
       {% if page_obj.has_previous %}
         <a class="btn btn-outline-secondary btn-sm" href="?page={{ page_obj.previous_page_number }}">Previous</a>
