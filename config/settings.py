@@ -12,11 +12,11 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8*-1r!d55niwe(gkhvwb2+#_tr)!@xlad5+xl)-p^c2wiy!19*'
+# ✅ Load SECRET_KEY from environment for production security
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-key')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# ✅ Turn off debug for production
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -96,6 +96,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "core/static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# ✅ Enable whitenoise compressed static file storage for production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ✅ Enable Cloudinary for image uploads
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
