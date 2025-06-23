@@ -10,7 +10,6 @@ import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -19,14 +18,14 @@ SECRET_KEY = 'django-insecure-8*-1r!d55niwe(gkhvwb2+#_tr)!@xlad5+xl)-p^c2wiy!19*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',
-                 '127.0.0.1',
-                 '.fly.dev',
-                 'bgaapp.fly.dev',
-                 'bgaapp.fly.dev',
-                 'beastgolfassociation.com',
-                 'www.beastgolfassociation.com'
-                 ]
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.fly.dev',
+    'bgaapp.fly.dev',
+    'beastgolfassociation.com',
+    'www.beastgolfassociation.com',
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -74,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
@@ -99,8 +97,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "core/static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# ✅ REMOVE any MEDIA_URL / MEDIA_ROOT – Cloudinary will handle all media
-
 # ✅ Enable Cloudinary for image uploads
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -110,6 +106,11 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'C6jniJXwkHVZzPG23Xx7aPVinBI',
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
+# ✅ Trust CSRF for both Fly.io and custom domain
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.fly.dev',
+    'https://beastgolfassociation.com',
+    'https://www.beastgolfassociation.com',
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
