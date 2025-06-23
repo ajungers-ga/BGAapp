@@ -19,7 +19,14 @@ SECRET_KEY = 'django-insecure-8*-1r!d55niwe(gkhvwb2+#_tr)!@xlad5+xl)-p^c2wiy!19*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.fly.dev', 'bgaapp.fly.dev']
+ALLOWED_HOSTS = ['localhost',
+                 '127.0.0.1',
+                 '.fly.dev',
+                 'bgaapp.fly.dev',
+                 'bgaapp.fly.dev',
+                 'beastgolfassociation.com',
+                 'www.beastgolfassociation.com'
+                 ]
 
 # Application definition
 INSTALLED_APPS = [
