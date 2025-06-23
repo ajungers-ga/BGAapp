@@ -23,7 +23,13 @@ class Player(models.Model):
     hof_year = models.PositiveIntegerField(blank=True, null=True)
     accolades = models.TextField(blank=True)
 
-    wins = models.DecimalField(max_digits=4, decimal_places=1, default=Decimal('0.0'))
+    wins = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal('0.0'),
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return f"{self.first_name} '{self.nickname}' {self.last_name}" if self.nickname else f"{self.first_name} {self.last_name}"
