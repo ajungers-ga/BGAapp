@@ -1,75 +1,134 @@
-<!-- File Purpose: Dedicated page for the Matty D Invitational charity event -->
+<!-- File Purpose: Matty D Invitational — Full Flier Page with Clean Layout & Visual Layering -->
 
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
+<style>
+  /* Background Layer */
+  body {
+    background: linear-gradient(to bottom, #f3f0f9, #e6e0f8);
+    background-attachment: fixed;
+  }
+
+  .flier-wrap {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .teal-title {
+    color: #00ced1;
+  }
+
+  .highlight {
+    color: #6a0dad;
+  }
+
+  .rounded-img {
+    border-radius: 50%;
+    max-width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .section-card {
+    background-color: #f0eafd;
+    border: none;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+  }
+
+  .fs-detail {
+    font-size: 1.1rem;
+  }
+
+  .btn-custom {
+    background-color: #00ced1;
+    color: white;
+    border: none;
+  }
+
+  .btn-custom:hover {
+    background-color: #20b2aa;
+  }
+
+  @media (min-width: 768px) {
+    .hero-img {
+      max-width: 280px;
+    }
+  }
+</style>
+
+<div class="flier-wrap">
 
   <!-- Hero Section -->
-  <div class="text-center mb-4">
-    <h1 class="display-5 fw-bold text-danger">Matty D Invitational</h1>
-    <p class="lead">Hosted by Matt & Cassie Daulton — Supporting The Angel Foundation</p>
-    <img src="{% static 'images/mattyd.jpg' %}" alt="Matt and Cassie Daulton" class="img-fluid rounded-circle shadow mt-3" style="max-width: 300px;">
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold teal-title">Matty D Invitational</h1>
+    <p class="fs-4 teal-title mb-4">Hosted by Matt & Cassie Daulton</p>
   </div>
 
-  <!-- Mission Statement -->
-  <div class="card shadow mb-5">
-    <div class="card-body">
-      <h4 class="card-title text-center text-danger">Our Mission</h4>
-      <p class="card-text">
-        The Matty D Invitational began as a small 2-man scramble with 16 friends in 2016. After an unforgettable event at Southern Hills the following year, the tournament took on a deeper meaning following Rob Sage’s cancer diagnosis and passing in 2018. Inspired by the strength of community, the event has since partnered with the <strong>Angel Foundation</strong> — a Twin Cities-based nonprofit supporting individuals and families navigating cancer with financial help, education, and emotional support.
-        <br><br>
-        Since 2018, the Matty D Invitational has raised over $15,000 and continues to grow. Now hosted at <a href="https://www.summitgolfclub.com/" target="_blank">Summit Golf Club</a>, the 2025 event will feature a 4-man scramble and a post-round banquet at <a href="https://www.carbones.com/locations/northfield/" target="_blank">Carbone’s in Northfield</a>.
-      </p>
+  <!-- Hero Grid -->
+  <div class="row align-items-center mb-5">
+    <!-- Image -->
+    <div class="col-md-5 text-center mb-4 mb-md-0">
+      <img src="{% static 'images/mattyd.jpg' %}" alt="Matt and Cassie Daulton" class="rounded-img hero-img">
+    </div>
+
+    <!-- Mission -->
+    <div class="col-md-7">
+      <div class="section-card">
+        <h4 class="text-center highlight mb-3">Our Mission</h4>
+        <p class="fs-detail">
+          The Matty D Invitational began as a small 2-man scramble with 16 friends in 2016. After an unforgettable event at Southern Hills the following year, the tournament took on a deeper meaning following Rob Sage’s cancer diagnosis and passing in 2018.
+          <br><br>
+          Since then, the tournament has grown into a powerful tribute to friendship and community, raising over <strong>$15,000</strong> for the <strong>Angel Foundation</strong> — a Twin Cities nonprofit supporting families affected by cancer.
+        </p>
+      </div>
     </div>
   </div>
 
-  <!-- Flier-Style 2025 Tournament Info -->
-  <div class="card shadow-lg mb-5">
-    <div class="card-header bg-danger text-white text-center">
-      <h4 class="mb-0">🎯 2025 Tournament Info</h4>
-    </div>
-    <div class="card-body">
+  <!-- 2025 Tournament Details -->
+  <div class="section-card">
+    <h4 class="text-center highlight fw-bold mb-4">2025 Tournament Details</h4>
 
-      <!-- Angel Foundation Image -->
-      <div class="text-center mb-4">
-        <img src="{% static 'images/angel_foundation.jpg' %}" alt="Angel Foundation" class="img-fluid rounded shadow" style="max-width: 300px;">
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-unstyled fs-detail">
+          <li><strong>Date:</strong> July 26, 2025</li>
+          <li><strong>Start Time:</strong> Shotgun Start at 8:00 AM</li>
+          <li><strong>Format:</strong> 4-Man Scramble</li>
+          <li class="mt-3">
+            <strong>Golf Location:</strong><br>
+            <a href="https://www.summitgolfclub.com/" target="_blank">
+              Summit Golf Club<br>31286 MN-19, Cannon Falls, MN 55009
+            </a>
+          </li>
+          <li class="mt-3">
+            <strong>Banquet:</strong><br>
+            <a href="https://www.carbones.com/locations/northfield/" target="_blank">
+              Carbone’s — 620 South Water St, Northfield, MN 55057
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <ul class="list-unstyled fs-5">
-        <li><strong>Date:</strong> July 26, 2025</li>
-        <li><strong>Start Time:</strong> Shotgun Start at 8:00 AM</li>
-        <li><strong>Format:</strong> 4-Man Scramble</li>
-        <li>
-          <strong>Location:</strong>
-          <a href="https://www.summitgolfclub.com/" target="_blank">
-            Summit Golf Club — 31286 MN-19, Cannon Falls, MN 55009
-          </a>
-        </li>
-        <li>
-          <strong>Banquet:</strong>
-          <a href="https://www.carbones.com/locations/northfield/" target="_blank">
-            Carbone’s — 620 South Water St, Northfield, MN 55057
-          </a>
-        </li>
-        <li class="mt-3">
-          <strong>To Register:</strong> Email
-          <a href="mailto:ighmattyd@gmail.com">ighmattyd@gmail.com</a> to reserve your team’s spot.
-        </li>
-        <li><strong>Entry Fee:</strong> $100 per person / $400 per team</li>
-        <li>Please include shirt and shoe size for all players.</li>
-        <li><strong>Team Info Due:</strong> July 12, 2025</li>
-      </ul>
+      <div class="col-md-6">
+        <ul class="list-unstyled fs-detail">
+          <li><strong>Entry Fee:</strong> $100 per person / $400 per team</li>
+          <li><strong>Reserve Your Spot:</strong><br>
+            Email <a href="mailto:ighmattyd@gmail.com">ighmattyd@gmail.com</a></li>
+          <li>Include <strong>shirt & shoe size</strong> for all team members</li>
+          <li><strong>Team Info Due:</strong> July 12, 2025</li>
+        </ul>
 
-      <div class="text-center mt-4">
-        <a href="https://bgaapp.fly.dev/results/16/leaderboard/" class="btn btn-danger">View 2025 Leaderboard</a>
-        <br>
-        <a href="https://mnangel.org/" class="btn btn-outline-danger btn-sm mt-3" target="_blank">
-          Learn More About the Angel Foundation
-        </a>
+        <div class="text-center mt-4">
+          <a href="https://bgaapp.fly.dev/results/16/leaderboard/" class="btn btn-custom px-4">View 2025 Leaderboard</a>
+        </div>
       </div>
-
     </div>
   </div>
 
