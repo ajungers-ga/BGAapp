@@ -1,4 +1,4 @@
-<!-- File Purpose: Matty D Invitational — Full Flier Page with Clean Layout & Visual Layering -->
+<!-- File Purpose: Matty D Invitational — Full Flier Page with Colored Hero Section and Grey Background -->
 
 {% extends 'core/base.html' %}
 {% load static %}
@@ -11,8 +11,9 @@
     background-attachment: fixed;
   }
 
+  /* Flier Wrapper */
   .flier-wrap {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: #f7f7f7; /* Light gray instead of white */
     padding: 40px 20px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -20,6 +21,7 @@
     margin: auto;
   }
 
+  /* Themed Colors */
   .teal-title {
     color: #00ced1;
   }
@@ -39,6 +41,13 @@
     border: none;
     padding: 30px;
     border-radius: 10px;
+    margin-bottom: 40px;
+  }
+
+  .hero-banner {
+    background-color: #e6e0f8;
+    border-radius: 10px;
+    padding: 30px 15px;
     margin-bottom: 40px;
   }
 
@@ -65,10 +74,13 @@
 
 <div class="flier-wrap">
 
-  <!-- Hero Section -->
-  <div class="text-center mb-5">
+  <!-- Colored Hero Section -->
+  <div class="text-center hero-banner">
     <h1 class="display-4 fw-bold teal-title">Matty D Invitational</h1>
-    <p class="fs-4 teal-title mb-4">Hosted by Matt & Cassie Daulton</p>
+    <p class="fs-4 teal-title mb-1">Hosted by Matt & Cassie Daulton</p>
+    <p class="fs-5">
+      Benefiting the <a href="https://mnangel.org/" class="highlight fw-semibold" target="_blank">Angel Foundation</a>
+    </p>
   </div>
 
   <!-- Hero Grid -->
