@@ -16,15 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-key')
 
 # ✅ Turn off debug for production
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.fly.dev',
-    'bgaapp.fly.dev',
-    'beastgolfassociation.com',
-    'www.beastgolfassociation.com',
+'*'
 ]
 
 # Application definition
