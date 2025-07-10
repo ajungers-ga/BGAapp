@@ -104,10 +104,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'diqrrzwhp',
-    'API_KEY': '695292321163319',
-    'API_SECRET': 'C6jniJXwkHVZzPG23Xx7aPVinBI',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
+
 
 # ✅ Trust CSRF for both Fly.io and custom domain
 CSRF_TRUSTED_ORIGINS = [
