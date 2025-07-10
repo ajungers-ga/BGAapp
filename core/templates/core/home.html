@@ -13,7 +13,7 @@
   <!-- Welcome Paragraph in Card -->
   <div class="card bg-light p-4 mb-5 shadow text-center">
     <p class="lead mb-0" style="font-size: 1.25rem; color: #0d6efd;">
-      What began as a friendly wager among golf buddies has evolved into a fiercely competitive tour that traverses the finest golf courses across the Greater Twin Cities area in Minnesota.
+      The Official Home Of the Beast Golf Association
     </p>
   </div>
 
@@ -61,22 +61,22 @@
   <div class="row justify-content-center">
     {% if next_event %}
       <div class="col-md-5 mb-3">
-        <div class="alert alert-success shadow-sm text-center">
-          <h5>Next Event:</h5>
-          <strong>{{ next_event.date }} — {{ next_event.course_name }}</strong><br>
-          <span>Type: {{ next_event.name }}</span><br>
-          <a href="{% url 'event_update' next_event.pk %}" class="btn btn-sm btn-outline-primary mt-2">Edit Event</a>
+        <div class="shadow-sm text-center p-4 rounded" style="background-color: #e0f0ff;">
+          <h5 class="fw-bold text-primary">Next Event</h5>
+          <p class="mb-1 fw-semibold">{{ next_event.date }} — {{ next_event.course_name }}</p>
+          <p class="mb-2">Type: {{ next_event.name }}</p>
+          <a href="{% url 'event_update' next_event.pk %}" class="btn btn-sm btn-outline-primary">Edit Event</a>
         </div>
       </div>
     {% endif %}
 
     {% if last_event %}
       <div class="col-md-5 mb-3">
-        <div class="alert alert-info shadow-sm text-center">
-          <h5>Last Event Played:</h5>
-          <strong>{{ last_event.date }} — {{ last_event.course_name }}</strong><br>
-          <span>Type: {{ last_event.name }}</span><br>
-          <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-secondary mt-2">View Leaderboard</a>
+        <div class="shadow-sm text-center p-4 rounded" style="background-color: #ffe4e4;">
+          <h5 class="fw-bold text-danger">Last Event Played</h5>
+          <p class="mb-1 fw-semibold">{{ last_event.date }} — {{ last_event.course_name }}</p>
+          <p class="mb-2">Type: {{ last_event.name }}</p>
+          <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-danger">View Leaderboard</a>
         </div>
       </div>
     {% endif %}
@@ -97,7 +97,7 @@
       <a href="https://www.loggerstrail.com/" target="_blank" style="text-decoration: none;">
         <div class="border rounded p-4 shadow-sm bg-white text-center h-100">
           <img src="{% static 'images/Loggers-Trail_Logo_Black.png' %}" class="img-fluid" style="max-height: 100px;" alt="Loggers Trail Logo">
-          <p class="mt-3 text-dark fw-semibold fst-italic">Official Home Course of the BGA</p>
+          <p class="mt-3 text-dark fw-semibold fst-italic">Official Home of the Beast Golf Association</p>
         </div>
       </a>
     </div>
@@ -117,7 +117,7 @@
       <a href="https://certapro.com/twincitieseast/house-painting-woodbury-mn/" target="_blank" style="text-decoration: none;">
         <div class="border rounded p-4 shadow-sm bg-white text-center h-100">
           <img src="{% static 'images/certapro.png' %}" class="img-fluid" style="max-height: 100px;" alt="CertaPro Logo">
-          <p class="mt-3 text-dark fw-semibold fst-italic">Official Painting Partner of the BGA</p>
+          <p class="mt-3 text-dark fw-semibold fst-italic">Official Painting Partner of the Beast Golf Association</p>
         </div>
       </a>
     </div>
