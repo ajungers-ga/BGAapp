@@ -101,7 +101,8 @@ from django.db import models
 from .models import Player
 from results.models import Score
 
-#-------------------------------------------#
+
+# ------------------------------------------- #
 class PlayerListView(ListView):
     model = Player
     template_name = 'bgaapp/player_list.html'
@@ -114,14 +115,24 @@ class PlayerListView(ListView):
             'third_player_scores',
             'fourth_player_scores'
         )
-
         # Sort players by career_events_played in descending order
         players = sorted(players, key=lambda p: p.career_events_played, reverse=True)
         return players
-#---------------------------------------------#
+# --------------------------------------------- #
 
 
-#-----------------------------------------------------#
+# Helper: a tolerant "first place" filter that matches common formats
+# Examples it will match: 1, "1", "1.0", "1st", "T1", "🥇 1", "1 (Playoff)"
+def first_place_q():
+    return (
+        models.Q(placement__in=["1", "1.0", "1st"]) |
+        models.Q(placement__startswith="1") |                    # "1", "1.0", "1 (Playoff)"
+        models.Q(placement__iregex=r'(^|\s)T?1(st)?(\s|$)') |    # "T1", "1st"
+        models.Q(placement__icontains="🥇")                      # "🥇 1"
+    )
+
+
+# ----------------------------------------------------- #
 class PlayerDetailView(DetailView):
     model = Player
     template_name = 'bgaapp/player_detail.html'
@@ -130,14 +141,19 @@ class PlayerDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         player = self.get_object()
 
-        # Get all wins involving the player
-        all_wins = Score.objects.filter(
-            models.Q(player=player) |
-            models.Q(teammate=player) |
-            models.Q(third_player=player) |
-            models.Q(fourth_player=player),
-            placement__in=["1", "1st"]
-        ).select_related("event")
+        # All scores involving this player (any slot on a team)
+        scores_for_player = (
+            Score.objects.filter(
+                models.Q(player=player) |
+                models.Q(teammate=player) |
+                models.Q(third_player=player) |
+                models.Q(fourth_player=player)
+            )
+            .select_related("event")
+        )
+
+        # Robust first-place filter (handles 1, 1st, T1, 🥇 1, etc.)
+        all_wins = scores_for_player.filter(first_place_q())
 
         # Group wins and sort each group by most recent date
         context['major_wins'] = sorted(
@@ -157,10 +173,10 @@ class PlayerDetailView(DetailView):
         )
 
         return context
-#------------------------------------------------------------#
+# ------------------------------------------------------------ #
 
 
-#------------------------------------------------------------#
+# ------------------------------------------------------------ #
 class PlayerStatsView(ListView):
     model = Player
     template_name = 'bgaapp/player_stats.html'
@@ -206,6 +222,6 @@ class PlayerStatsView(ListView):
         start_rank = (int(page_number) - 1) * per_page + 1
         for idx, player in enumerate(context['object_list'], start=start_rank):
             player.rank = idx
-        context['players'] = context['object_list']  # Added to match template variable
+        context['players'] = context['object_list']  # match template variable
         return context
-#------------------------------------------------------------#
+# ------------------------------------------------------------ #
