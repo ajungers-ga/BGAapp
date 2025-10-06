@@ -1,21 +1,21 @@
-<footer class="footer mt-auto py-4 bg-dark text-light border-top shadow-sm">
-  <div class="container text-center">
-    <div class="mb-2">
-      <a href="https://beastgolfassociation.com" class="text-decoration-none text-warning mx-2">Home</a> |
-      <a href="/players/" class="text-decoration-none text-warning mx-2">Players</a> |
-      <a href="/results/" class="text-decoration-none text-warning mx-2">Results</a> |
-      <a href="/mattydinv/" class="text-decoration-none text-warning mx-2">Matty D Invitational</a>
-    </div>
+<footer class="bga-footer border-top">
+  <div class="bga-footer-accent"></div>
 
-    <div class="small mb-2">
-      <span>© {{ current_year }} Beast Golf Association</span>
-    </div>
+  <div class="container py-4 text-center">
+    <nav class="bga-footer-nav mb-2">
+      <a href="/" class="bga-link">Home</a>
+      <span class="sep">·</span>
+      <a href="/players/" class="bga-link">Players</a>
+      <span class="sep">·</span>
+      <a href="/results/" class="bga-link">Results</a>
+      <span class="sep">·</span>
+      <a href="/mattydinv/" class="bga-link text-warning fw-semibold">Matty D Invitational</a>
+    </nav>
 
-    <div class="small">
-      <span>Contact </span>
-      <a href="mailto:alex.jungers@gmail.com" class="text-decoration-none text-info fw-semibold">
-        Alex Jungers
-      </a>
-    </div>
+    <p class="small mb-1 text-secondary">© {{ current_year }} Beast Golf Association</p>
+    <p class="small mb-0">
+      Contact Alex:
+      <a href="mailto:alex.jungers@gmail.com" class="bga-link fw-semibold">alex.jungers@gmail.com</a>
+    </p>
   </div>
 </footer>
