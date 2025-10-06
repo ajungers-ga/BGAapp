@@ -14,3 +14,10 @@
   color: goldenrod;
   font-weight: bold;
 }
+
+footer {
+  background: linear-gradient(180deg, #212529 0%, #000000 100%);
+}
+footer a:hover {
+  color: #ffc107 !important; /* gold hover accent */
+}
