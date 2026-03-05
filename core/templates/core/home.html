@@ -73,32 +73,32 @@
 
   <!-- Countdown Script -->
   {% if next_event %}
-  <script>
-    var eventDate = new Date("{{ next_event.date|date:'Y-m-d H:i:s' }}").getTime();
-    var countdownEl = document.getElementById('countdown');
+<script>
+  var eventDate = new Date("{{ next_event.date|date:'c' }}").getTime();
+  var countdownEl = document.getElementById('countdown');
 
-    function updateCountdown() {
-      var now = new Date().getTime();
-      var distance = eventDate - now;
+  function updateCountdown() {
+    var now = new Date().getTime();
+    var distance = eventDate - now;
 
-      if (distance < 0) {
-        countdownEl.innerHTML = "Event Started!";
-        clearInterval(timer);
-        return;
-      }
-
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    if (distance < 0) {
+      countdownEl.innerHTML = "Event Started!";
+      clearInterval(timer);
+      return;
     }
 
-    var timer = setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
-  {% endif %}
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  var timer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+{% endif %}
 
   <!-- 🏆 Sponsor Ads -->
   <div class="row justify-content-center mt-5">
