@@ -18,13 +18,17 @@
   </div>
 
   <!-- Countdown Section -->
+  {% if next_event %}
   <div class="container mt-4">
     <div class="p-4 text-center bg-warning bg-gradient rounded shadow">
-      <h2 class="mb-3">Countdown to the 2026 Jungle Juice Open</h2>
+      <h2 class="mb-3">Countdown to {{ next_event.course_name }}</h2>
       <div id="countdown" class="display-5 fw-bold text-dark">Loading...</div>
-      <small class="text-dark fst-italic">Sunday, May 31st @ 11:00 AM (Central)</small>
+      <small class="text-dark fst-italic">
+        {{ next_event.date|date:"F j, Y" }} @ 8:00 AM (Central)
+      </small>
     </div>
   </div>
+  {% endif %}
 
   <hr class="my-5">
 
@@ -39,12 +43,9 @@
     <div class="col-md-5 mb-3">
       <div class="shadow-sm text-center p-4 rounded" style="background-color: #e0f0ff;">
         <h5 class="fw-bold text-primary">Next Event</h5>
-        <!-- Event Details -->
-        <p class="mb-1 fw-semibold">📅 {{ next_event.date }}</p>
+        <p class="mb-1 fw-semibold">📅 {{ next_event.date|date:"F j, Y" }}</p>
         <p class="mb-3">⛳ {{ next_event.course_name }} — Type: {{ next_event.name }}</p>
-        <!-- Countdown Timer -->
         <p class="mb-3 fw-semibold text-secondary">⏳ Starts in: <span id="countdown"></span></p>
-        <!-- Action Button -->
         <a href="{% url 'leaderboard' next_event.id %}" class="btn btn-primary btn-sm">🏆 View Leaderboard</a>
       </div>
     </div>
@@ -54,7 +55,7 @@
     <div class="col-md-5 mb-3">
       <div class="shadow-sm text-center p-4 rounded" style="background-color: #ffe4e4;">
         <h5 class="fw-bold text-danger">Last Event Played</h5>
-        <p class="mb-1 fw-semibold">{{ last_event.date }} — {{ last_event.course_name }}</p>
+        <p class="mb-1 fw-semibold">{{ last_event.date|date:"F j, Y" }} — {{ last_event.course_name }}</p>
         <p class="mb-2">Type: {{ last_event.name }}</p>
         <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-danger">View Leaderboard</a>
       </div>
@@ -73,33 +74,33 @@
 
   <!-- Countdown Script -->
   {% if next_event %}
-<script>
-  // Take the next_event date from Django and append 08:00:00 for 8 AM
-  var eventDate = new Date("{{ next_event.date|date:'Y-m-d' }}T08:00:00-05:00").getTime();
-  var countdownEl = document.getElementById('countdown');
+  <script>
+    // Combine Django date with hardcoded 8 AM Central
+    const eventDate = new Date("{{ next_event.date|date:'Y-m-d' }}T08:00:00-05:00").getTime();
+    const countdownEl = document.getElementById('countdown');
 
-  function updateCountdown() {
-    var now = new Date().getTime();
-    var distance = eventDate - now;
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
 
-    if (distance < 0) {
-      countdownEl.innerHTML = "Event Started!";
-      clearInterval(timer);
-      return;
+      if (distance < 0) {
+        countdownEl.innerHTML = "Event Started!";
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
-
-  var timer = setInterval(updateCountdown, 1000);
-  updateCountdown();
-</script>
-{% endif %}
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+  {% endif %}
 
   <!-- 🏆 Sponsor Ads -->
   <div class="row justify-content-center mt-5">
