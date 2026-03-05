@@ -74,7 +74,8 @@
   <!-- Countdown Script -->
   {% if next_event %}
 <script>
-  var eventDate = new Date("{{ next_event.date|date:'c' }}").getTime();
+  // Take the next_event date from Django and append 08:00:00 for 8 AM
+  var eventDate = new Date("{{ next_event.date|date:'Y-m-d' }}T08:00:00-05:00").getTime();
   var countdownEl = document.getElementById('countdown');
 
   function updateCountdown() {
