@@ -17,7 +17,7 @@
     </p>
   </div>
 
-  <!-- Countdown Section -->
+  <!-- Countdown Section for Jungle Juice 2026 -->
   <div class="container mt-4">
     <div class="p-4 text-center bg-warning bg-gradient rounded shadow">
       <h2 class="mb-3">Countdown to the 2026 Jungle Juice Open</h2>
@@ -40,11 +40,9 @@
       <div class="shadow-sm text-center p-4 rounded" style="background-color: #e0f0ff;">
         <h5 class="fw-bold text-primary">Next Event</h5>
         <!-- Event Details -->
-        <p class="mb-1 fw-semibold">📅 {{ next_event.date }}</p>
+        <p class="mb-1 fw-semibold">📅 {{ next_event.date|date:"F j, Y" }}</p>
         <p class="mb-3">⛳ {{ next_event.course_name }} — Type: {{ next_event.name }}</p>
-        <!-- Countdown Timer -->
-        <p class="mb-3 fw-semibold text-secondary">⏳ Starts in: <span id="countdown"></span></p>
-        <!-- Action Button -->
+        <p class="mb-3 fw-semibold text-secondary">⏳ Starts in: <span id="countdown-next-event"></span></p>
         <a href="{% url 'leaderboard' next_event.id %}" class="btn btn-primary btn-sm">🏆 View Leaderboard</a>
       </div>
     </div>
@@ -54,7 +52,7 @@
     <div class="col-md-5 mb-3">
       <div class="shadow-sm text-center p-4 rounded" style="background-color: #ffe4e4;">
         <h5 class="fw-bold text-danger">Last Event Played</h5>
-        <p class="mb-1 fw-semibold">{{ last_event.date }} — {{ last_event.course_name }}</p>
+        <p class="mb-1 fw-semibold">{{ last_event.date|date:"F j, Y" }} — {{ last_event.course_name }}</p>
         <p class="mb-2">Type: {{ last_event.name }}</p>
         <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-danger">View Leaderboard</a>
       </div>
@@ -71,34 +69,62 @@
 
   </div>
 
-  <!-- Countdown Script -->
-  {% if next_event %}
-<script>
-  var eventDate = new Date("{{ next_event.date|date:'Y-m-d H:i:s' }}").getTime();
-  var countdownEl = document.getElementById('countdown');
+  <!-- Countdown Scripts -->
+  <script>
+    // Countdown for Jungle Juice 2026 (hardcoded May 31st @ 11 AM Central)
+    const jungleJuiceDate = new Date("2026-05-31T11:00:00-05:00").getTime();
+    const countdownEl = document.getElementById('countdown');
 
-  function updateCountdown() {
-    var now = new Date().getTime();
-    var distance = eventDate - now;
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = jungleJuiceDate - now;
 
-    if (distance < 0) {
-      countdownEl.innerHTML = "Event Started!";
-      clearInterval(timer);
-      return;
+      if (distance < 0) {
+        countdownEl.innerHTML = "Event Started!";
+        clearInterval(jungleTimer);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const jungleTimer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 
-    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
+  {% if next_event %}
+  <script>
+    // Countdown for next_event at 8:00 AM Central
+    const nextEventDate = new Date("{{ next_event.date|date:'Y-m-d' }}T08:00:00-05:00").getTime();
+    const countdownNextEl = document.getElementById('countdown-next-event');
 
-  var timer = setInterval(updateCountdown, 1000);
-  updateCountdown();
-</script>
-{% endif %}
+    function updateNextEventCountdown() {
+      const now = new Date().getTime();
+      const distance = nextEventDate - now;
+
+      if (distance < 0) {
+        countdownNextEl.innerHTML = "Event Started!";
+        clearInterval(nextEventTimer);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownNextEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    const nextEventTimer = setInterval(updateNextEventCountdown, 1000);
+    updateNextEventCountdown();
+  </script>
+  {% endif %}
 
   <!-- 🏆 Sponsor Ads -->
   <div class="row justify-content-center mt-5">
