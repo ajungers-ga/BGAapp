@@ -24,7 +24,7 @@
       <h2 class="mb-3">Countdown to {{ next_event.course_name }}</h2>
       <div id="countdown" class="display-5 fw-bold text-dark">Loading...</div>
       <small class="text-dark fst-italic">
-        {{ next_event.date|date:"F j, Y" }} @ 8:00 AM (Central)
+        {{ next_event.start_datetime|date:"F j, Y @ h:i A" }} (Central)
       </small>
     </div>
   </div>
@@ -43,7 +43,7 @@
     <div class="col-md-5 mb-3">
       <div class="shadow-sm text-center p-4 rounded" style="background-color: #e0f0ff;">
         <h5 class="fw-bold text-primary">Next Event</h5>
-        <p class="mb-1 fw-semibold">📅 {{ next_event.date|date:"F j, Y" }}</p>
+        <p class="mb-1 fw-semibold">📅 {{ next_event.start_datetime|date:"F j, Y @ h:i A" }}</p>
         <p class="mb-3">⛳ {{ next_event.course_name }} — Type: {{ next_event.name }}</p>
         <p class="mb-3 fw-semibold text-secondary">⏳ Starts in: <span id="countdown"></span></p>
         <a href="{% url 'leaderboard' next_event.id %}" class="btn btn-primary btn-sm">🏆 View Leaderboard</a>
@@ -75,19 +75,13 @@
   <!-- Countdown Script -->
   {% if next_event %}
   <script>
-    // Extract year, month, day from Django date
-    const year = {{ next_event.date.year }};
-    const month = {{ next_event.date.month }} - 1; // JS months are 0-indexed
-    const day = {{ next_event.date.day }};
-
-    // Create event datetime at 8:00 AM Central Time
-    // Central Time = UTC-6, so 8 AM Central = 14:00 UTC
-    const eventDate = new Date(Date.UTC(year, month, day, 14, 0, 0));
+    // Use full datetime from Django (with 8 AM set in views.py)
+    const eventDate = new Date("{{ next_event.start_datetime|date:'Y-m-d H:i:s' }}").getTime();
     const countdownEl = document.getElementById('countdown');
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = eventDate.getTime() - now;
+      const distance = eventDate - now;
 
       if (distance < 0) {
         countdownEl.innerHTML = "Event Started!";
