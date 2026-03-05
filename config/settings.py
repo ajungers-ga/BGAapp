@@ -113,3 +113,12 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ---------------------------------------------
+# AUTHENTICATION SETTINGS
+# ---------------------------------------------
+# When users try to access a protected page and are not logged in,
+# Django will redirect them to the admin login page instead of the
+# default /accounts/login/ route.
+
+LOGIN_URL = "/admin/login/"
