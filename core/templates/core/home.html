@@ -26,31 +26,6 @@
     </div>
   </div>
 
-  <script>
-    const eventDate = new Date("May 31, 2026 11:00:00 GMT-0500").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = eventDate - now;
-
-      if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "⛳ It's Jungle Juice Time!";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
-
   <hr class="my-5">
 
   <!-- Event Highlights -->
@@ -59,42 +34,74 @@
   </h2>
 
   <div class="row justify-content-center">
+
     {% if next_event %}
-      <div class="col-md-5 mb-3">
-        <div class="shadow-sm text-center p-4 rounded" style="background-color: #e0f0ff;">
-          <h5 class="fw-bold text-primary">Next Event</h5>
-          <p class="mb-1 fw-semibold">{{ next_event.date }} — {{ next_event.course_name }}</p>
-          <p class="mb-2">Type: {{ next_event.name }}</p>
-          <a href="{% url 'leaderboard' next_event.id %}" class="btn btn-primary">
-    View Leaderboard
-</a>
-        </div>
+    <div class="col-md-5 mb-3">
+      <div class="shadow-sm text-center p-4 rounded" style="background-color: #e0f0ff;">
+        <h5 class="fw-bold text-primary">Next Event</h5>
+        <!-- Event Details -->
+        <p class="mb-1 fw-semibold">📅 {{ next_event.date }}</p>
+        <p class="mb-3">⛳ {{ next_event.course_name }} — Type: {{ next_event.name }}</p>
+        <!-- Countdown Timer -->
+        <p class="mb-3 fw-semibold text-secondary">⏳ Starts in: <span id="countdown"></span></p>
+        <!-- Action Button -->
+        <a href="{% url 'leaderboard' next_event.id %}" class="btn btn-primary btn-sm">🏆 View Leaderboard</a>
       </div>
+    </div>
     {% endif %}
 
     {% if last_event %}
-      <div class="col-md-5 mb-3">
-        <div class="shadow-sm text-center p-4 rounded" style="background-color: #ffe4e4;">
-          <h5 class="fw-bold text-danger">Last Event Played</h5>
-          <p class="mb-1 fw-semibold">{{ last_event.date }} — {{ last_event.course_name }}</p>
-          <p class="mb-2">Type: {{ last_event.name }}</p>
-          <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-danger">View Leaderboard</a>
-        </div>
+    <div class="col-md-5 mb-3">
+      <div class="shadow-sm text-center p-4 rounded" style="background-color: #ffe4e4;">
+        <h5 class="fw-bold text-danger">Last Event Played</h5>
+        <p class="mb-1 fw-semibold">{{ last_event.date }} — {{ last_event.course_name }}</p>
+        <p class="mb-2">Type: {{ last_event.name }}</p>
+        <a href="{% url 'leaderboard' last_event.pk %}" class="btn btn-sm btn-outline-danger">View Leaderboard</a>
       </div>
+    </div>
     {% endif %}
 
     {% if not next_event and not last_event %}
-      <div class="col-12">
-        <div class="alert alert-warning shadow-sm text-center">
-          No event highlights available at this time.
-        </div>
+    <div class="col-12">
+      <div class="alert alert-warning shadow-sm text-center">
+        No event highlights available at this time.
       </div>
+    </div>
     {% endif %}
+
   </div>
+
+  <!-- Countdown Script -->
+  {% if next_event %}
+  <script>
+    var eventDate = new Date("{{ next_event.date|date:'Y-m-d H:i:s' }}").getTime();
+    var countdownEl = document.getElementById('countdown');
+
+    function updateCountdown() {
+      var now = new Date().getTime();
+      var distance = eventDate - now;
+
+      if (distance < 0) {
+        countdownEl.innerHTML = "Event Started!";
+        clearInterval(timer);
+        return;
+      }
+
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+
+    var timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+  {% endif %}
 
   <!-- 🏆 Sponsor Ads -->
   <div class="row justify-content-center mt-5">
-    <!-- Loggers Trail -->
     <div class="col-12 col-sm-6 col-lg-4 mb-4">
       <a href="https://www.loggerstrail.com/" target="_blank" style="text-decoration: none;">
         <div class="border rounded p-4 shadow-sm bg-white text-center h-100">
@@ -104,7 +111,6 @@
       </a>
     </div>
 
-    <!-- Carbone's Pizza -->
     <div class="col-12 col-sm-6 col-lg-4 mb-4">
       <a href="https://www.carbones.com/locations/northfield/" target="_blank" style="text-decoration: none;">
         <div class="border rounded p-4 shadow-sm bg-white text-center h-100">
@@ -114,7 +120,6 @@
       </a>
     </div>
 
-    <!-- CertaPro Painters -->
     <div class="col-12 col-sm-6 col-lg-4 mb-4">
       <a href="https://certapro.com/twincitieseast/house-painting-woodbury-mn/" target="_blank" style="text-decoration: none;">
         <div class="border rounded p-4 shadow-sm bg-white text-center h-100">
