@@ -35,6 +35,7 @@ from django.urls import path, include
 from results.views import schedule_view
 from results.api_views import schedule_api
 from players.api_views import players_api
+from django.contrib.auth import views as auth_views
 #-----------------IMPORT DEPENDENCIES-----------------#
 
 
@@ -48,5 +49,7 @@ urlpatterns = [
     path('schedule/', schedule_view, name='schedule'),          # Rendering the SCHEDULE html page (views.py)
     path('api/schedule/', schedule_api, name='schedule_api'),   # API end point for SCHEDULE data  (json)
     path('api/players/', players_api, name='players_api'),      # API end point for PLAYER data (json)
+    path("accounts/login/", auth_views.LoginView.as_view(), name="login"),
 ]
+
 #-----------------------------------------DEFINE PATHS--------------------------------------------------------#
