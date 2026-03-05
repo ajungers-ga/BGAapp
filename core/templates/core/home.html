@@ -65,7 +65,9 @@
           <h5 class="fw-bold text-primary">Next Event</h5>
           <p class="mb-1 fw-semibold">{{ next_event.date }} — {{ next_event.course_name }}</p>
           <p class="mb-2">Type: {{ next_event.name }}</p>
-          <a href="{% url 'event_update' next_event.pk %}" class="btn btn-sm btn-outline-primary">Edit Event</a>
+          <a href="{% url 'leaderboard' event.id %}" class="btn btn-primary">
+    View Leaderboard
+</a>
         </div>
       </div>
     {% endif %}
