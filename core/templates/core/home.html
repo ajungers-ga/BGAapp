@@ -75,13 +75,19 @@
   <!-- Countdown Script -->
   {% if next_event %}
   <script>
-    // Combine Django date with hardcoded 8 AM Central
-    const eventDate = new Date("{{ next_event.date|date:'Y-m-d' }}T08:00:00-05:00").getTime();
+    // Extract year, month, day from Django date
+    const year = {{ next_event.date.year }};
+    const month = {{ next_event.date.month }} - 1; // JS months are 0-indexed
+    const day = {{ next_event.date.day }};
+
+    // Create event datetime at 8:00 AM Central Time
+    // Central Time = UTC-6, so 8 AM Central = 14:00 UTC
+    const eventDate = new Date(Date.UTC(year, month, day, 14, 0, 0));
     const countdownEl = document.getElementById('countdown');
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = eventDate - now;
+      const distance = eventDate.getTime() - now;
 
       if (distance < 0) {
         countdownEl.innerHTML = "Event Started!";
